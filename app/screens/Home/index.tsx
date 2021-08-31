@@ -12,6 +12,7 @@ const Home: React.FC = () => {
     <View style={styles.container}>
       <Text style={styles.labelStyle}>{t('Home Sreen')} </Text>
       <Text style={styles.labelStyle}>{t('Dark Theme')} </Text>
+      <Text style={styles.labelStyle}>Home.. </Text>
       </View>
    
   );
