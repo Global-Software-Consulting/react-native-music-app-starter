@@ -16,12 +16,13 @@ import {
   Checkbox
 } from 'react-native-paper';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import ThemeController from '../../components/ThemeController';
 import {useDispatch} from 'react-redux';
 import * as loginActions from 'store/actions/loginActions';
 import styles from './styles';
 import {useTranslation} from 'react-i18next';
-
+import NavigationService from '../../navigation/NavigationService';
 import i18n from "../../components/Languages/i18n";
 const initI18n = i18n;
 interface IProps {
@@ -75,26 +76,27 @@ const Drawer: React.FC = (props) => {
               />
             )}
             label="Profile"
-            onPress={() => {}}
+            onPress={() => {NavigationService.navigate('Home');}}
           />
           <DrawerItem
             icon={({ color, size }) => (
-              <MaterialCommunityIcons name="tune" color={color} size={size} />
+              <MaterialCommunityIcons name="heart-outline" color={color} size={size} />
             )}
-            label="Preferences"
-            onPress={() => {}}
+            label="Liked Songs"
+            onPress={() => {NavigationService.navigate("Favorites");}}
           />
           <DrawerItem
             icon={({ color, size }) => (
               <MaterialCommunityIcons
-                name="bookmark-outline"
+                name="tune"
                 color={color}
                 size={size}
               />
             )}
-            label="Bookmarks"
-            onPress={() => {}}
+            label="Settings"
+            onPress={() =>{NavigationService.navigate("Settings");}}
           />
+        
 
           <View style={styles.preference}>
             
@@ -150,11 +152,18 @@ const Drawer: React.FC = (props) => {
     
       </List.Accordion>
          
-            <TouchableOpacity style={styles.row}>
-          <Button icon="logout" onPress={onLogout}>
-        Logout
-      </Button>
-      </TouchableOpacity>
+      <DrawerItem
+            icon={({ color, size }) => (
+              <MaterialCommunityIcons
+                name="logout"
+                color={color}
+                size={size}
+              />
+            )}
+            label={t('Logout')}
+            
+            onPress={() => {onLogout}}
+          />
    
           </View>
         
