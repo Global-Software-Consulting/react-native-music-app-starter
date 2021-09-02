@@ -23,27 +23,6 @@ const Home: React.FC<any> = (props): JSX.Element => {
   const Track: Itrack[] = tracks;
 
   const styles = useStyles();
-
-//   const renderItemsss: ListRenderItem<Itrack> = ({ item }) => {
-//     console.log('itemitemitemieitmemtiemt', item);
-
-//     // console.log('ss', item);
-//     {/* <Text>{item.title}</Text>
-//       <Text>{item.album}</Text>
-//       <Text>{item.artwork}</Text> */}
-//        // <MusicCard
-//       //   name={item.title}
-//       //   model={item.album}
-//       //   img={item.artwork}
-//       // />
-//     return (
-// <>
-//   <Text>{item.title}</Text>
-//       <Text>{item.album}</Text>
-//       <Text>{item.artwork}</Text> 
-// </>
-//     );
-//   }
   console.log('itemitemitemieitmemtiemt');
 
   return (
@@ -58,7 +37,6 @@ const Home: React.FC<any> = (props): JSX.Element => {
             showsHorizontalScrollIndicator={false}
             data={Track}
             keyExtractor={(item) => item.id}
-            // renderItem={renderItemsss}
             renderItem={({ item }) => (
               <View style={styles.container}>
 
