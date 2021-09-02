@@ -5,7 +5,7 @@ import useStyles from './styles';
 import { useTranslation } from 'react-i18next';
 import Header from '../../components/Header';
 import i18n from "../../components/Languages/i18n";
-import { tracks } from '../../data/tracks';
+import { tracks } from '../../components/data/tracks';
 import MusicCard from '../../components/MusicCard';
 const initI18n = i18n;
 interface Itrack {
