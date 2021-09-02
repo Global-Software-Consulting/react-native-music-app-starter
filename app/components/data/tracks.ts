@@ -47,7 +47,7 @@ export const tracks = [
     {
         id: '6',
         url: 'https://www.chosic.com/wp-content/uploads/2021/04/kvgarlic__largestreamoverloginforestmarch.mp3',
-        title: 'Peaceful water stream',
+        title: 'Peaceful water',
         artist: '',
         artwork: 'https://picsum.photos/id/1038/200/300',
         album: 'Chosic',
