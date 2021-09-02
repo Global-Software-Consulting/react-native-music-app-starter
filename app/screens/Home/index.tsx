@@ -103,8 +103,7 @@ const Home: React.FC<any> = (props): JSX.Element => {
 
           />
         </ScrollView>
-        <Text style={styles.labelStyle}>{t('Home Sreen')} </Text>
-        <Text style={styles.labelStyle}>{t('Dark Theme')} </Text>
+       
       </View>
     </>
   );

@@ -70,13 +70,24 @@ const Drawer: React.FC = (props) => {
           <DrawerItem
             icon={({ color, size }) => (
               <MaterialCommunityIcons
+                name="home-outline"
+                color={color}
+                size={size}
+              />
+            )}
+            label="Home"
+            onPress={() => {NavigationService.navigate('Home');}}
+          />
+          <DrawerItem
+            icon={({ color, size }) => (
+              <MaterialCommunityIcons
                 name="account-outline"
                 color={color}
                 size={size}
               />
             )}
             label="Profile"
-            onPress={() => {NavigationService.navigate('Home');}}
+            onPress={() => {}}
           />
           <DrawerItem
             icon={({ color, size }) => (
