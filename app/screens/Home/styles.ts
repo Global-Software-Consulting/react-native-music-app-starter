@@ -9,15 +9,20 @@ export const useStyles = () => {
 
     container: {
      flex:1,
-      justifyContent: 'center',
-      alignItems: 'center',
       backgroundColor: theme.colors.accent,
-      // marginBottom: 2
     },
     labelStyle: {
       marginBottom: 12,
       fontSize: hp('2.5%'),
       fontWeight: 'bold'
+    },
+    model: {
+      justifyContent: 'center',
+      textAlign: 'center',
+      fontSize: hp('2%'),
+      color: "darkgray",
+      
+
     },
 
   });

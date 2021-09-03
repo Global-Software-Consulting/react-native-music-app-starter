@@ -46,6 +46,7 @@ const HomeComponent: React.FC<any> = (props): JSX.Element => {
             <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
           }>
           <Header title="Recommended for you" />
+          {props?.listData?.length >0 ? (
           <FlatList
             contentContainerStyle={{alignSelf: 'flex-start'}}
             horizontal={true}
@@ -62,6 +63,12 @@ const HomeComponent: React.FC<any> = (props): JSX.Element => {
               />
             )}
           />
+           ) : (
+            <View style={styles.container}>
+              <Text style={styles.model}>No Reommendations Available</Text>
+            </View>
+            
+          )}
           <Header title="My Playlist" />
 
           {props?.listData?.length > 0 ? (
@@ -82,7 +89,10 @@ const HomeComponent: React.FC<any> = (props): JSX.Element => {
               )}
             />
           ) : (
-            <Text>No data </Text>
+            <View style={styles.container}>
+              <Text style={styles.model}>Playlist Empty</Text>
+            </View>
+            
           )}
         </ScrollView>
       </View>

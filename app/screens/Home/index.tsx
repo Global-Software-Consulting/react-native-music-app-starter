@@ -67,51 +67,6 @@ const Home: React.FC<any> = (props): JSX.Element => {
           ) : (
             <HomeComponent listData={musicList} />
           )}
-          {/* <Header title="Recommended for you" />
-          <FlatList
-            contentContainerStyle={{ alignSelf: 'flex-start' }}
-            horizontal={true}
-            showsVerticalScrollIndicator={false}
-            showsHorizontalScrollIndicator={false}
-            data={Track}
-            scrollEventThrottle={2}
-            keyExtractor={(item) => item.id}
-            renderItem={({ item }) => (
-
-              <MusicCard
-                name={item.title}
-                model={item.album}
-                img={item.artwork}
-              />
-
-
-            )}
-
-
-          />
-          <Header title="My Playlist" />
-
-          <FlatList
-            contentContainerStyle={{ alignSelf: 'flex-start' }}
-            horizontal={true}
-            showsVerticalScrollIndicator={false}
-            showsHorizontalScrollIndicator={false}
-            data={Track}
-            keyExtractor={(item) => item.id}
-            // renderItem={renderItemsss}
-            renderItem={({ item }) => (
-
-              <MusicCard
-                name={item.title}
-                model={item.album}
-                img={item.artwork}
-              />
-
-
-            )}
-
-
-          /> */}
         </ScrollView>
       </View>
     </>
