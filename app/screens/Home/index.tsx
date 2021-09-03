@@ -11,8 +11,6 @@ import useStyles from './styles';
 import {useTranslation} from 'react-i18next';
 import Header from '../../components/Header';
 import i18n from '../../components/Languages/i18n';
-import {tracks} from '../../components/data/tracks';
-import MusicCard from '../../components/Music/MusicCard';
 import HomeShimmer from './component/HomeShimmer';
 import HomeComponent from './component/HomeComponent';
 import musicList from '../../services/musicList';
@@ -55,6 +53,7 @@ const Home: React.FC<any> = (props): JSX.Element => {
       wait(2000).then(() => setRefreshing(false));
     }
   };
+  
   return (
     <>
       <View style={styles.container}>

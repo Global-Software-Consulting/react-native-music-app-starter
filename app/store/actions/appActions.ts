@@ -9,9 +9,21 @@ export function musicListRequest() {
     type: types.MUSIC_LIST_REQUEST,
   };
 }
-export function musicListResponse(response) {
+export function musicListResponse(response:any) {
   return {
     type: types.MUSIC_LIST_RESPONSE,
+    response,
+  };
+
+}
+export function favoriteListRequest() {
+  return {
+    type: types.FAVORITE_LIST_REQUEST,
+  };
+}
+export function favoriteListResponse(response:any) {
+  return {
+    type: types.FAVORITE_LIST_RESPONSE,
     response,
   };
 }

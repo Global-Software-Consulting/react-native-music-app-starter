@@ -10,15 +10,23 @@ import {
   ILoginResponseState,
 } from 'models/actions/login';
 const initialState: IAppState = {
-  musicList:[]
+  musicList:[],
+  favoriteList:[],
 };
 
 export const appReducer = createReducer(initialState, {
  
-  [types.MUSIC_LIST_RESPONSE](state: IAppState, action) {
+  [types.MUSIC_LIST_RESPONSE](state: IAppState, action:any) {
     return {
       ...state,
       musicList: action.response,
+      
+    };
+  },
+  [types.FAVORITE_LIST_RESPONSE](state: IAppState, action:any) {
+    return {
+      ...state,
+      favoriteList: action.response,
       
     };
   },

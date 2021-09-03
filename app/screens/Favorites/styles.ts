@@ -7,17 +7,22 @@ export const useStyles = () => {
   const theme = useTheme();
   const styles = StyleSheet.create({
     container: {
-      flex: 1,
-      paddingBottom:5,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: theme.colors.accent,
-
-    },
+      flex:1,
+       backgroundColor: theme.colors.accent,
+      // backgroundColor:'red'
+     },
     Musiccontainer: {
       backgroundColor: theme.colors.accent,
     },
 
+    model: {
+      justifyContent: 'center',
+      textAlign: 'center',
+      fontSize: hp('2%'),
+      color: "darkgray",
+      
+
+    },
 
   });
   return styles;

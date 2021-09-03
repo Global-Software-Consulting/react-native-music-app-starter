@@ -1,19 +1,19 @@
 import { put, call } from "redux-saga/effects";
 import { Alert } from "react-native";
-import musicList from "../../services/musicList";
+import favoriteList from "../../services/favoriteList";
 import * as appActions from "../actions/appActions";
 import {tracks} from "../../components/data/tracks";
 
 
 // Our worker Saga that logins the user
-export default function* musicListAsync() {
+export default function* ffavoriteListAsync() {
   //start loading
 // yield put(appActions.IFetchBooksLoading());
   //calling api
-  let response = yield call(musicList);
+  let response = yield call(favoriteList);
  console.log("response",response)
   if (response && response.status == '200') {
-    yield put(appActions.musicListResponse(tracks))
+    yield put(appActions.favoriteListResponse(tracks))
     //ends loading
     // yield put(appActions.IFetchBooksLoadingStop());
   } 
