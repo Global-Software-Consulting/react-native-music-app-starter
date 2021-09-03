@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   ScrollView,
@@ -16,6 +16,8 @@ import MusicCard from '../../components/Music/MusicCard';
 import HomeShimmer from './component/HomeShimmer';
 import HomeComponent from './component/HomeComponent';
 import musicList from '../../services/musicList';
+import {useDispatch, useSelector} from 'react-redux';
+import {musicListRequest} from '../../store/actions/appActions';
 const initI18n = i18n;
 interface Itrack {
   id: string;
@@ -28,27 +30,23 @@ interface Itrack {
 }
 
 const Home: React.FC<any> = (props): JSX.Element => {
+  const musicList = useSelector(state => state.appReducer.musicList);
+
+  const dispatch = useDispatch();
   const [refreshing, setRefreshing] = useState<boolean>(false);
-  const [listData, setListData] = useState(null);
   const {t, i18n} = useTranslation();
   // const Track: Itrack[] = tracks;
   const styles = useStyles();
   const wait = (timeout: number) => {
     return new Promise(resolve => setTimeout(resolve, timeout));
   };
+  useEffect(() => {
+    onRefresh();
+  }, []);
   const getMusicList = async () => {
-    musicList().then(response => {
-      console.log('response data from ', response.data);
-      if (response && response.status == 200) {
-        console.log('response data from ', response);
-        setListData(tracks);
-        setRefreshing(false);
-      } else {
-        setRefreshing(false);
-      }
-    });
+    dispatch(musicListRequest());
   };
-  const onRefresh = React.useCallback(() => {
+  const onRefresh = () => {
     getMusicList();
     if (refreshing) {
       <HomeShimmer />;
@@ -56,7 +54,7 @@ const Home: React.FC<any> = (props): JSX.Element => {
       setRefreshing(true);
       wait(2000).then(() => setRefreshing(false));
     }
-  }, []);
+  };
   return (
     <>
       <View style={styles.container}>
@@ -64,7 +62,11 @@ const Home: React.FC<any> = (props): JSX.Element => {
           refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
           }>
-          {refreshing ? <HomeShimmer /> : <HomeComponent listData={listData} />}
+          {refreshing ? (
+            <HomeShimmer />
+          ) : (
+            <HomeComponent listData={musicList} />
+          )}
           {/* <Header title="Recommended for you" />
           <FlatList
             contentContainerStyle={{ alignSelf: 'flex-start' }}
