@@ -8,7 +8,8 @@ import {
       ...PaperDefaultTheme.colors,
       primary: 'black',
     accent: 'white',
-    background:'white',
+    background:'darkgray',
+
     },
   };
   

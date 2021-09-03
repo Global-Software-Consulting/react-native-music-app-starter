@@ -1,15 +1,12 @@
 import React,{useState} from 'react';
 import { View, ScrollView, FlatList, RefreshControl,ToastAndroid } from 'react-native';
 import { Text } from 'react-native-paper';
-import useStyles from './styles';
+import useStyles from '../styles';
 import { useTranslation } from 'react-i18next';
-import Header from '../../components/Header';
-import i18n from "../../components/Languages/i18n";
-import { tracks } from '../../components/data/tracks';
-import MusicCard from '../../components/Music/MusicCard';
-import HomeShimmer from './component/HomeShimmer';
-import HomeComponent from './component/HomeComponent';
-
+import Header from '../../../components/Header';
+import i18n from "../../../components/Languages/i18n";
+import { tracks } from '../../../components/data/tracks';
+import MusicCardShimmer from '../../../components/Music/MusicCardShimmer';
 const initI18n = i18n;
 interface Itrack {
 
@@ -32,14 +29,8 @@ const Home: React.FC<any> = (props): JSX.Element => {
     return new Promise(resolve => setTimeout(resolve, timeout));
   }
   const onRefresh = React.useCallback(() => {
-    if(refreshing)
-    {
-      <HomeShimmer/>
-    }
-    else{
     setRefreshing(true);
     wait(2000).then(() => setRefreshing(false));
-    }
   }, []);
   return (
     <>
@@ -50,8 +41,7 @@ const Home: React.FC<any> = (props): JSX.Element => {
           onRefresh={onRefresh}
           />}
         >
-          {refreshing? <HomeShimmer/>:<HomeComponent/>}
-          {/* <Header title="Recommended for you" />
+          <Header title="Recommended for you" />
           <FlatList
             contentContainerStyle={{ alignSelf: 'flex-start' }}
             horizontal={true}
@@ -62,7 +52,7 @@ const Home: React.FC<any> = (props): JSX.Element => {
             keyExtractor={(item) => item.id}
             renderItem={({ item }) => (
 
-              <MusicCard
+              <MusicCardShimmer
                 name={item.title}
                 model={item.album}
                 img={item.artwork}
@@ -85,7 +75,7 @@ const Home: React.FC<any> = (props): JSX.Element => {
             // renderItem={renderItemsss}
             renderItem={({ item }) => (
 
-              <MusicCard
+              <MusicCardShimmer
                 name={item.title}
                 model={item.album}
                 img={item.artwork}
@@ -95,7 +85,7 @@ const Home: React.FC<any> = (props): JSX.Element => {
             )}
 
 
-          /> */}
+          />
         </ScrollView>
 
       </View>

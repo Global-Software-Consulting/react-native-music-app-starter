@@ -117,7 +117,8 @@ const Drawer: React.FC = (props) => {
           </View>
 
               <List.Accordion
-        title= {<Text style={styles.text}>{t('Languages')} </Text>}>
+        title= {<Text style={styles.text}>{t('Languages')} </Text>}
+        >
          
            <TouchableOpacity
          onPress={() => {setChecked('first'),

@@ -8,7 +8,7 @@ import {
     colors: {
       ...PaperDarkTheme.colors,
       primary: 'white',
-      accent: 'gray',
+      accent: 'black',
       background:'gray',
     },
   };
