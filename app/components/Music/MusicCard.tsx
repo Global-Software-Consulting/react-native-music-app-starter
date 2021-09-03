@@ -20,9 +20,6 @@ const MusicCard: React.FC<MusicProps> = ({
   img,
 }) => {
   const styles = useStyles();
-
-console.log('inininin nooor', name);
-console.log('inininin nooor2222', model);
   // const styles = useStyles();
   return (
     <View style={styles.container}>

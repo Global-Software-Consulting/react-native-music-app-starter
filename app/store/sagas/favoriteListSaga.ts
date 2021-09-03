@@ -11,7 +11,6 @@ export default function* ffavoriteListAsync() {
 // yield put(appActions.IFetchBooksLoading());
   //calling api
   let response = yield call(favoriteList);
- console.log("response",response)
   if (response && response.status == '200') {
     yield put(appActions.favoriteListResponse(tracks))
     //ends loading

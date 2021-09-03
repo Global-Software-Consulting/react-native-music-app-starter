@@ -21,7 +21,6 @@ const Favorite: React.FC<any> = (props): JSX.Element => {
   const [refreshing, setRefreshing] = useState<boolean>(false);
   const dispatch = useDispatch();
   const Track: Itrack[] = tracks;
-  console.log('in favvv ', Track.length);
   const styles = useStyles();
   const wait = (timeout: number) => {
     return new Promise(resolve => setTimeout(resolve, timeout));
@@ -30,8 +29,6 @@ const Favorite: React.FC<any> = (props): JSX.Element => {
     setRefreshing(true);
     wait(2000).then(() => setRefreshing(false));
   }, []);
-console.log("helloo",props?.listData?.length );
-
 
   return (
     <View style={styles.container}>

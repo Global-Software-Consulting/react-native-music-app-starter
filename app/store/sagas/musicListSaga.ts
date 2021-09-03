@@ -11,7 +11,6 @@ export default function* musicListAsync() {
 // yield put(appActions.IFetchBooksLoading());
   //calling api
   let response = yield call(musicList);
- console.log("response",response)
   if (response && response.status == '200') {
     yield put(appActions.musicListResponse(tracks))
     //ends loading

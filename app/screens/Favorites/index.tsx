@@ -1,15 +1,15 @@
-import React,{useState,useEffect}from 'react';
-import {View,ScrollView,FlatList,RefreshControl} from 'react-native';
-import {Button,Text} from 'react-native-paper';
+import React, { useState, useEffect } from 'react';
+import { View, ScrollView, FlatList, RefreshControl } from 'react-native';
+import { Button, Text } from 'react-native-paper';
 import { tracks } from '../../components/data/tracks';
-import {useDispatch, useSelector} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import * as loginActions from 'store/actions/loginActions';
 import useStyles from './styles';
 import MusicCard from '../../components/Music/MusicCard';
 import Header from '../../components/Header';
 import favoriteShimmer from './component/FavoriteShimmer';
 import favorite from './component/Favorite';
-import {useTranslation} from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import favoriteList from '../../services/favoriteList';
 import { favoriteListRequest } from '../../store/actions/appActions';
 import FavoriteShimmer from './component/FavoriteShimmer';
@@ -28,11 +28,9 @@ const Favorites: React.FC = () => {
 
 
   const favoriteList = useSelector(state => state.appReducer.favoriteList);
-console.log("favorite",favoriteList);
-
   const dispatch = useDispatch();
   const [refreshing, setRefreshing] = useState<boolean>(false);
-  const {t, i18n} = useTranslation();
+  const { t, i18n } = useTranslation();
   // const Track: Itrack[] = tracks;
   const styles = useStyles();
   const wait = (timeout: number) => {
@@ -47,18 +45,16 @@ console.log("favorite",favoriteList);
   const onRefresh = () => {
     getFavoriteList();
     if (refreshing) {
-      <FavoriteShimmer/>;
+      <FavoriteShimmer />;
     } else {
       setRefreshing(true);
       wait(2000).then(() => setRefreshing(false));
     }
   };
-  // console.log("getFavoriteListgetFavoriteList",getFavoriteList());
-  
   return (
     <>
       <View style={styles.container}>
-      <ScrollView
+        <ScrollView
           refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
           }>

@@ -19,7 +19,6 @@ interface Itrack {
 const FavoriteShimmer: React.FC<any> = (props) => {
   const dispatch = useDispatch();
   const Track: Itrack[] = tracks;
-  console.log('in favvv ', Track.length);
   const styles = useStyles();
   const [refreshing, setRefreshing] = useState<boolean>(false);
   const wait = (timeout: number) => {
