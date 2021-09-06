@@ -24,11 +24,14 @@ export const appReducer = createReducer(initialState, {
     };
   },
   [types.FAVORITE_LIST_RESPONSE](state: IAppState, action:any) {
+    console.log("action.response",action.response);
+    
     return {
       ...state,
       favoriteList: action.response,
       
     };
   },
+
  
 });

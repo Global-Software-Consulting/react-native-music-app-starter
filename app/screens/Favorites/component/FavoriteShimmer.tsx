@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { View, FlatList, RefreshControl,ScrollView } from 'react-native';
-import { Button, Text } from 'react-native-paper';
-import { tracks } from '../../../components/data/tracks';
+import { tracks } from '../../../data/tracks';
 import { useDispatch } from 'react-redux';
 import useStyles from '../styles';
 import MusicCardShimmer from '../../../components/Music/MusicCardShimmer';

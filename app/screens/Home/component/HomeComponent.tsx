@@ -1,100 +1,120 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   View,
-  ScrollView,
   FlatList,
-  RefreshControl,
-  ToastAndroid,
+  TouchableOpacity,
+
+
 } from 'react-native';
-import {Text} from 'react-native-paper';
+import { Text } from 'react-native-paper';
 import useStyles from '../styles';
-import {useTranslation} from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import Header from '../../../components/Header';
-import i18n from '../../../components/Languages/i18n';
-import {tracks} from '../../../components/data/tracks';
+import i18n from '../../../utils/Languages/i18n';
 import MusicCard from '../../../components/Music/MusicCard';
+import { useDispatch, useSelector } from 'react-redux';
+import { favoriteListRequest, favoriteListResponse } from '../../../store/actions/appActions';
 
 const initI18n = i18n;
-interface Itrack {
-  id: string;
-  url: string;
-  title: string;
-  artist: string;
-  artwork: string;
-  album: string;
-  duration: number;
-}
 
 const HomeComponent: React.FC<any> = (props): JSX.Element => {
-  const [refreshing, setRefreshing] = useState<boolean>(false);
-  const [listData, setListData] = useState<any>(tracks);
-  const {t, i18n} = useTranslation();
-  const Track: Itrack[] = tracks;
+  const musicList = useSelector(state => state.appReducer.musicList);
+  const favoriteList = useSelector(state => state.appReducer.favoriteList);
+
+  const { t, i18n } = useTranslation();
+  const dispatch = useDispatch();
   const styles = useStyles();
-  const wait = (timeout: number) => {
-    return new Promise(resolve => setTimeout(resolve, timeout));
+
+  const addToFavorites = (item: any) => {
+    let data = favoriteList
+    let isAdded = favoriteList?.findIndex((data) => {
+      return data?.id == item?.id
+    })
+
+    if (isAdded != -1) {
+      console.log('Deletion');
+      let ddd=data?.slice(0, 1)
+      console.log('data', data);
+      dispatch(favoriteListRequest(ddd));
+    }
+    else{
+      console.log('Creation');
+      data.push(item);
+      dispatch(favoriteListRequest(data));
+  
+      console.log('Creation data:', data);
+    }
+
+
   };
-  const onRefresh = React.useCallback(() => {
-    setRefreshing(true);
-    wait(2000).then(() => setRefreshing(false));
-  }, []);
+
   return (
     <>
       <View style={styles.container}>
-        <ScrollView
-          refreshControl={
-            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-          }>
-          <Header title="Recommended for you" />
-          {props?.listData?.length >0 ? (
+
+        <Header title="Recommended for you" />
+        {props?.musicList?.length > 0 ? (
           <FlatList
-            contentContainerStyle={{alignSelf: 'flex-start'}}
+            contentContainerStyle={{ alignSelf: 'flex-start' }}
             horizontal={true}
             showsVerticalScrollIndicator={false}
             showsHorizontalScrollIndicator={false}
-            data={props.listData}
+            data={props.musicList}
             scrollEventThrottle={2}
             keyExtractor={item => item.id}
-            renderItem={({item}) => (
-              <MusicCard
-                name={item.title}
-                model={item.album}
-                img={item.artwork}
-              />
-            )}
-          />
-           ) : (
-            <View style={styles.container}>
-              <Text style={styles.model}>No Reommendations Available</Text>
-            </View>
-            
-          )}
-          <Header title="My Playlist" />
+            renderItem={({ item }) => (
 
-          {props?.listData?.length > 0 ? (
-            <FlatList
-              contentContainerStyle={{alignSelf: 'flex-start'}}
-              horizontal={true}
-              showsVerticalScrollIndicator={false}
-              showsHorizontalScrollIndicator={false}
-              data={props.listData}
-              keyExtractor={item => item.id}
-              // renderItem={renderItemsss}
-              renderItem={({item}) => (
+              <TouchableOpacity
+                key={item}
+                onPress={() => {
+                  addToFavorites(item)
+                }}
+              >
                 <MusicCard
                   name={item.title}
                   model={item.album}
                   img={item.artwork}
                 />
-              )}
-            />
-          ) : (
-            <View style={styles.container}>
-              <Text style={styles.model}>Playlist Empty</Text>
-            </View>
-            
-          )}
-        </ScrollView>
+              </TouchableOpacity>
+            )}
+          />
+        ) : (
+          <View style={styles.container}>
+            <Text style={styles.model}>No Reommendations Available</Text>
+          </View>
+
+        )}
+        <Header title="My Playlist" />
+
+        {props?.musicList?.length > 0 ? (
+          <FlatList
+            contentContainerStyle={{ alignSelf: 'flex-start' }}
+            horizontal={true}
+            showsVerticalScrollIndicator={false}
+            showsHorizontalScrollIndicator={false}
+            data={props.musicList}
+            keyExtractor={item => item.id}
+            renderItem={({ item }) => (
+              <TouchableOpacity
+                key={item}
+                onPress={() => { addToFavorites(item) }}
+              >
+                <MusicCard
+                  name={item.title}
+                  model={item.album}
+                  img={item.artwork}
+                // onPress={() => {fav?addToFavorites():removeFavorites(item.id)}}
+                />
+              </TouchableOpacity>
+            )}
+          />
+        ) : (
+          <View style={styles.container}>
+            <Text style={styles.model}>Playlist Empty</Text>
+          </View>
+
+        )}
+
       </View>
     </>
   );

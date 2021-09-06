@@ -16,9 +16,10 @@ export function musicListResponse(response:any) {
   };
 
 }
-export function favoriteListRequest() {
+export function favoriteListRequest(data) {
   return {
     type: types.FAVORITE_LIST_REQUEST,
+data,
   };
 }
 export function favoriteListResponse(response:any) {

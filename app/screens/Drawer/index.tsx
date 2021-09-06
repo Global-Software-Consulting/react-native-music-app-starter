@@ -23,7 +23,7 @@ import * as loginActions from 'store/actions/loginActions';
 import styles from './styles';
 import {useTranslation} from 'react-i18next';
 import NavigationService from '../../navigation/NavigationService';
-import i18n from "../../components/Languages/i18n";
+import i18n from "../../utils/Languages/i18n";
 const initI18n = i18n;
 interface IProps {
   props: IProps;

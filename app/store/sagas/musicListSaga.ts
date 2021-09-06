@@ -2,7 +2,7 @@ import { put, call } from "redux-saga/effects";
 import { Alert } from "react-native";
 import musicList from "../../services/musicList";
 import * as appActions from "../actions/appActions";
-import {tracks} from "../../components/data/tracks";
+import {tracks} from "../../data/tracks";
 
 
 // Our worker Saga that logins the user

@@ -1,11 +1,12 @@
-import React,{useState} from 'react';
-import {View,FlatList,RefreshControl,ScrollView} from 'react-native';
+import React,{useState,useEffect} from 'react';
+import {View,FlatList,RefreshControl,ScrollView,TouchableHighlight} from 'react-native';
 import {Button,Text} from 'react-native-paper';
-import { tracks } from '../../../components/data/tracks';
+import { tracks } from '../../../data/tracks';
 import {useDispatch, useSelector} from 'react-redux';
 import useStyles from '../styles';
 import MusicCard from '../../../components/Music/MusicCard';
 import Header from '../../../components/Header';
+import { favoriteListRequest } from '../../../store/actions/appActions';
 interface Itrack {
 
   id: string
@@ -17,45 +18,40 @@ interface Itrack {
   duration: number
 }
 const Favorite: React.FC<any> = (props): JSX.Element => {
-  const [listData, setListData] = useState<any>(tracks);
   const [refreshing, setRefreshing] = useState<boolean>(false);
-  const dispatch = useDispatch();
-  const Track: Itrack[] = tracks;
+  const favoriteList = useSelector(state => state.appReducer.favoriteList);
   const styles = useStyles();
-  const wait = (timeout: number) => {
-    return new Promise(resolve => setTimeout(resolve, timeout));
-  };
-  const onRefresh = React.useCallback(() => {
-    setRefreshing(true);
-    wait(2000).then(() => setRefreshing(false));
-  }, []);
+  const dispatch = useDispatch();
+  console.log("favfavfav:",favoriteList);
 
   return (
     <View style={styles.container}>
-    <ScrollView
-         refreshControl={<RefreshControl
-          refreshing={refreshing}
-          onRefresh={onRefresh}
-          />}
-        >
+   
         <Header title="Liked Songs" />
-    {props?.listData?.length >0 ? (
+    {favoriteList?.length >0 ? (
       
           <FlatList
             contentContainerStyle={{ alignSelf: 'flex-start' }}
             showsVerticalScrollIndicator={false}
             showsHorizontalScrollIndicator={false}
             numColumns={2}
-            data={props.listData}
+            data={favoriteList}
             keyExtractor={(item) => item.id}
             renderItem={({ item }) => (
+              <TouchableHighlight
+              key={item}
+              underlayColor='grey'
+              //  onPress={() => {removeFavorites(item.id)}}
+               >
               <View style={styles.Musiccontainer}>
               <MusicCard
                 name={item.title}
                 model={item.album}
                 img={item.artwork}
               />
+
               </View>
+              </TouchableHighlight>
           )}
           />
            ) : (
@@ -64,7 +60,7 @@ const Favorite: React.FC<any> = (props): JSX.Element => {
             </View>
             
           )}
-   </ScrollView>
+
     </View>
   
   );
