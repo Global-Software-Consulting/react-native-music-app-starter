@@ -16,7 +16,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { favoriteListRequest, favoriteListResponse } from '../../../store/actions/appActions';
 
 const initI18n = i18n;
+interface Itrack {
 
+  id: string
+  url: string
+  title: string
+  artist: string
+  artwork: string
+  album: string
+  duration: number
+}
 const HomeComponent: React.FC<any> = (props): JSX.Element => {
   const musicList = useSelector(state => state.appReducer.musicList);
   const favoriteList = useSelector(state => state.appReducer.favoriteList);

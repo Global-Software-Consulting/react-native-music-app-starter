@@ -23,6 +23,13 @@ export const useStyles = () => {
       
 
     },
+    icon: {
+      paddingLeft:10,
+      alignSelf: 'center',
+      justifyContent: 'center',
+      alignItems: 'center',
+      color:theme.colors.primary
+    },
 
   });
   return styles;

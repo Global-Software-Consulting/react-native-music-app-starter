@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { View, FlatList, RefreshControl, ScrollView, TouchableHighlight } from 'react-native';
+import { View, FlatList, StatusBar, TouchableHighlight } from 'react-native';
 import { Button, Text } from 'react-native-paper';
 import { useDispatch, useSelector } from 'react-redux';
 import useStyles from '../styles';
 import MusicCard from '../../../components/Music/MusicCard';
 import Header from '../../../components/Header';
+import AppHeader from '../../../components/AppHeader';
+import {useNavigation} from '@react-navigation/native';
+import LeftArrowIcon from 'react-native-vector-icons/MaterialIcons';
 import { favoriteListRequest } from '../../../store/actions/appActions';
 interface Itrack {
 
@@ -16,15 +19,17 @@ interface Itrack {
   album: string
   duration: number
 }
-const Favorite: React.FC<any> = (props): JSX.Element => {
+const Favorite: React.FC<any> = ({props}): JSX.Element => {
   const favoriteList = useSelector(state => state.appReducer.favoriteList);
   const styles = useStyles();
+  const navigation = useNavigation();
   const dispatch = useDispatch();
   const removeFavorites = (id: any) => {
     let data = favoriteList?.filter((element: any) => element.id != id)
         dispatch(favoriteListRequest(data));  
     }
 return (
+
   <View style={styles.container}>
 
     <Header title="Liked Songs" />

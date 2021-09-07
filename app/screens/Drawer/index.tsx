@@ -16,11 +16,13 @@ import {
   Checkbox
 } from 'react-native-paper';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import LeftArrowIcon from 'react-native-vector-icons/Entypo';
+import AppHeader from "../../components/AppHeader";
 import ThemeController from '../../components/ThemeController';
 import {useDispatch} from 'react-redux';
 import * as loginActions from 'store/actions/loginActions';
 import styles from './styles';
+import {useNavigation} from '@react-navigation/native';
 import {useTranslation} from 'react-i18next';
 import NavigationService from '../../navigation/NavigationService';
 import i18n from "../../utils/Languages/i18n";
@@ -30,14 +32,24 @@ interface IProps {
 }
 const Drawer: React.FC = (props) => {
   const [checked, setChecked] = React.useState('first');
+  const navigation = useNavigation();
   const {t, i18n} = useTranslation();
   const dispatch = useDispatch();
   const onLogout = () => dispatch(loginActions.logOut());
 
 
   return (
-
+<>
+<AppHeader 
+    renderLeft={ <LeftArrowIcon
+      name="cross"
+      style={styles.icon}
+      size={30}
+      onPress={() => navigation.navigate('My Music App')}
+    />}
+    />
       <DrawerContentScrollView {...props}>
+    
         <View
           style={
             styles.drawerContent}
@@ -169,6 +181,7 @@ const Drawer: React.FC = (props) => {
           </View>
         
       </DrawerContentScrollView>
+      </>
     );
   }
 

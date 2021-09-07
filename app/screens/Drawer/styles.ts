@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-
+import { useTheme } from 'react-native-paper';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -12,6 +12,7 @@ const styles = StyleSheet.create({
   },
   drawerContent: {
     flex: 1,
+
   },
   userInfoSection: {
     paddingLeft: 20,
@@ -75,6 +76,13 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     margin: 2,
     flexDirection:'row'
+  },
+  icon: {
+    paddingLeft:10,
+    alignSelf: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+    color:'black',
   },
 });
 
