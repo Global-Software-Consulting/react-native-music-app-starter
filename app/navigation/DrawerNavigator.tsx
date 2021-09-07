@@ -1,38 +1,19 @@
 import * as React from 'react';
-import { useWindowDimensions } from 'react-native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {ILoginState} from 'models/reducers/login';
-import Home from 'screens/Home';
-import Favorites from 'screens/Favorites';
+import Drawer from '../screens/Drawer';
+import Favorites from '../screens/Favorites/component/Favorite';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-
-const Drawer = createDrawerNavigator();
+import HomeNavigationStack from './HomeNavigationStack';
+import Home from '../screens/Home';
+const AppDrawer = createDrawerNavigator();
 const AppStack = createNativeStackNavigator();
 const Stack = createNativeStackNavigator();
-interface IState {
-  loginReducer: ILoginState;
-}
-const DrawerNavigator = () => {
-  const dimensions = useWindowDimensions();
-    const homeOptions = {
-        title: 'Home',
-        headerTitleStyle: {
-          fontWeight: 'bold',
-          fontSize:20,
-          color:"black"
-        }
-      };
-  return (
-    <Drawer.Navigator defaultStatus="open" screenOptions={{
-      
-      drawerType: dimensions.width >= 768 ? 'permanent' : 'front',
-    }}
-  >
-    
-    <Drawer.Screen name="Home" component={Home} options={{ drawerLabel: 'Home page Option' }}/>
-    <Drawer.Screen name="Favorites" component={Favorites} options={{ drawerLabel: 'Fav page Option' }}/>
-  </Drawer.Navigator>
 
+const DrawerNavigator = () => {
+  return (
+    <AppDrawer.Navigator drawerContent={() => <Drawer />}>
+    <AppDrawer.Screen name="My Music App" component={Home}   options={{ drawerLabel: 'My Music App' }} />
+    </AppDrawer.Navigator>
   );
 };
 export default DrawerNavigator;

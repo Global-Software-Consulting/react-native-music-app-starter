@@ -11,6 +11,7 @@ import ThemeController from '../components/ThemeController';
 import {StatusBar, View} from 'react-native';
 import {ILoginState} from 'models/reducers/login';
 import AppNavigation from './AppNavigation';
+import HomeNavigationStack from './HomeNavigationStack';
 
 const Stack = createNativeStackNavigator();
 
@@ -23,7 +24,7 @@ interface IState {
 }
 
 interface IProps {}
-const App: React.FC<IProps> = (props: IProps) => {
+const NavigationStack: React.FC<IProps> = (props: IProps) => {
   const isLoggedIn = useSelector(
     (state: IState) => state.loginReducer.isLoggedIn,
   );
@@ -36,7 +37,7 @@ const App: React.FC<IProps> = (props: IProps) => {
       <Stack.Navigator headerMode="none">
         {isLoggedIn ? (
           <Stack.Screen
-            name="Home"
+            name="AppNavigation"
             component={AppNavigation}
             // options={homeOptions}
             options={{headerShown: false}} 
@@ -59,4 +60,4 @@ const App: React.FC<IProps> = (props: IProps) => {
   );
 };
 
-export default App;
+export default NavigationStack;

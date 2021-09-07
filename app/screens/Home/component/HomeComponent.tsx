@@ -25,29 +25,18 @@ const HomeComponent: React.FC<any> = (props): JSX.Element => {
   const dispatch = useDispatch();
   const styles = useStyles();
 
+
   const addToFavorites = (item: any) => {
     let data = favoriteList
-    let isAdded = favoriteList?.findIndex((data) => {
-      return data?.id == item?.id
-    })
 
-    if (isAdded != -1) {
-      console.log('Deletion');
-      let ddd=data?.slice(0, 1)
-      console.log('data', data);
-      dispatch(favoriteListRequest(ddd));
-    }
-    else{
-      console.log('Creation');
-      data.push(item);
-      dispatch(favoriteListRequest(data));
+      console.log('Creation', item);
+      let found = favoriteList?.find((element: any) => element.id == item.id)
+      if (!found) {
+        data.push(item);
+        dispatch(favoriteListRequest(data));  
+      }
   
-      console.log('Creation data:', data);
     }
-
-
-  };
-
   return (
     <>
       <View style={styles.container}>
@@ -67,6 +56,8 @@ const HomeComponent: React.FC<any> = (props): JSX.Element => {
               <TouchableOpacity
                 key={item}
                 onPress={() => {
+                  console.log("helloo;");
+                  
                   addToFavorites(item)
                 }}
               >
