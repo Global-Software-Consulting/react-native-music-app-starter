@@ -1,3 +1,4 @@
+
 import { StyleSheet } from 'react-native';
 import { useTheme } from 'react-native-paper';
 const styles = StyleSheet.create({
@@ -82,7 +83,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     justifyContent: 'center',
     alignItems: 'center',
-    color:'black',
+    color:"gray",
   },
 });
 

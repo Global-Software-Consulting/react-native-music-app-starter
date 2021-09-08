@@ -2,54 +2,44 @@ import React from 'react';
 import {
   View,
   StyleSheet,
-  TouchableOpacity,
   Dimensions,
-  Image,
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import LeftArrowIcon from 'react-native-vector-icons/MaterialIcons';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { useTheme, Text } from 'react-native-paper';
-import { isIphoneX } from 'app/lib/isIphoneX';
 const win = Dimensions.get('window');
 
 interface AppHeaderProps {
-  isBack: any,
-  isExit: any,
-  renderLeft: React.ReactNode
+  title?: string,
+  renderLeft?: Element
 }
-const AppHeader: React.FC<AppHeaderProps> = ({ isBack, isExit,renderLeft }) => {
+const AppHeader: React.FC<AppHeaderProps> = ({ renderLeft, title }) => {
   const styles = useStyles();
-  const navigation = useNavigation();
   return (
-    <View
-      style={[
-        styles.container,
-        {
-          justifyContent: isBack && isExit ? 'flex-start' : 'flex-start',
-          marginLeft: isBack && isExit ? 10 : 0,
-        },
-      ]}>
-      {isBack &&
-        <TouchableOpacity
-          onPress={() => navigation.navigate('Home')}
-          style={styles.iconView}>
-        </TouchableOpacity>
-      }
-      {renderLeft && renderLeft}
-    </View>
+    <>
+      <View style={styles.container}>
+        {renderLeft && renderLeft}
+        <View style={styles.labelWrap}>
+          <View style={{ flexDirection: 'row', justifyContent: "center", marginRight: 5 }}>
+            <Text style={styles.labelStyle}>{title}</Text>
+          </View>
+
+        </View>
+
+      </View>
+    </>
   );
 };
 export const useStyles = () => {
   const theme = useTheme();
   const styles = StyleSheet.create({
     container: {
+      marginTop: 2,
       flexDirection: 'row',
       backgroundColor: theme.colors.accent,
       height: hp('10%'), // 70% of height device screen
       alignItems: 'center',
-      borderBottomColor:"lightgray",
-      borderBottomWidth:hp('0.1%'),
+      borderBottomColor: "lightgray",
+      borderBottomWidth: hp('0.1%'),
       shadowColor: "#000",
       shadowOffset: {
         width: 0,
@@ -60,37 +50,20 @@ export const useStyles = () => {
 
       elevation: 5,
     },
-
-    icon: {
-      alignSelf: 'center',
-      justifyContent: 'center',
-      alignItems: 'center',
-      color: theme.colors.primary
-    },
-    title: {
-      fontWeight: 'bold',
+    labelStyle: {
       fontSize: hp('3%'),
-      paddingLeft: 10,
-    },
-    text: {
-      marginTop: 10,
-      alignSelf: 'flex-end',
-      marginLeft: 80,
-    },
-    iconView: {
-      // backgroundColor: theme.colors.accent,
-      justifyContent: 'center',
-      alignItems: 'center',
+      fontWeight: 'bold',
+      // color: theme.colors.accent,
 
-      width: 30,
-      height: 30,
-      borderRadius: 30 / 2,
     },
-    infoContainer: {
-      flexDirection: 'row',
-      //  alignItems: 'center',
-      backgroundColor: theme.colors.accent,
-    },
+    labelWrap: {
+      flex: 1,
+      marginRight: 25,
+      justifyContent: 'center',
+      alignSelf: 'center'
+      // color: theme.colors.accent,
+
+    }
   });
   return styles;
 }

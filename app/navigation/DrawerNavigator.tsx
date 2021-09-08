@@ -1,14 +1,16 @@
 import * as React from 'react';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Drawer from '../screens/Drawer';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-
 import Home from '../screens/Home';
-const AppDrawer = createDrawerNavigator();
+const AppDrawer = createDrawerNavigator<DrawerParamList>();
 
+export type DrawerParamList = {
+  
+  Home:undefined,
+
+};
 const DrawerNavigator = () => {
-
+ 
 
 
   return (

@@ -13,27 +13,35 @@ import Header from '../../../components/Header';
 import i18n from '../../../utils/Languages/i18n';
 import MusicCard from '../../../components/Music/MusicCard';
 import { useDispatch, useSelector } from 'react-redux';
-import { favoriteListRequest, favoriteListResponse } from '../../../store/actions/appActions';
-
+import { favoriteListRequest } from '../../../store/actions/appActions';
+import {useNavigation} from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../../../navigation/AppNavigation';
+import {IAppState} from '../../../models/reducers/app';
 const initI18n = i18n;
+
+interface IState {
+  appReducer: IAppState;
+}
 interface Itrack {
 
-  id: string
-  url: string
-  title: string
-  artist: string
-  artwork: string
-  album: string
-  duration: number
+  id: string,
+  url: string,
+  title: string,
+  artist: string,
+  artwork: string,
+  album: string,
+  duration: number,
+  
 }
 const HomeComponent: React.FC<any> = (props): JSX.Element => {
-  const musicList = useSelector(state => state.appReducer.musicList);
-  const favoriteList = useSelector(state => state.appReducer.favoriteList);
-
+  const musicList = useSelector((state: IState) => state.appReducer.musicList);
+  const favoriteList = useSelector((state: IState) => state.appReducer.favoriteList);
+  // type homeScreenProp = StackNavigationProp<RootStackParamList, 'Player'>;
+  const navigation = useNavigation<homeScreenProp>();
   const { t, i18n } = useTranslation();
   const dispatch = useDispatch();
   const styles = useStyles();
-
 
   const addToFavorites = (item: any) => {
     let data = favoriteList
@@ -70,6 +78,11 @@ const HomeComponent: React.FC<any> = (props): JSX.Element => {
                   name={item.title}
                   model={item.album}
                   img={item.artwork}
+                  onPress={() =>
+                    navigation.navigate('Player', {
+                      item: item,
+                    })
+                  }
                 />
               </TouchableOpacity>
             )}
@@ -99,7 +112,11 @@ const HomeComponent: React.FC<any> = (props): JSX.Element => {
                   name={item.title}
                   model={item.album}
                   img={item.artwork}
-                // onPress={() => {fav?addToFavorites():removeFavorites(item.id)}}
+                  onPress={() =>
+                    navigation.navigate('Player', {
+                      item: item,
+                    })
+                  }
                 />
               </TouchableOpacity>
             )}

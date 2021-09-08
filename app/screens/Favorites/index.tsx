@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { View, ScrollView, StatusBar, RefreshControl } from 'react-native';
 import LeftArrowIcon from 'react-native-vector-icons/MaterialIcons';
 import AppHeader from '../../components/AppHeader';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import useStyles from './styles';
 import { useTranslation } from 'react-i18next';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { DrawerParamList } from '../../navigation/DrawerNavigator';
 import FavoriteShimmer from './component/FavoriteShimmer';
 import Favorite from './component/Favorite';
 
@@ -13,7 +15,8 @@ const Favorites: React.FC = () => {
   const dispatch = useDispatch();
   const [refreshing, setRefreshing] = useState<boolean>(false);
   const { t, i18n } = useTranslation();
-  const navigation = useNavigation();
+  type homeScreenProp = StackNavigationProp<DrawerParamList, 'Home'>;
+  const navigation = useNavigation<homeScreenProp>();
   const styles = useStyles();
   const wait = (timeout: number) => {
     return new Promise(resolve => setTimeout(resolve, timeout));
@@ -31,30 +34,30 @@ const Favorites: React.FC = () => {
     }
   };
   return (
-     
-    
-     
-      <View style={styles.container}>
-      <AppHeader 
-    renderLeft={ <LeftArrowIcon
-      name="keyboard-arrow-left"
-      style={styles.icon}
-      size={30}
-      onPress={() => navigation.navigate('Home')}
-    />}
-    />
-        <ScrollView
-          refreshControl={
-            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-          }>
-          {refreshing ? (
-            <FavoriteShimmer />
-          ) : (
-            <Favorite/>
-          )}
-        </ScrollView>
-      </View>
-    
+
+
+
+    <View style={styles.container}>
+      <AppHeader
+        renderLeft={<LeftArrowIcon
+          name="keyboard-arrow-left"
+          style={styles.icon}
+          size={30}
+          onPress={() => navigation.navigate('Home')}
+        />}
+      />
+      <ScrollView
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }>
+        {refreshing ? (
+          <FavoriteShimmer />
+        ) : (
+          <Favorite />
+        )}
+      </ScrollView>
+    </View>
+
 
   );
 };

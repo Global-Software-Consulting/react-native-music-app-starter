@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import {
   View,
-  StyleSheet,
   TouchableOpacity,
   Image
 } from 'react-native';
-import { useTheme, Text } from 'react-native-paper';
+import { Text } from 'react-native-paper';
 import useStyles from './styles';
 
 interface MusicProps {
@@ -26,7 +25,7 @@ const MusicCard: React.FC<MusicProps> = ({
   return (
     <View style={styles.container}>
 
-      <TouchableOpacity style={styles.taskCard} onPress={() =>onPress} >
+      <TouchableOpacity style={styles.taskCard} onPress={onPress} >
         <View style={styles.imgcontainer}>
           <Image style={styles.img} source={{ uri: img }}></Image>
         </View>
