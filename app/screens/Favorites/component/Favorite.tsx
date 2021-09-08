@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { View, FlatList, StatusBar, TouchableHighlight } from 'react-native';
-import { Button, Text } from 'react-native-paper';
+import { View, FlatList, TouchableHighlight } from 'react-native';
+import { Text } from 'react-native-paper';
 import { useDispatch, useSelector } from 'react-redux';
 import useStyles from '../styles';
 import MusicCard from '../../../components/Music/MusicCard';
 import Header from '../../../components/Header';
-import AppHeader from '../../../components/AppHeader';
 import {useNavigation} from '@react-navigation/native';
-import LeftArrowIcon from 'react-native-vector-icons/MaterialIcons';
 import { favoriteListRequest } from '../../../store/actions/appActions';
 interface Itrack {
 

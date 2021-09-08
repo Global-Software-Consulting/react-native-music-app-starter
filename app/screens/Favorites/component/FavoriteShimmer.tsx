@@ -1,12 +1,9 @@
 import React, { useState } from 'react';
 import { View, FlatList, RefreshControl,ScrollView,StatusBar ,Text} from 'react-native';
 import { tracks } from '../../../data/tracks';
-import { useDispatch } from 'react-redux';
 import useStyles from '../styles';
-import LeftArrowIcon from 'react-native-vector-icons/MaterialIcons';
 import MusicCardShimmer from '../../../components/Music/MusicCardShimmer';
 import Header from '../../../components/Header';
-import AppHeader from '../../../components/AppHeader';
 interface Itrack {
 
   id: string
@@ -18,7 +15,6 @@ interface Itrack {
   duration: number
 }
 const FavoriteShimmer: React.FC<any> = (props,navigation) => {
-  const dispatch = useDispatch();
   const Track: Itrack[] = tracks;
   const styles = useStyles();
   const [refreshing, setRefreshing] = useState<boolean>(false);

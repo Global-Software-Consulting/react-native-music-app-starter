@@ -11,7 +11,7 @@ const AppNavigation = () => {
     <AppStack.Navigator>
      
       <Stack.Screen
-      name="Home Drawer"
+      name="HomeDrawer"
       component={DrawerNavigator}
       options={{headerShown: false}} 
       

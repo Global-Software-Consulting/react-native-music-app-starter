@@ -45,7 +45,7 @@ const Drawer: React.FC = (props) => {
       name="cross"
       style={styles.icon}
       size={30}
-      onPress={() => navigation.navigate('My Music App')}
+      onPress={() => navigation.navigate('Home')}
     />}
     />
       <DrawerContentScrollView {...props}>

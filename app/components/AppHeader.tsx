@@ -14,14 +14,11 @@ import { isIphoneX } from 'app/lib/isIphoneX';
 const win = Dimensions.get('window');
 
 interface AppHeaderProps {
-  title: string,
   isBack: any,
   isExit: any,
-  text: string,
-  onPress: any,
   renderLeft: React.ReactNode
 }
-const AppHeader: React.FC<AppHeaderProps> = ({ title, isBack, isExit, onPress, renderLeft }) => {
+const AppHeader: React.FC<AppHeaderProps> = ({ isBack, isExit,renderLeft }) => {
   const styles = useStyles();
   const navigation = useNavigation();
   return (
@@ -35,7 +32,7 @@ const AppHeader: React.FC<AppHeaderProps> = ({ title, isBack, isExit, onPress, r
       ]}>
       {isBack &&
         <TouchableOpacity
-          onPress={() => navigation.navigate('My Music App')}
+          onPress={() => navigation.navigate('Home')}
           style={styles.iconView}>
         </TouchableOpacity>
       }

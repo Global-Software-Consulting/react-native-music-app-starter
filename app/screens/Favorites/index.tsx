@@ -8,16 +8,7 @@ import useStyles from './styles';
 import { useTranslation } from 'react-i18next';
 import FavoriteShimmer from './component/FavoriteShimmer';
 import Favorite from './component/Favorite';
-interface Itrack {
 
-  id: string
-  url: string
-  title: string
-  artist: string
-  artwork: string
-  album: string
-  duration: number
-}
 const Favorites: React.FC = () => {
   const dispatch = useDispatch();
   const [refreshing, setRefreshing] = useState<boolean>(false);
@@ -49,7 +40,7 @@ const Favorites: React.FC = () => {
       name="keyboard-arrow-left"
       style={styles.icon}
       size={30}
-      onPress={() => navigation.navigate('My Music App')}
+      onPress={() => navigation.navigate('Home')}
     />}
     />
         <ScrollView

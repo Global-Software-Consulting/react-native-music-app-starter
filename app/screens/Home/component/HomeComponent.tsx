@@ -37,15 +37,13 @@ const HomeComponent: React.FC<any> = (props): JSX.Element => {
 
   const addToFavorites = (item: any) => {
     let data = favoriteList
-
-      console.log('Creation', item);
-      let found = favoriteList?.find((element: any) => element.id == item.id)
-      if (!found) {
-        data.push(item);
-        dispatch(favoriteListRequest(data));  
-      }
-  
+    let found = favoriteList?.find((element: any) => element.id == item.id)
+    if (!found) {
+      data.push(item);
+      dispatch(favoriteListRequest(data));
     }
+
+  }
   return (
     <>
       <View style={styles.container}>
@@ -65,8 +63,6 @@ const HomeComponent: React.FC<any> = (props): JSX.Element => {
               <TouchableOpacity
                 key={item}
                 onPress={() => {
-                  console.log("helloo;");
-                  
                   addToFavorites(item)
                 }}
               >
