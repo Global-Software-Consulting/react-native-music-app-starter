@@ -44,12 +44,7 @@ export const useStyles = () => {
     image: {
       height: hp('45%'), // 70% of height device screen
       width: wp('80%'),
-      borderRadius: 10,
-      shadowColor: 'blue',
-      shadowOffset: { width: 0, height: 2 },
-      shadowOpacity: .2,
-      shadowRadius: 8,
-      elevation: 20,
+      borderRadius: 10
     },
 
 

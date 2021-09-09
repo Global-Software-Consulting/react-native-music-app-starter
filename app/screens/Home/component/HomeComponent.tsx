@@ -28,9 +28,8 @@ interface Itrack {
   id: string,
   url: string,
   title: string,
-  artist: string,
   artwork: string,
-  album: string,
+  artist: string,
   duration: number,
   
 }
@@ -76,7 +75,7 @@ const HomeComponent: React.FC<any> = (props): JSX.Element => {
               >
                 <MusicCard
                   name={item.title}
-                  model={item.album}
+                  model={item.artist}
                   img={item.artwork}
                   onPress={() =>
                     navigation.navigate('Player', {
@@ -110,7 +109,7 @@ const HomeComponent: React.FC<any> = (props): JSX.Element => {
               >
                 <MusicCard
                   name={item.title}
-                  model={item.album}
+                  model={item.artist}
                   img={item.artwork}
                   onPress={() =>
                     navigation.navigate('Player', {

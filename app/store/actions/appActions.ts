@@ -10,13 +10,15 @@ export function musicListRequest() {
   };
 }
 export function musicListResponse(response:any) {
+  // console.log("reponsereponsereponsereponsereponse:", response.data.data);
+  
   return {
     type: types.MUSIC_LIST_RESPONSE,
     response,
   };
 
 }
-export function favoriteListRequest(data) {
+export function favoriteListRequest(data:any) {
   return {
     type: types.FAVORITE_LIST_REQUEST,
 data,

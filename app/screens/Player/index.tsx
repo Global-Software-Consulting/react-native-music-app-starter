@@ -58,7 +58,7 @@ const Player: React.FC = () => {
     title="Playing Now"
     />
      <Album url={item.artwork}
-     title={item.title} artist={item.album}/>
+     title={item.title} artist={item.artist}/>
         <TrackBar 
         trackLength={204} currentPosition={25} 
         // onSeek={this.seek.bind(this)}

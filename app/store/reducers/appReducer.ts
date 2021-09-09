@@ -17,6 +17,8 @@ const initialState: IAppState = {
 export const appReducer = createReducer(initialState, {
  
   [types.MUSIC_LIST_RESPONSE](state: IAppState, action:any) {
+        console.log(" action.responseaction.responseaction.responseaction.response",action.response);
+
     return {
       ...state,
       musicList: action.response,
@@ -24,7 +26,7 @@ export const appReducer = createReducer(initialState, {
     };
   },
   [types.FAVORITE_LIST_RESPONSE](state: IAppState, action:any) {
-    console.log("action.response",action.response);
+    // console.log("action.response",action.response);
     
     return {
       ...state,
