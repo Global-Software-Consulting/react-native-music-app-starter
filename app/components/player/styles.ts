@@ -27,6 +27,15 @@ export const useStyles = () => {
       // backgroundColor: "red",
 
     },
+    VolumeContainer: {
+
+      height: hp('8%'), // 70% of height device screen
+      width: wp('90%'),
+      paddingTop:5,
+      flexDirection: 'row',
+      alignItems: 'center',
+
+    },
 
     labelStyle: {
       marginBottom: 12,
@@ -156,22 +165,17 @@ export const useStyles = () => {
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'center',
-      paddingTop: 8,
-      // backgroundColor: 'red'
     },
     playButton: {
-      height: hp('15%'), // 70% of height device screen
-      width: wp('25%'),
-      borderWidth: 2.5,
-      borderColor: theme.colors.primary,
+      height: hp('12%'), // 70% of height device screen
+      width: wp('10%'),
       borderRadius:hp('15%')/ 2,
       alignItems: 'center',
       justifyContent: 'center',
-      marginBottom:5
     },
     secondaryControl: {
       height: hp('7%'), // 70% of height device screen
-      width: wp('9%'),
+      width: wp('10%'),
     },
     off: {
       opacity: 0.30,

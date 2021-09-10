@@ -1,4 +1,5 @@
 
+import { theme } from 'native-base';
 import { StyleSheet } from 'react-native';
 import { useTheme } from 'react-native-paper';
 const styles = StyleSheet.create({
@@ -72,7 +73,7 @@ const styles = StyleSheet.create({
     flexDirection:'row'
   },
   listbutton: {
-    backgroundColor: 'silver',
+    // backgroundColor: useTheme().colors.accent,
     padding: 5,
     borderRadius: 10,
     margin: 2,

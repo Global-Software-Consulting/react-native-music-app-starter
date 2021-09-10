@@ -7,7 +7,7 @@ i18n.use(initReactI18next).init({
   resources: {
     en: {
       translation: {
-        'Dark Theme':'Dark Theme',
+        'Theme':'Theme',
         'Languages':'Languages',
         'Home Sreen':'Home Sreen',
         'Login':'Login',
@@ -18,7 +18,7 @@ i18n.use(initReactI18next).init({
     },
     es: {
       translation: {
-        'Dark Theme': 'Tema oscuro',
+        'Theme': 'Tema',
         'Languages':'Idiomas',
         'Home Sreen':'Pantalla de inicio',
         'Login':'Acceso',
@@ -28,7 +28,7 @@ i18n.use(initReactI18next).init({
     },
     de: {
       translation: {
-        'Dark Theme': 'Dunkles Thema',
+        'Theme': 'Thema',
         'Languages':'Sprachen',
         'Home Sreen':'Startbildschirm',
         'Login':'Anmeldung',

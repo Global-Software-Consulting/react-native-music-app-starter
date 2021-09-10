@@ -7,6 +7,8 @@ import { useTheme, Text } from 'react-native-paper';
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import useStyles from './styles';
 import Slider from 'react-native-slider';
+import { useDispatch, useSelector } from 'react-redux';
+import TrackPlayer, { Capability, useProgress, State } from "react-native-track-player";
 
 function pad(n: any, width: any, z: any = 0) {
   n = n + '';
@@ -27,14 +29,11 @@ interface MusicProps {
   onSeek?: any,
   onSlidingStart?: any,
   paused?: any,
-  shuffleOn?: any,
-  repeatOn?: any,
+  track?: any,
   onPressPlay?: any,
   onPressPause?: any,
   onBack?: any,
   onForward?: any,
-  onPressShuffle?: any,
-  onPressRepeat?: any,
   forwardDisabled?: any,
 }
 
@@ -42,22 +41,38 @@ const TrackBar: React.FC<MusicProps> = ({
   trackLength,
   currentPosition,
   onSeek,
+  track,
   onSlidingStart,
   paused,
-  shuffleOn,
-  repeatOn,
   onPressPlay,
   onPressPause,
   onBack,
   onForward,
-  onPressShuffle,
-  onPressRepeat,
   forwardDisabled,
 }) => {
+  console.log('[o[p[p[p[p[p[p', currentPosition);
+  console.log('duration', trackLength);
+
   const theme = useTheme();
   const styles = useStyles();
   const elapsed = minutesAndSeconds(currentPosition);
   const remaining = minutesAndSeconds(trackLength - currentPosition);
+
+  useEffect(() => {
+    const addsongs = async () => {
+       TrackPlayer.add(track);
+      console.log('useEffect addsongs');
+      onPressPlay();
+    }
+    addsongs();
+  }, []);
+
+    // if (paused && trackLength == 0) {
+    //   console.log(' if (trackLength == 0) ')
+    //   onPressPlay();
+    // }
+
+   
   return (
     <>
       <View style={styles.Trackcontainer}>
@@ -80,74 +95,55 @@ const TrackBar: React.FC<MusicProps> = ({
           maximumTrackTintColor={theme.colors.background}
           thumbStyle={styles.thumb}
           trackStyle={styles.track} />
-            <View style={styles.Controlcontainer}>
-        <TouchableOpacity activeOpacity={0.0} onPress={onPressShuffle}>
-          <Ionicons
-            name="shuffle"
-            style={[styles.secondaryControl, shuffleOn ? [] : styles.off]}
-            size={30}
-            color={theme.colors.primary}
-            onPress={onPressShuffle}
-          />
-        </TouchableOpacity>
-        <View style={{ width: 30 }} />
-        <TouchableOpacity onPress={onBack}>
-          <Ionicons
-            name="play-skip-back-outline"
-            size={30}
-            color={theme.colors.primary}
-            onPress={onBack}
-          />
-        </TouchableOpacity>
-        <View style={{ width: 20 }} />
-        {!paused ?
-          <TouchableOpacity onPress={onPressPause}>
-            <View style={styles.playButton}>
-              <Ionicons
-                name="pause"
-                size={35}
-                color={theme.colors.primary}
-                onPress={onPressPause}
-              />
-            </View>
-          </TouchableOpacity> :
-          <TouchableOpacity onPress={onPressPlay}>
-            <View style={styles.playButton}>
-              <Ionicons
-                name="play"
-                size={35}
-                color={theme.colors.primary}
-                onPress={onPressPlay}
-              />
-            </View>
+        <View style={styles.Controlcontainer}>
+
+          <View style={{ width: 30 }} />
+          <TouchableOpacity onPress={() => onBack()}>
+            <Ionicons
+              name="play-skip-back-outline"
+              size={30}
+              color={theme.colors.primary}
+              onPress={() => onBack()}
+            />
           </TouchableOpacity>
-        }
-        <View style={{ width: 20 }} />
-        <TouchableOpacity onPress={onForward}
-          disabled={forwardDisabled}>
-          <Ionicons
-            name="play-skip-forward-outline"
-            size={30}
-            style={[forwardDisabled && { opacity: 0.3 }]}
-            color={theme.colors.primary}
-            onPress={onForward}
-          />
+          <View style={{ width: 20 }} />
+          {paused ?
+            <TouchableOpacity onPress={() => onPressPause()}>
+              <View style={styles.playButton}>
+                <Ionicons
+                  name="pause"
+                  size={35}
+                  color={theme.colors.primary}
+                />
+              </View>
+            </TouchableOpacity> :
+            <TouchableOpacity onPress={() => onPressPlay()}>
+              <View style={styles.playButton}>
+                <Ionicons
+                  name="play"
+                  size={35}
+                  color={theme.colors.primary}
+                />
+              </View>
+            </TouchableOpacity>
+          }
+          <View style={{ width: 20 }} />
+          <TouchableOpacity onPress={() => onForward()}
+            disabled={forwardDisabled}>
+            <Ionicons
+              name="play-skip-forward-outline"
+              size={30}
+              style={[forwardDisabled && { opacity: 0.3 }]}
+              color={theme.colors.primary}
+              onPress={() => onForward()}
+            />
 
-        </TouchableOpacity>
-        <View style={{ width: 30 }} />
-        <TouchableOpacity activeOpacity={0.0} onPress={onPressRepeat}>
-          <Ionicons
-            name="repeat"
-            size={30}
-            style={[styles.secondaryControl, repeatOn ? [] : styles.off]}
-            color={theme.colors.primary}
-            onPress={onPressRepeat}
-          />
+          </TouchableOpacity>
+        
 
-        </TouchableOpacity>
+        </View>
       </View>
-      </View>
-    
+
     </>
   );
 };

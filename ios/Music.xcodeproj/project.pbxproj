@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* MusicTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* MusicTests.m */; };
 		1ED4E960F4736EFBF8ED5919 /* libPods-Music.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 066F65B7EB2832CD9B62D9EE /* libPods-Music.a */; };
+		7DCDC7B226EA32CC0007C4C6 /* dummy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DCDC7B126EA32CC0007C4C6 /* dummy.swift */; };
 		8590779F26D3724D005673F3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8590779A26D3724D005673F3 /* LaunchScreen.storyboard */; };
 		859077A126D3724D005673F3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8590779C26D3724D005673F3 /* Images.xcassets */; };
 		859077D326D3748B005673F3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8590779D26D3724D005673F3 /* main.m */; };
@@ -34,6 +35,8 @@
 		0FC7B741142623D70607EFFE /* Pods-Music.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Music.debug.xcconfig"; path = "Target Support Files/Pods-Music/Pods-Music.debug.xcconfig"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* Music.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Music.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		675BC40D1E0DC5DE54CF6827 /* Pods-Music-MusicTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Music-MusicTests.debug.xcconfig"; path = "Target Support Files/Pods-Music-MusicTests/Pods-Music-MusicTests.debug.xcconfig"; sourceTree = "<group>"; };
+		7DCDC7AC26EA08B20007C4C6 /* Music-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Music-Bridging-Header.h"; sourceTree = "<group>"; };
+		7DCDC7B126EA32CC0007C4C6 /* dummy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dummy.swift; sourceTree = "<group>"; };
 		8590779826D3724D005673F3 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Music/AppDelegate.h; sourceTree = "<group>"; };
 		8590779926D3724D005673F3 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Music/Info.plist; sourceTree = "<group>"; };
 		8590779A26D3724D005673F3 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Music/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -92,6 +95,8 @@
 				8590779926D3724D005673F3 /* Info.plist */,
 				8590779A26D3724D005673F3 /* LaunchScreen.storyboard */,
 				8590779D26D3724D005673F3 /* main.m */,
+				7DCDC7AC26EA08B20007C4C6 /* Music-Bridging-Header.h */,
+				7DCDC7B126EA32CC0007C4C6 /* dummy.swift */,
 			);
 			name = Music;
 			sourceTree = "<group>";
@@ -205,7 +210,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						LastSwiftMigration = 1120;
+						LastSwiftMigration = 1250;
 					};
 				};
 			};
@@ -375,6 +380,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				859077D626D3749C005673F3 /* AppDelegate.m in Sources */,
+				7DCDC7B226EA32CC0007C4C6 /* dummy.swift in Sources */,
 				859077D326D3748B005673F3 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -394,6 +400,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 675BC40D1E0DC5DE54CF6827 /* Pods-Music-MusicTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -421,6 +428,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F24C1E256A957F79ED2B5D42 /* Pods-Music-MusicTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = MusicTests/Info.plist;
@@ -461,6 +469,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Music;
+				SWIFT_OBJC_BRIDGING_HEADER = "Music-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -486,6 +495,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Music;
+				SWIFT_OBJC_BRIDGING_HEADER = "Music-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};

@@ -13,7 +13,8 @@ import {
   Text,
   List,
   RadioButton,
-  Checkbox
+  Checkbox,
+  useTheme
 } from 'react-native-paper';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import LeftArrowIcon from 'react-native-vector-icons/Entypo';
@@ -31,6 +32,7 @@ interface IProps {
   props: IProps;
 }
 const Drawer: React.FC = (props) => {
+  const theme= useTheme();
   const [checked, setChecked] = React.useState('first');
   const navigation = useNavigation();
   const {t, i18n} = useTranslation();
@@ -112,13 +114,19 @@ const Drawer: React.FC = (props) => {
 
           <View style={styles.preference}>
             
-            <Text style={styles.text}>{t('Dark Theme')} </Text>
+            <Text style={styles.text}>{t('Theme')} </Text>
             <ThemeController />
             
           </View>
 
               <List.Accordion
         title= {<Text style={styles.text}>{t('Languages')} </Text>}
+        theme={{
+          colors: {
+            // text: theme.colors.background,
+            background:theme.colors.accent,
+          }
+        }}
         >
          
            <TouchableOpacity

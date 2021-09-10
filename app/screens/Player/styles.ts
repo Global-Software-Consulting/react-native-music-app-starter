@@ -30,7 +30,14 @@ export const useStyles = () => {
       alignItems: 'center',
       color:theme.colors.primary
     },
-
+    // container: {
+    //   flex: 1,
+    //   backgroundColor: 'rgb(4,4,4)',
+    // },
+    audioElement: {
+      height: 0,
+      width: 0,
+    }
   });
   return styles;
 }

@@ -21,7 +21,7 @@ const ThemeController: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      <Switch value={isDark} onValueChange={onToggleTheme} />
+      <Switch value={isDark} onValueChange={onToggleTheme} color={'gray'}/>
       <Icon name={iconName} size={20} style={styles.icon} color={iconColor} />
     </View>
   );
