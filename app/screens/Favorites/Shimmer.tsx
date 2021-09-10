@@ -25,6 +25,15 @@ const FavoriteShimmer: React.FC<any> = (props,navigation) => {
     setRefreshing(true);
     wait(2000).then(() => setRefreshing(false));
   }, []);
+  const shimmerRenderItem = ({ item }: any) => (
+    <View style={styles.Musiccontainer}>
+              <MusicCardShimmer
+                name={item.title}
+                model={item.album}
+                img={item.artwork}
+              />
+            </View>
+  );
   return (
     <>
       <View style={styles.container}>
@@ -43,15 +52,7 @@ const FavoriteShimmer: React.FC<any> = (props,navigation) => {
           numColumns={2}
           data={Track}
           keyExtractor={(item) => item.id}
-          renderItem={({ item }) => (
-            <View style={styles.Musiccontainer}>
-              <MusicCardShimmer
-                name={item.title}
-                model={item.album}
-                img={item.artwork}
-              />
-            </View>
-          )}
+          renderItem={ shimmerRenderItem }
         />
 
 </ScrollView>
