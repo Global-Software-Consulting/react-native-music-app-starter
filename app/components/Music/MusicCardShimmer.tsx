@@ -31,7 +31,7 @@ const MusicCardShimmer: React.FC<MusicProps> = ({
       </TouchableOpacity>
       <View style={styles.ShimmernameContainer}>
         <View style={styles.ShimmertextWrapper}>
-        <Text style={styles.ShimmerlabelStyle}></Text>
+        <Text style={styles.Shimmerlabel}></Text>
         <Text style={styles.Shimmermodel}></Text>
         </View>
       </View>

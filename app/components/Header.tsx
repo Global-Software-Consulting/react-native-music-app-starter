@@ -16,7 +16,7 @@ const Header : React.FC<TitleProps> = (props) : JSX.Element => {
   return (
     <View style={styles.container}>
       <View style={{flexDirection: 'row'}}>
-        <Text style={styles.labelStyle}>{props.title}</Text>
+        <Text style={styles.label}>{props.title}</Text>
       </View>
 
     </View>
@@ -33,7 +33,7 @@ export const useStyles = () => {
             alignItems: 'center',
           backgroundColor:theme.colors.accent
         },
-        labelStyle: {
+        label: {
             fontSize: hp('3%'),
             fontWeight:'bold',
             // color: theme.colors.accent,

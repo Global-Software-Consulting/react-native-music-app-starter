@@ -16,12 +16,12 @@ export const useStyles = () => {
     
     },
   
-    labelStyle: {
+    label: {
       marginBottom: 12,
       fontSize: hp('2.5%'),
       fontWeight: 'bold'
     },
-    ShimmerlabelStyle: {
+    Shimmerlabel: {
       height: hp('1%'), // 70% of height device screen
       width: wp('30%'),
       marginBottom: 12,

@@ -20,7 +20,7 @@ const AppHeader: React.FC<AppHeaderProps> = ({ renderLeft, title }) => {
         {renderLeft && renderLeft}
         <View style={styles.labelWrap}>
           <View style={{ flexDirection: 'row', justifyContent: "center", marginRight: 5 }}>
-            <Text style={styles.labelStyle}>{title}</Text>
+            <Text style={styles.label}>{title}</Text>
           </View>
 
         </View>
@@ -50,7 +50,7 @@ export const useStyles = () => {
 
       elevation: 5,
     },
-    labelStyle: {
+    label: {
       fontSize: hp('3%'),
       fontWeight: 'bold',
       // color: theme.colors.accent,
