@@ -8,8 +8,8 @@ import useStyles from './styles';
 import { useTranslation } from 'react-i18next';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { DrawerParamList } from '../../navigation/DrawerNavigator';
-import FavoriteShimmer from './component/FavoriteShimmer';
-import Favorite from './component/Favorite';
+import FavoriteShimmer from './Shimmer';
+import Favorite from './Conatiner';
 
 const Favorites: React.FC = () => {
   const dispatch = useDispatch();

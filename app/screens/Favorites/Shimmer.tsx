@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { View, FlatList, RefreshControl,ScrollView,StatusBar ,Text} from 'react-native';
-import { tracks } from '../../../data/tracks';
-import useStyles from '../styles';
-import MusicCardShimmer from '../../../components/Music/MusicCardShimmer';
-import Header from '../../../components/Header';
+import { tracks } from '../../data/tracks';
+import useStyles from './styles';
+import MusicCardShimmer from '../../components/Music/MusicCardShimmer';
+import Header from '../../components/Header';
 interface Itrack {
 
   id: string

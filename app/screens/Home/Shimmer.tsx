@@ -1,12 +1,11 @@
 import React,{useState} from 'react';
 import { View, ScrollView, FlatList, RefreshControl,ToastAndroid } from 'react-native';
-import { Text } from 'react-native-paper';
-import useStyles from '../styles';
+import useStyles from './styles';
 import { useTranslation } from 'react-i18next';
-import Header from '../../../components/Header';
-import i18n from "../../../utils/Languages/i18n";
-import { tracks } from '../../../data/tracks';
-import MusicCardShimmer from '../../../components/Music/MusicCardShimmer';
+import Header from '../../components/Header';
+import i18n from "../../config/Languages/i18n";
+import { tracks } from '../../data/tracks';
+import MusicCardShimmer from '../../components/Music/MusicCardShimmer';
 const initI18n = i18n;
 interface Itrack {
 

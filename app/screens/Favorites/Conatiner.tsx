@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { View, FlatList, TouchableHighlight } from 'react-native';
 import { Text } from 'react-native-paper';
 import { useDispatch, useSelector } from 'react-redux';
-import useStyles from '../styles';
-import MusicCard from '../../../components/Music/MusicCard';
-import Header from '../../../components/Header';
+import useStyles from './styles';
+import MusicCard from '../../components/Music/MusicCard';
+import Header from '../../components/Header';
 import { useNavigation } from '@react-navigation/native';
-import { favoriteListRequest } from '../../../store/actions/appActions';
+import { favoriteListRequest } from '../../store/actions/appActions';
 
 interface Itrack {
 
@@ -27,6 +27,8 @@ const Favorite: React.FC<any> = (props): JSX.Element => {
     let data = favoriteList?.filter((element: any) => element.id != id)
     dispatch(favoriteListRequest(data));
   }
+  console.log("favlisttt:", favoriteList);
+  
   return (
 
     <View style={styles.container}>
@@ -50,7 +52,7 @@ const Favorite: React.FC<any> = (props): JSX.Element => {
               <View style={styles.Musiccontainer}>
                 <MusicCard
                   name={item.title}
-                  model={item.album}
+                  model={item.artist}
                   img={item.artwork}
                 />
 

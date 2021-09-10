@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Drawer from '../screens/Drawer';
+import Drawer from './Drawer';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { useTheme } from 'react-native-paper';
 import Home from '../screens/Home';

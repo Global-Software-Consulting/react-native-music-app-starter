@@ -7,17 +7,15 @@ import {
 
 } from 'react-native';
 import { Text } from 'react-native-paper';
-import useStyles from '../styles';
+import useStyles from './styles';
 import { useTranslation } from 'react-i18next';
-import Header from '../../../components/Header';
-import i18n from '../../../utils/Languages/i18n';
-import MusicCard from '../../../components/Music/MusicCard';
+import Header from '../../components/Header';
+import i18n from '../../config/Languages/i18n';
+import MusicCard from '../../components/Music/MusicCard';
 import { useDispatch, useSelector } from 'react-redux';
-import { favoriteListRequest } from '../../../store/actions/appActions';
+import { favoriteListRequest } from '../../store/actions/appActions';
 import {useNavigation} from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { RootStackParamList } from '../../../navigation/AppNavigation';
-import {IAppState} from '../../../models/reducers/app';
+import {IAppState} from '../../models/reducers/app';
 const initI18n = i18n;
 
 interface IState {
