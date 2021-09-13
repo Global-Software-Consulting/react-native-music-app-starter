@@ -7,17 +7,15 @@ import {
 
 } from 'react-native';
 import { Text } from 'react-native-paper';
-import useStyles from '../styles';
+import useStyles from './styles';
 import { useTranslation } from 'react-i18next';
-import Header from '../../../components/Header';
-import i18n from '../../../utils/Languages/i18n';
-import MusicCard from '../../../components/Music/MusicCard';
+import Header from '../../components/Header';
+import i18n from '../../config/Languages/i18n';
+import MusicCard from '../../components/Music/MusicCard';
 import { useDispatch, useSelector } from 'react-redux';
-import { favoriteListRequest } from '../../../store/actions/appActions';
-import {useNavigation} from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { RootStackParamList } from '../../../navigation/AppNavigation';
-import {IAppState} from '../../../models/reducers/app';
+import { favoriteListRequest } from '../../store/actions/appActions';
+import { useNavigation } from '@react-navigation/native';
+import { IAppState } from '../../models/reducers/app';
 const initI18n = i18n;
 
 interface IState {
@@ -31,7 +29,7 @@ interface Itrack {
   artwork: string,
   artist: string,
   duration: number,
-  
+
 }
 const HomeComponent: React.FC<any> = (props): JSX.Element => {
   const musicList = useSelector((state: IState) => state.appReducer.musicList);
@@ -50,7 +48,45 @@ const HomeComponent: React.FC<any> = (props): JSX.Element => {
       dispatch(favoriteListRequest(data));
     }
 
-  }
+  };
+  const RecommendedRenderItem = ({ item }: any) => (
+    <TouchableOpacity
+      key={item}
+      onPress={() => {
+        addToFavorites(item)
+      }}
+    >
+      <MusicCard
+        name={item.title}
+        model={item.artist}
+        img={item.artwork}
+        onPress={() =>
+          navigation.navigate('Player', {
+            item: item,
+          })
+        }
+      />
+    </TouchableOpacity>
+  );
+  const PlayListRenderItem = ({ item }:any) => (
+
+    <TouchableOpacity
+      key={item}
+      onPress={() => { addToFavorites(item) }}
+    >
+      <MusicCard
+        name={item.title}
+        model={item.artist}
+        img={item.artwork}
+        onPress={() =>
+          navigation.navigate('Player', {
+            item: item,
+          })
+        }
+      />
+    </TouchableOpacity>
+  );
+
   return (
     <>
       <View style={styles.container}>
@@ -65,26 +101,7 @@ const HomeComponent: React.FC<any> = (props): JSX.Element => {
             data={props.musicList}
             scrollEventThrottle={2}
             keyExtractor={item => item.id}
-            renderItem={({ item }) => (
-
-              <TouchableOpacity
-                key={item}
-                onPress={() => {
-                  addToFavorites(item)
-                }}
-              >
-                <MusicCard
-                  name={item.title}
-                  model={item.artist}
-                  img={item.artwork}
-                  onPress={() =>
-                    navigation.navigate('Player', {
-                      item: item,
-                    })
-                  }
-                />
-              </TouchableOpacity>
-            )}
+            renderItem={RecommendedRenderItem}
           />
         ) : (
           <View style={styles.container}>
@@ -102,23 +119,7 @@ const HomeComponent: React.FC<any> = (props): JSX.Element => {
             showsHorizontalScrollIndicator={false}
             data={props.musicList}
             keyExtractor={item => item.id}
-            renderItem={({ item }) => (
-              <TouchableOpacity
-                key={item}
-                onPress={() => { addToFavorites(item) }}
-              >
-                <MusicCard
-                  name={item.title}
-                  model={item.artist}
-                  img={item.artwork}
-                  onPress={() =>
-                    navigation.navigate('Player', {
-                      item: item,
-                    })
-                  }
-                />
-              </TouchableOpacity>
-            )}
+            renderItem={PlayListRenderItem}
           />
         ) : (
           <View style={styles.container}>

@@ -7,13 +7,11 @@ import {
 import {
   Avatar,
   Title,
-  Button,
   Caption,
   Paragraph,
   Text,
   List,
   RadioButton,
-  Checkbox,
   useTheme
 } from 'react-native-paper';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -25,8 +23,8 @@ import * as loginActions from 'store/actions/loginActions';
 import styles from './styles';
 import {useNavigation} from '@react-navigation/native';
 import {useTranslation} from 'react-i18next';
-import NavigationService from '../../navigation/NavigationService';
-import i18n from "../../utils/Languages/i18n";
+import NavigationService from '../NavigationService';
+import i18n from "../../config/Languages/i18n";
 const initI18n = i18n;
 interface IProps {
   props: IProps;

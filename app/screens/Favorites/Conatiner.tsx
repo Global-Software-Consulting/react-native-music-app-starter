@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { View, FlatList, TouchableHighlight } from 'react-native';
 import { Text } from 'react-native-paper';
 import { useDispatch, useSelector } from 'react-redux';
-import useStyles from '../styles';
-import MusicCard from '../../../components/Music/MusicCard';
-import Header from '../../../components/Header';
+import useStyles from './styles';
+import MusicCard from '../../components/Music/MusicCard';
+import Header from '../../components/Header';
 import { useNavigation } from '@react-navigation/native';
-import { favoriteListRequest } from '../../../store/actions/appActions';
+import { favoriteListRequest } from '../../store/actions/appActions';
 
 interface Itrack {
 
@@ -26,7 +26,25 @@ const Favorite: React.FC<any> = (props): JSX.Element => {
   const removeFavorites = (id: any) => {
     let data = favoriteList?.filter((element: any) => element.id != id)
     dispatch(favoriteListRequest(data));
-  }
+  };
+  const favoriteRenderItem = ({ item }: any) => (
+    <TouchableHighlight
+      key={item}
+      underlayColor='gray'
+      onPress={() => { removeFavorites(item.id) }}
+    >
+      <View style={styles.Musiccontainer}>
+        <MusicCard
+          name={item.title}
+          model={item.artist}
+          img={item.artwork}
+        />
+
+      </View>
+    </TouchableHighlight>
+  );
+  console.log("favlisttt:", favoriteList);
+
   return (
 
     <View style={styles.container}>
@@ -41,22 +59,8 @@ const Favorite: React.FC<any> = (props): JSX.Element => {
           numColumns={2}
           data={favoriteList}
           keyExtractor={(item) => item.id}
-          renderItem={({ item }) => (
-            <TouchableHighlight
-              key={item}
-              underlayColor='gray'
-              onPress={() => { removeFavorites(item.id) }}
-            >
-              <View style={styles.Musiccontainer}>
-                <MusicCard
-                  name={item.title}
-                  model={item.album}
-                  img={item.artwork}
-                />
+          renderItem={favoriteRenderItem}
 
-              </View>
-            </TouchableHighlight>
-          )}
         />
       ) : (
         <View style={styles.container}>

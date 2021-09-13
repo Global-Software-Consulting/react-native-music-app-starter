@@ -52,16 +52,12 @@ const Player: React.FC<any> = (props): JSX.Element => {
 
   const route: any = useRoute();
   const item: any = route.params.item;
-  // const progress = useProgress();
   const [paused, setPaused] = useState<boolean>(false);
 
   const navigation = useNavigation();
   const styles = useStyles();
   const [sliderValue, setSliderValue] = useState(0);
-
   const [isSeeking, setIsSeeking] = useState(false);
-
-
   const { position } = useProgress();
 
 

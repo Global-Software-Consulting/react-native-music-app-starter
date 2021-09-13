@@ -33,7 +33,7 @@ const MusicCard: React.FC<MusicProps> = ({
       </TouchableOpacity>
       <View style={styles.nameContainer}>
         <View style={styles.textWrapper}>
-        <Text style={styles.labelStyle}>{name}</Text>
+        <Text style={styles.label}>{name}</Text>
         <Text style={styles.model}>{model}</Text>
         </View>
       </View>

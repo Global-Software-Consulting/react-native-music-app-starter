@@ -37,7 +37,7 @@ export const useStyles = () => {
 
     },
 
-    labelStyle: {
+    label: {
       marginBottom: 12,
       fontSize: hp('2.5%'),
       fontWeight: 'bold'

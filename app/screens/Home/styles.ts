@@ -11,7 +11,7 @@ export const useStyles = () => {
      flex:1,
       backgroundColor: theme.colors.accent,
     },
-    labelStyle: {
+    label: {
       marginBottom: 12,
       fontSize: hp('2.5%'),
       fontWeight: 'bold'

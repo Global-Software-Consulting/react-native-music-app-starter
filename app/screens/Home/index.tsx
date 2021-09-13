@@ -6,9 +6,9 @@ import {
 } from 'react-native';
 import useStyles from './styles';
 import {useTranslation} from 'react-i18next';
-import i18n from '../../utils/Languages/i18n';
-import HomeShimmer from './component/HomeShimmer';
-import HomeComponent from './component/HomeComponent';
+import i18n from '../../config/Languages/i18n';
+import HomeShimmer from './Shimmer';
+import HomeComponent from './Container';
 import musicList from '../../services/musicList';
 import {useDispatch, useSelector} from 'react-redux';
 import {musicListRequest} from '../../store/actions/appActions';

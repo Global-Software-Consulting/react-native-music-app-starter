@@ -1,12 +1,11 @@
-import React,{useState} from 'react';
-import { View, ScrollView, FlatList, RefreshControl,ToastAndroid } from 'react-native';
-import { Text } from 'react-native-paper';
-import useStyles from '../styles';
+import React, { useState } from 'react';
+import { View, ScrollView, FlatList, RefreshControl, ToastAndroid } from 'react-native';
+import useStyles from './styles';
 import { useTranslation } from 'react-i18next';
-import Header from '../../../components/Header';
-import i18n from "../../../utils/Languages/i18n";
-import { tracks } from '../../../data/tracks';
-import MusicCardShimmer from '../../../components/Music/MusicCardShimmer';
+import Header from '../../components/Header';
+import i18n from "../../config/Languages/i18n";
+import { tracks } from '../../data/tracks';
+import MusicCardShimmer from '../../components/Music/MusicCardShimmer';
 const initI18n = i18n;
 interface Itrack {
 
@@ -25,20 +24,42 @@ const Home: React.FC<any> = (props): JSX.Element => {
   const { t, i18n } = useTranslation();
   const Track: Itrack[] = tracks;
   const styles = useStyles();
-  const wait = (timeout:number) => {
+  const wait = (timeout: number) => {
     return new Promise(resolve => setTimeout(resolve, timeout));
   }
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
     wait(2000).then(() => setRefreshing(false));
   }, []);
+
+  const PlayListRenderItem = ({ item }: any) => (
+
+    <MusicCardShimmer
+      name={item.title}
+      model={item.album}
+      img={item.artwork}
+    />
+
+
+  );
+  const RecommendedRenderItem = ({ item }: any) => (
+
+    <MusicCardShimmer
+      name={item.title}
+      model={item.album}
+      img={item.artwork}
+    />
+
+
+  );
+
   return (
     <>
       <View style={styles.container}>
         <ScrollView
-         refreshControl={<RefreshControl
-          refreshing={refreshing}
-          onRefresh={onRefresh}
+          refreshControl={<RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
           />}
         >
           <Header title="Recommended for you" />
@@ -50,16 +71,7 @@ const Home: React.FC<any> = (props): JSX.Element => {
             data={Track}
             scrollEventThrottle={2}
             keyExtractor={(item) => item.id}
-            renderItem={({ item }) => (
-
-              <MusicCardShimmer
-                name={item.title}
-                model={item.album}
-                img={item.artwork}
-              />
-
-
-            )}
+            renderItem={RecommendedRenderItem}
 
 
           />
@@ -73,16 +85,7 @@ const Home: React.FC<any> = (props): JSX.Element => {
             data={Track}
             keyExtractor={(item) => item.id}
             // renderItem={renderItemsss}
-            renderItem={({ item }) => (
-
-              <MusicCardShimmer
-                name={item.title}
-                model={item.album}
-                img={item.artwork}
-              />
-
-
-            )}
+            renderItem={PlayListRenderItem}
 
 
           />
