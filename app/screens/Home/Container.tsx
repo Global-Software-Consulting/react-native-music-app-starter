@@ -51,22 +51,7 @@ const HomeComponent: React.FC<any> = (props): JSX.Element => {
   const wait = (timeout: number) => {
     return new Promise(resolve => setTimeout(resolve, timeout));
   };
-  useEffect(() => {
-    onRefresh();
-  }, []);
-
-  const getMusicList = async () => {
-    dispatch(musicListRequest());
-  };
-  const onRefresh = () => {
-  
-    // getMusicList();
-    if (!isLoader) {
-      <HomeShimmer />;
-    } else {
-     
-    }
-  };
+ 
 
   const addToFavorites = (item: any) => {
     let data = favoriteList
