@@ -13,13 +13,17 @@ import musicList from '../../services/musicList';
 import {useDispatch, useSelector} from 'react-redux';
 import {musicListRequest} from '../../store/actions/appActions';
 import {IAppState} from '../../models/reducers/app';
+import {ILoading} from '../../models/reducers/loading';
 const initI18n = i18n;
 
 interface IState {
   appReducer: IAppState;
+  loadingReducer: ILoading;
 }
+
 const Home: React.FC<any> = (props): JSX.Element => {
   const musicList = useSelector((state: IState) => state.appReducer.musicList);
+  const isLoader = useSelector((state: IState) => state.loadingReducer.isLoginLoading);
 
   const dispatch = useDispatch();
   const [refreshing, setRefreshing] = useState<boolean>(false);
@@ -28,29 +32,14 @@ const Home: React.FC<any> = (props): JSX.Element => {
   const wait = (timeout: number) => {
     return new Promise(resolve => setTimeout(resolve, timeout));
   };
-  useEffect(() => {
-    onRefresh();
-  }, []);
-
-  const getMusicList = async () => {
-    dispatch(musicListRequest());
-  };
-  const onRefresh = () => {
-    getMusicList();
-    if (refreshing) {
-      <HomeShimmer />;
-    } else {
-      setRefreshing(true);
-      wait(2000).then(() =>{ setRefreshing(false)});
-    }
-  };
+console.log("loaderrrrr:",isLoader);
 
   return (
     <>
     
       <View style={styles.container}>
  
-          {refreshing ? (
+          {isLoader ? (
             <HomeShimmer />
           ) : (
             <HomeComponent musicList={musicList} />

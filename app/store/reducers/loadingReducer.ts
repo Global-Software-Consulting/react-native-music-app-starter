@@ -11,10 +11,10 @@ const initialState: ILoading = {
 };
 
 export const loadingReducer = createReducer(initialState, {
-  [types.LOGIN_ENABLE_LOADER](state: ILoading) {
+  [types.MUSIC_ENABLE_LOADER](state: ILoading) {
     return { ...state, isLoginLoading: true };
   },
-  [types.LOGIN_DISABLE_LOADER](state: ILoading) {
+  [types.MUSIC_DISABLE_LOADER](state: ILoading) {
     return { ...state, isLoginLoading: false };
   },
 });

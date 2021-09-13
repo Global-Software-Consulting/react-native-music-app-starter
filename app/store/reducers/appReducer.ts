@@ -10,6 +10,7 @@ import {
   ILoginResponseState,
 } from 'models/actions/login';
 const initialState: IAppState = {
+  isLoading:true,
   musicList:[],
   favoriteList:[],
 };
@@ -34,6 +35,7 @@ export const appReducer = createReducer(initialState, {
       
     };
   },
+
 
  
 });

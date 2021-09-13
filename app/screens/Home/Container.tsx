@@ -18,11 +18,14 @@ import { useNavigation } from '@react-navigation/native';
 import { IAppState } from '../../models/reducers/app';
 import HomeShimmer from './Shimmer';
 import { musicListRequest } from '../../store/actions/appActions';
+import {ILoading} from '../../models/reducers/loading';
+
 import Footer from '../../components/Footer';
 const initI18n = i18n;
 
 interface IState {
   appReducer: IAppState;
+  loadingReducer: ILoading;
 }
 interface Itrack {
 
@@ -37,6 +40,8 @@ interface Itrack {
 const HomeComponent: React.FC<any> = (props): JSX.Element => {
   const musicList = useSelector((state: IState) => state.appReducer.musicList);
   const favoriteList = useSelector((state: IState) => state.appReducer.favoriteList);
+  const isLoader = useSelector((state: IState) => state.loadingReducer.isLoginLoading);
+
   // type homeScreenProp = StackNavigationProp<RootStackParamList, 'Player'>;
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -54,12 +59,12 @@ const HomeComponent: React.FC<any> = (props): JSX.Element => {
     dispatch(musicListRequest());
   };
   const onRefresh = () => {
-    getMusicList();
-    if (refreshing) {
+  
+    // getMusicList();
+    if (!isLoader) {
       <HomeShimmer />;
     } else {
-      setRefreshing(true);
-      wait(2000).then(() => { setRefreshing(false) });
+     
     }
   };
 

@@ -4,6 +4,7 @@ import * as appActions from './appActions';
 import * as playerActions from './playerActions';
 import * as navigationActions from './navigationActions';
 import * as themeActions from './themeActions';
+import * as loadingActions from './loadingActions';
 
 export const ActionCreators = Object.assign(
   {},
@@ -11,5 +12,6 @@ export const ActionCreators = Object.assign(
   loginActions,
   navigationActions,
   themeActions,
-  appActions
+  appActions,
+  loadingActions
 );
