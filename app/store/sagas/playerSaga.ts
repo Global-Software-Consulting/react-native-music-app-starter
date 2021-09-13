@@ -1,11 +1,11 @@
 import { put, call } from "redux-saga/effects";
 import musicList from "../../services/musicList";
-import * as appActions from "../actions/appActions";
+import * as playerActions from "../actions/playerActions";
 
 
 
 // Our worker Saga that logins the user
-export default function* musicListAsync() {
+export default function* playerSagaAsync() {
   //start loading
   // yield put(appActions.IFetchBooksLoading());
   //calling api

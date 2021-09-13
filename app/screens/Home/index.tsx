@@ -49,16 +49,12 @@ const Home: React.FC<any> = (props): JSX.Element => {
     <>
     
       <View style={styles.container}>
-        <ScrollView
-          refreshControl={
-            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-          }>
+ 
           {refreshing ? (
             <HomeShimmer />
           ) : (
             <HomeComponent musicList={musicList} />
           )}
-        </ScrollView>
       </View>
     </>
   );

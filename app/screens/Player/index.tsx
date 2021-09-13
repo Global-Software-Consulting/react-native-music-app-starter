@@ -129,10 +129,10 @@ const Player: React.FC<any> = (props): JSX.Element => {
     // TrackPlayer.skipToPrevious();
   };
   const onSkipToNext = () => {
-    playNextPrev('next')
+    playNextPrev('next');
   };
   const onSkipToPrevious = () => {
-    playNextPrev('prev')
+    playNextPrev('prev');
   };
 
 

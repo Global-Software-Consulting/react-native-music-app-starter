@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   FlatList,
   TouchableOpacity,
-
+  ScrollView,
 
 } from 'react-native';
 import { Text } from 'react-native-paper';
@@ -16,6 +16,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { favoriteListRequest } from '../../store/actions/appActions';
 import { useNavigation } from '@react-navigation/native';
 import { IAppState } from '../../models/reducers/app';
+import HomeShimmer from './Shimmer';
+import { musicListRequest } from '../../store/actions/appActions';
+import Footer from '../../components/Footer';
 const initI18n = i18n;
 
 interface IState {
@@ -35,10 +38,30 @@ const HomeComponent: React.FC<any> = (props): JSX.Element => {
   const musicList = useSelector((state: IState) => state.appReducer.musicList);
   const favoriteList = useSelector((state: IState) => state.appReducer.favoriteList);
   // type homeScreenProp = StackNavigationProp<RootStackParamList, 'Player'>;
-  const navigation = useNavigation<homeScreenProp>();
-  const { t, i18n } = useTranslation();
+  const navigation = useNavigation();
   const dispatch = useDispatch();
+  const [refreshing, setRefreshing] = useState<boolean>(false);
+  const { t, i18n } = useTranslation();
   const styles = useStyles();
+  const wait = (timeout: number) => {
+    return new Promise(resolve => setTimeout(resolve, timeout));
+  };
+  useEffect(() => {
+    onRefresh();
+  }, []);
+
+  const getMusicList = async () => {
+    dispatch(musicListRequest());
+  };
+  const onRefresh = () => {
+    getMusicList();
+    if (refreshing) {
+      <HomeShimmer />;
+    } else {
+      setRefreshing(true);
+      wait(2000).then(() => { setRefreshing(false) });
+    }
+  };
 
   const addToFavorites = (item: any) => {
     let data = favoriteList
@@ -68,7 +91,7 @@ const HomeComponent: React.FC<any> = (props): JSX.Element => {
       />
     </TouchableOpacity>
   );
-  const PlayListRenderItem = ({ item }:any) => (
+  const PlayListRenderItem = ({ item }: any) => (
 
     <TouchableOpacity
       key={item}
@@ -90,43 +113,50 @@ const HomeComponent: React.FC<any> = (props): JSX.Element => {
   return (
     <>
       <View style={styles.container}>
+        <ScrollView
+          nestedScrollEnabled={true}>
+          <Header title="Recommended for you" />
+          {props?.musicList?.length > 0 ? (
+            <FlatList
+              contentContainerStyle={{ alignSelf: 'flex-start' }}
+              horizontal={true}
+              showsVerticalScrollIndicator={false}
+              showsHorizontalScrollIndicator={false}
+              data={props.musicList}
+              scrollEventThrottle={2}
+              keyExtractor={item => item.id}
+              renderItem={RecommendedRenderItem}
+            />
+          ) : (
+            <View style={styles.container}>
+              <Text style={styles.model}>No Reommendations Available</Text>
+            </View>
 
-        <Header title="Recommended for you" />
-        {props?.musicList?.length > 0 ? (
-          <FlatList
-            contentContainerStyle={{ alignSelf: 'flex-start' }}
-            horizontal={true}
-            showsVerticalScrollIndicator={false}
-            showsHorizontalScrollIndicator={false}
-            data={props.musicList}
-            scrollEventThrottle={2}
-            keyExtractor={item => item.id}
-            renderItem={RecommendedRenderItem}
-          />
-        ) : (
-          <View style={styles.container}>
-            <Text style={styles.model}>No Reommendations Available</Text>
-          </View>
+          )}
+          <Header title="My Playlist" />
 
-        )}
-        <Header title="My Playlist" />
+          {props?.musicList?.length > 0 ? (
+            <FlatList
+              contentContainerStyle={{ alignSelf: 'flex-start' }}
+              horizontal={true}
+              showsVerticalScrollIndicator={false}
+              showsHorizontalScrollIndicator={false}
+              data={props.musicList}
+              keyExtractor={item => item.id}
+              renderItem={PlayListRenderItem}
+            />
+          ) : (
+            <View style={styles.container}>
+              <Text style={styles.model}>Playlist Empty</Text>
+            </View>
 
-        {props?.musicList?.length > 0 ? (
-          <FlatList
-            contentContainerStyle={{ alignSelf: 'flex-start' }}
-            horizontal={true}
-            showsVerticalScrollIndicator={false}
-            showsHorizontalScrollIndicator={false}
-            data={props.musicList}
-            keyExtractor={item => item.id}
-            renderItem={PlayListRenderItem}
-          />
-        ) : (
-          <View style={styles.container}>
-            <Text style={styles.model}>Playlist Empty</Text>
-          </View>
+          )}
 
-        )}
+
+        </ScrollView>
+        <Footer title="Footer" 
+        // url="https://www.shutterstock.com/image-illustration/3d-illustration-musical-notes-signs-abstract-761313844"
+        />
 
       </View>
     </>

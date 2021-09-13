@@ -21,7 +21,7 @@ interface MusicProps {
   onFavoritePress?: any,
   onTitlePress?: any,
   onArtistPress?: any,
-  onPressShuffle?:any,
+  onPressShuffle?: any,
   shuffleOn?: any,
   onPressRepeat?: any,
   repeatOn?: any,
@@ -36,78 +36,76 @@ const Album: React.FC<MusicProps> = ({
   onFavoritePress,
   onTitlePress,
   onArtistPress,
-onPressShuffle,
-shuffleOn,
-onPressRepeat,
-repeatOn
+  onPressShuffle,
+  shuffleOn,
+  onPressRepeat,
+  repeatOn
 }) => {
   const styles = useStyles();
   const theme = useTheme();
   return (
     <>
       <View style={styles.container}>
-        <TouchableOpacity onPress={onPress}>
-          <View style={styles.imgcontainer}>
+        <View style={styles.imgcontainer}>
           <Image
             style={styles.image}
             source={{ uri: url }}
           />
-          </View>
-        </TouchableOpacity>
+        </View>
         <View style={styles.TrackDetailcontainer}>
-        <View style={styles.detailsWrapper}>
-          <Text style={styles.title} onPress={onTitlePress}>{title}</Text>
-          <Text style={styles.artist} onPress={onArtistPress}>{artist}</Text>
-        </View>
-        <TouchableOpacity onPress={onFavoritePress}>
-          <View style={styles.favoriteIcon}>
-            <Ionicons
-              name="heart-outline"
-              style={styles.favoriteIcon}
-              size={25}
-              color={theme.colors.primary}
-              onPress={onFavoritePress}
-            />
+          <View style={styles.detailsWrapper}>
+            <Text style={styles.title} onPress={onTitlePress}>{title}</Text>
+            <Text style={styles.artist} onPress={onArtistPress}>{artist}</Text>
           </View>
-        </TouchableOpacity>
-      </View>
-      <View style={styles.VolumeContainer}>
-      <TouchableOpacity activeOpacity={0.0} onPress={onPressShuffle}>
-          <Ionicons
-            name="volume-low-outline"
-            style={[styles.secondaryControl, shuffleOn ? [] : styles.off]}
-            size={30}
-            color={theme.colors.primary}
-            onPress={onPressShuffle}
-          />
-        </TouchableOpacity>
-      <View style={{ width: "70%" }} />
-      <TouchableOpacity activeOpacity={0.0} onPress={onPressRepeat}>
-          <Ionicons
-            name="repeat-sharp"
-            size={30}
-            style={[styles.secondaryControl, repeatOn ? [] : styles.off]}
-            color={theme.colors.primary}
-            onPress={onPressRepeat}
-          />
-
-        </TouchableOpacity>
-      
-      <TouchableOpacity activeOpacity={0.0} onPress={onPressShuffle}>
-          <MaterialCommunityIcons
-            name="shuffle"
-            style={[styles.secondaryControl, shuffleOn ? [] : styles.off]}
-            size={28}
-            color={theme.colors.primary}
-            onPress={onPressShuffle}
-          />
-        </TouchableOpacity>
-     
-        
+          <TouchableOpacity onPress={onFavoritePress}>
+            <View style={styles.favoriteIcon}>
+              <Ionicons
+                name="heart-outline"
+                style={styles.favoriteIcon}
+                size={25}
+                color={theme.colors.primary}
+                onPress={onFavoritePress}
+              />
+            </View>
+          </TouchableOpacity>
         </View>
-        
+        <View style={styles.VolumeContainer}>
+          <TouchableOpacity activeOpacity={0.0} onPress={onPressShuffle}>
+            <Ionicons
+              name="volume-low-outline"
+              style={[styles.secondaryControl, shuffleOn ? [] : styles.off]}
+              size={30}
+              color={theme.colors.primary}
+              onPress={onPressShuffle}
+            />
+          </TouchableOpacity>
+          <View style={{ width: "70%" }} />
+          <TouchableOpacity activeOpacity={0.0} onPress={onPressRepeat}>
+            <Ionicons
+              name="repeat-sharp"
+              size={30}
+              style={[styles.secondaryControl, repeatOn ? [] : styles.off]}
+              color={theme.colors.primary}
+              onPress={onPressRepeat}
+            />
+
+          </TouchableOpacity>
+
+          <TouchableOpacity activeOpacity={0.0} onPress={onPressShuffle}>
+            <MaterialCommunityIcons
+              name="shuffle"
+              style={[styles.secondaryControl, shuffleOn ? [] : styles.off]}
+              size={28}
+              color={theme.colors.primary}
+              onPress={onPressShuffle}
+            />
+          </TouchableOpacity>
+
+
+        </View>
+
       </View>
-      
+
     </>
   );
 };
