@@ -8,7 +8,7 @@ import Album from '../../components/player/Album';
 import TrackBar from '../../components/player/TrackBar';
 import { useRoute } from '@react-navigation/native';
 import TrackPlayer, { Capability, useProgress } from "react-native-track-player";
-import {  useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { IAppState } from '../../models/reducers/app';
 
 
@@ -21,7 +21,7 @@ const Player: React.FC<any> = (props): JSX.Element => {
 
   const trackPlayerInit = async () => {
     TrackPlayer.updateOptions({
-      stopWithApp: false, // false=> music continues in background even when app is closed
+      stopWithApp: true, // false=> music continues in background even when app is closed
       // Media controls capabilities
       capabilities: [
         Capability.Play,
@@ -32,7 +32,9 @@ const Player: React.FC<any> = (props): JSX.Element => {
       ],
 
       // Capabilities that will show up when the notification is in the compact form on Android
-      compactCapabilities: [Capability.Play, Capability.Pause, Capability.SkipToNext,
+      compactCapabilities: [Capability.Play,
+      Capability.Pause,
+      Capability.SkipToNext,
       Capability.SkipToPrevious,
       Capability.Stop,
 
@@ -59,11 +61,10 @@ const Player: React.FC<any> = (props): JSX.Element => {
 
   const [isSeeking, setIsSeeking] = useState(false);
 
-  
+
   const { position } = useProgress();
-  // const durations = Math.floor(duration);
-  // const position = progress.position;
-  
+
+
   useEffect(() => {
     onTrackItemPress(item);
     const startPlayer = async () => {
@@ -88,21 +89,15 @@ const Player: React.FC<any> = (props): JSX.Element => {
 
   // }, [paused]);
 
-console.log('paused',paused);
-
   const onTrackItemPress = async (track: any) => {
     await TrackPlayer.stop();
     await TrackPlayer.reset();
-    console.log('heheheheh', track);
-    
     setSelectedTrack(track);
   };
 
   const playNextPrev = async (prevOrNext: 'prev' | 'next') => {
     // const currentTrackId = await TrackPlayer.getCurrentTrack();
     const currentTrackId = await selectedTrack?.id;
-    console.log('currentTrackId', currentTrackId);
-
     if (!currentTrackId) return;
     const trkIndex = musicList.findIndex((trk: any) => trk.id == currentTrackId);
 
@@ -116,7 +111,6 @@ console.log('paused',paused);
 
 
   const onPressPlay = async () => {
-    console.log('onPressPlay');
     TrackPlayer.play();
     setPaused(true);
 
@@ -152,7 +146,7 @@ console.log('paused',paused);
     setSliderValue(value);
     setIsSeeking(false);
   };
-  
+
   return (
 
     <View style={styles.container}>
@@ -180,6 +174,7 @@ console.log('paused',paused);
         currentPosition={Math.floor(position)}
         onSeek={slidingCompleted}
       />}
+   
     </View>
 
 

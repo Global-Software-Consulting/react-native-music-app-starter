@@ -7,7 +7,6 @@ import { useTheme, Text } from 'react-native-paper';
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import useStyles from './styles';
 import Slider from 'react-native-slider';
-import { useDispatch, useSelector } from 'react-redux';
 import TrackPlayer, { Capability, useProgress, State } from "react-native-track-player";
 
 function pad(n: any, width: any, z: any = 0) {
@@ -50,7 +49,7 @@ const TrackBar: React.FC<MusicProps> = ({
   onForward,
   forwardDisabled,
 }) => {
-  console.log('[o[p[p[p[p[p[p', currentPosition);
+  console.log('currentPosition', currentPosition);
   console.log('duration', trackLength);
 
   const theme = useTheme();
