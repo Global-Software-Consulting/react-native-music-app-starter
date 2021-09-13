@@ -2,31 +2,35 @@
  * Reducer actions related with login
  */
 import * as types from './types';
-import { ILoginResponse } from 'models/api/login';
 
-export function musicListRequest() {
+export function playerListRequest(payload: any) {
+    console.log("reponsereponsereponsereponsereponse:", payload);
+
   return {
-    type: types.MUSIC_LIST_REQUEST,
+    type: types.PLAYER_LIST_REQUEST,
+    payload,
   };
 }
-export function musicListResponse(response:any) {
+export function playerListResponse(response: any) {
   // console.log("reponsereponsereponsereponsereponse:", response.data.data);
-  
+
   return {
-    type: types.MUSIC_LIST_RESPONSE,
+    type: types.PLAYER_LIST_RESPONSE,
     response,
   };
 
 }
-export function favoriteListRequest(data:any) {
+export function playerPause() {
   return {
-    type: types.FAVORITE_LIST_REQUEST,
-data,
+    type: types.MUSIC_PLAYER_PAUSE,
   };
 }
-export function favoriteListResponse(response:any) {
+export function playerPlay() {
+
   return {
-    type: types.FAVORITE_LIST_RESPONSE,
-    response,
+    type: types.MUSIC_PLAYER_PLAY,
+
   };
+
 }
+

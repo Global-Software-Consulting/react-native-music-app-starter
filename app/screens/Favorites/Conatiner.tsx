@@ -7,7 +7,13 @@ import MusicCard from '../../components/Music/MusicCard';
 import Header from '../../components/Header';
 import { useNavigation } from '@react-navigation/native';
 import { favoriteListRequest } from '../../store/actions/appActions';
+import { IAppState } from '../../models/reducers/app';
+import {ILoading} from '../../models/reducers/loading';
 
+interface IState {
+  appReducer: IAppState;
+  loadingReducer: ILoading;
+}
 interface Itrack {
 
   id: string,
@@ -22,7 +28,7 @@ const Favorite: React.FC<any> = (props): JSX.Element => {
   const styles = useStyles();
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  const favoriteList = useSelector(state => state.appReducer.favoriteList);
+  const favoriteList = useSelector((state:IState) => state.appReducer.favoriteList);
   const removeFavorites = (id: any) => {
     let data = favoriteList?.filter((element: any) => element.id != id)
     dispatch(favoriteListRequest(data));

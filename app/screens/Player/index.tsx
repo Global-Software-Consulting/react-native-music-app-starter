@@ -8,17 +8,36 @@ import Album from '../../components/player/Album';
 import TrackBar from '../../components/player/TrackBar';
 import { useRoute } from '@react-navigation/native';
 import TrackPlayer, { Capability, useProgress } from "react-native-track-player";
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { IAppState } from '../../models/reducers/app';
+import { IPlayerState } from '../../models/reducers/player';
+import { musicListRequest } from '../../store/actions/appActions';
+import { playerListRequest } from '../../store/actions/playerActions';
 
 
 interface IState {
   appReducer: IAppState;
+  playerReducer: IPlayerState;
 }
 
 const Player: React.FC<any> = (props): JSX.Element => {
   const musicList = useSelector((state: IState) => state.appReducer.musicList);
+  const playerList = useSelector((state: IState) => state.playerReducer.playerList);
+  const [selectedTrack, setSelectedTrack] = useState<any>(null);
 
+  const [duration, setDuration] = useState(0);
+
+  const route: any = useRoute();
+  const item: any = route.params.item;
+  const [paused, setPaused] = useState<boolean>(false);
+
+  const navigation = useNavigation();
+  const styles = useStyles();
+  const [sliderValue, setSliderValue] = useState(0);
+  const [isSeeking, setIsSeeking] = useState(false);
+  const { position } = useProgress();
+  const dispatch = useDispatch();
+  let list = playerList;
   const trackPlayerInit = async () => {
     TrackPlayer.updateOptions({
       stopWithApp: true, // false=> music continues in background even when app is closed
@@ -45,26 +64,9 @@ const Player: React.FC<any> = (props): JSX.Element => {
     return true;
 
   };
-
-  const [selectedTrack, setSelectedTrack] = useState<any>(null);
-
-  const [duration, setDuration] = useState(0);
-
-  const route: any = useRoute();
-  const item: any = route.params.item;
-  const [paused, setPaused] = useState<boolean>(false);
-
-  const navigation = useNavigation();
-  const styles = useStyles();
-  const [sliderValue, setSliderValue] = useState(0);
-  const [isSeeking, setIsSeeking] = useState(false);
-  const { position } = useProgress();
-
-
   useEffect(() => {
     onTrackItemPress(item);
-    console.log("onTrackItemPress:", item);
-
+    selectedTrackList();
     const startPlayer = async () => {
       await trackPlayerInit();
     }
@@ -86,6 +88,12 @@ const Player: React.FC<any> = (props): JSX.Element => {
   //   startDuration();
 
   // }, [paused]);
+  const selectedTrackList = () => {
+    let list = playerList;
+    list.push(item);
+    console.log("onTrackItemPressonTrackItemPressonTrackItemPress:", list);
+    dispatch(playerListRequest(list));
+  };
 
   const onTrackItemPress = async (track: any) => {
     await TrackPlayer.stop();

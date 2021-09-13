@@ -16,8 +16,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { favoriteListRequest } from '../../store/actions/appActions';
 import { useNavigation } from '@react-navigation/native';
 import { IAppState } from '../../models/reducers/app';
-import HomeShimmer from './Shimmer';
-import { musicListRequest } from '../../store/actions/appActions';
 import {ILoading} from '../../models/reducers/loading';
 
 import Footer from '../../components/Footer';

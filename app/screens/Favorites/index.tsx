@@ -10,9 +10,19 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { DrawerParamList } from '../../navigation/DrawerNavigator';
 import FavoriteShimmer from './Shimmer';
 import Favorite from './Conatiner';
+import { IAppState } from '../../models/reducers/app';
+import {ILoading} from '../../models/reducers/loading';
+import { favoriteListRequest } from '../../store/actions/appActions';
 
+interface IState {
+  appReducer: IAppState;
+  loadingReducer: ILoading;
+}
 const Favorites: React.FC = () => {
   const dispatch = useDispatch();
+  const isLoading = useSelector((state:IState) => state.loadingReducer.isLoginLoading);
+  const favoriteList = useSelector((state:IState) => state.appReducer.favoriteList);
+
   const [refreshing, setRefreshing] = useState<boolean>(false);
   const { t, i18n } = useTranslation();
   type homeScreenProp = StackNavigationProp<DrawerParamList, 'Home'>;
@@ -24,15 +34,17 @@ const Favorites: React.FC = () => {
   useEffect(() => {
     onRefresh();
   }, []);
-
+  
   const onRefresh = () => {
-    if (refreshing) {
+    // getFavoriteList();
+    if (isLoading) {
       <FavoriteShimmer />;
     } else {
-      setRefreshing(true);
-      wait(2000).then(() => setRefreshing(false));
+      
     }
   };
+ console.log("favLoderfavLoderfavLoderfavLoder:",isLoading);
+ 
   return (
 
 
@@ -46,16 +58,12 @@ const Favorites: React.FC = () => {
           onPress={() => navigation.navigate('Home')}
         />}
       />
-      <ScrollView
-        refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-        }>
-        {refreshing ? (
+ 
+        {isLoading ? (
           <FavoriteShimmer />
         ) : (
           <Favorite />
         )}
-      </ScrollView>
     </View>
 
 
