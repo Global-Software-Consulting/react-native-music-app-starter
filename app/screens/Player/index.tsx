@@ -63,6 +63,8 @@ const Player: React.FC<any> = (props): JSX.Element => {
 
   useEffect(() => {
     onTrackItemPress(item);
+    console.log("onTrackItemPress:", item);
+
     const startPlayer = async () => {
       await trackPlayerInit();
     }
@@ -170,7 +172,7 @@ const Player: React.FC<any> = (props): JSX.Element => {
         currentPosition={Math.floor(position)}
         onSeek={slidingCompleted}
       />}
-   
+
     </View>
 
 

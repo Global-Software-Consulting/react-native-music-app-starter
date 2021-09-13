@@ -1,5 +1,5 @@
 import { put, call } from "redux-saga/effects";
-import musicList from "../../services/musicList";
+import player from "../../services/player";
 import * as playerActions from "../actions/playerActions";
 
 
