@@ -3,13 +3,13 @@ import {View} from 'react-native';
 import {Text, Button} from 'react-native-paper';
 import {useDispatch, useSelector} from 'react-redux';
 
-import * as loginActions from 'store/actions/loginActions';
+import * as loginActions from '../../store/actions/loginActions';
 import styles from './styles';
-import {ILoginState} from 'models/reducers/login';
-import NavigationService from 'navigation/NavigationService';
+import {ILoginState} from '../../models/reducers/login';
+import NavigationService from '../../navigation/NavigationService';
 import {useTranslation} from 'react-i18next';
 
-import i18n from "../../components/Languages/i18n";
+import i18n from "../../config/Languages/i18n";
 const initI18n = i18n;
 interface IState {
   loginReducer: ILoginState;

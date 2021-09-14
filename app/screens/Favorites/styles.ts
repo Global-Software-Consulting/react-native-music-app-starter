@@ -1,15 +1,38 @@
 import { StyleSheet } from 'react-native';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  labelStyle: {
-    fontSize: 12,
-    marginBottom:12
-  },
-});
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import { useTheme } from 'react-native-paper';
 
-export default styles;
+export const useStyles = () => {
+  const theme = useTheme();
+  const styles = StyleSheet.create({
+    container: {
+      flex:1,
+       backgroundColor: theme.colors.accent,
+      // backgroundColor:'red'
+     },
+    Musiccontainer: {
+      backgroundColor: theme.colors.accent,
+    },
+
+    model: {
+      justifyContent: 'center',
+      textAlign: 'center',
+      fontSize: hp('2%'),
+      color: "darkgray",
+      
+
+    },
+    icon: {
+      paddingLeft:10,
+      alignSelf: 'center',
+      justifyContent: 'center',
+      alignItems: 'center',
+      color:theme.colors.primary
+    },
+
+  });
+  return styles;
+}
+export default useStyles;
+

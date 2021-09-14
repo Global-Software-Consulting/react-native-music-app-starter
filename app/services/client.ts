@@ -1,9 +1,10 @@
 import axios from 'axios';
+import ApiConfig from '../config/api-config';
 
 const apiClient = axios.create({
-  baseURL: '/react-dev',
+  baseURL: ApiConfig.BASE_URL,
   responseType: 'json',
-  withCredentials: true,
+  headers: { 'Content-Type': 'application/json' },
 });
 
 export { apiClient };

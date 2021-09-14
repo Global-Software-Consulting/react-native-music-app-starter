@@ -1,23 +1,47 @@
 import * as React from 'react';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {ILoginState} from 'models/reducers/login';
-import Drawer from 'screens/Drawer';
-import { createDrawerNavigator } from '@react-navigation/drawer';
-import Home from '../screens/Home';
-import HomeNavigationStack from './HomeNavigationStack';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Settings from '../screens/Settings';
 import Favorites from '../screens/Favorites';
-const AppDrawer = createDrawerNavigator();
+import DrawerNavigator from './DrawerNavigator';
+import Player from '../screens/Player';
+
 const AppStack = createNativeStackNavigator();
-const Stack = createNativeStackNavigator();
-interface IState {
-  loginReducer: ILoginState;
-}
+const Stack = createNativeStackNavigator<RootStackParamList>();
+export type RootStackParamList = {
+  DrawerNavigator: undefined,
+  Favorites: undefined,
+  Settings:undefined,
+  Player:undefined,
+
+};
+
 const AppNavigation = () => {
   return (
-    <AppDrawer.Navigator drawerContent={() => <Drawer />}>
-    <AppDrawer.Screen name="My Music App" component={HomeNavigationStack}   options={{ drawerLabel: 'My Music App' }} />
-    {/* <AppDrawer.Screen name="Fav" component={Favorites}   options={{ drawerLabel: 'My Music App' }} /> */}
-    </AppDrawer.Navigator>
+    <AppStack.Navigator>
+     
+      <Stack.Screen
+      name="DrawerNavigator"
+      component={DrawerNavigator}
+      options={{headerShown: false}} 
+      
+    />
+      <Stack.Screen
+        name="Favorites"
+        component={Favorites}
+        options={{ headerShown: false }}
+      />
+  
+      <Stack.Screen
+        name="Settings"
+        component={Settings}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Player"
+        component={Player}
+        options={{ headerShown: false }}
+      />
+    </AppStack.Navigator>
   );
 };
 export default AppNavigation;

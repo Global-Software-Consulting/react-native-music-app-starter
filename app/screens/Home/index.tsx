@@ -1,109 +1,65 @@
-import React from 'react';
-import { View, ScrollView, FlatList, ListRenderItem,TouchableOpacity,Image } from 'react-native';
-import { Text } from 'react-native-paper';
+import React, {useState, useEffect} from 'react';
+import {
+  View,
+  ScrollView,
+  RefreshControl,
+} from 'react-native';
 import useStyles from './styles';
-import { useTranslation } from 'react-i18next';
-import Header from '../../components/Header';
-import i18n from "../../components/Languages/i18n";
-import { tracks } from '../../components/data/tracks';
-import MusicCard from '../../components/MusicCard';
+import {useTranslation} from 'react-i18next';
+import i18n from '../../config/Languages/i18n';
+import HomeShimmer from './Shimmer';
+import HomeComponent from './Container';
+import musicList from '../../services/musicList';
+import {useDispatch, useSelector} from 'react-redux';
+import {musicListRequest} from '../../store/actions/appActions';
+import {IAppState} from '../../models/reducers/app';
+import {ILoading} from '../../models/reducers/loading';
 const initI18n = i18n;
-interface Itrack {
 
-  id: string
-  url: string
-  title: string
-  artist: string
-  artwork: string
-  album: string
-  duration: number
+interface IState {
+  appReducer: IAppState;
+  loadingReducer: ILoading;
 }
-const Home: React.FC<any> = (props): JSX.Element => {
-  const { t, i18n } = useTranslation();
-  const Track: Itrack[] = tracks;
 
+const Home: React.FC<any> = (props): JSX.Element => {
+  const musicList = useSelector((state: IState) => state.appReducer.musicList);
+  const isLoader = useSelector((state: IState) => state.loadingReducer.isLoginLoading);
+
+  const dispatch = useDispatch();
+  const [refreshing, setRefreshing] = useState<boolean>(false);
+  const {t, i18n} = useTranslation();
   const styles = useStyles();
-  console.log('itemitemitemieitmemtiemt');
+  const wait = (timeout: number) => {
+    return new Promise(resolve => setTimeout(resolve, timeout));
+  };
+  useEffect(() => {
+    onRefresh();
+  }, []);
+
+  const getMusicList = async () => {
+    dispatch(musicListRequest());
+  };
+  const onRefresh = () => {
+  
+    getMusicList();
+    if (isLoader) {
+      <HomeShimmer />;
+    } else {
+     
+    }
+  };
+console.log("loaderrrrr:",isLoader);
 
   return (
     <>
-      <Header title="Recommended for you" />
+    
       <View style={styles.container}>
-        <ScrollView>
-          <FlatList
-            contentContainerStyle={{ alignSelf: 'flex-start' }}
-            horizontal={true}
-            showsVerticalScrollIndicator={false}
-            showsHorizontalScrollIndicator={false}
-            data={Track}
-            keyExtractor={(item) => item.id}
-            renderItem={({ item }) => (
-              <View style={styles.container}>
-
-      <TouchableOpacity style={styles.taskCard} >
-        <View style={styles.imgcontainer}>
-          <Image style={styles.img} source={{ uri: item.artwork }}></Image>
-        </View>
-
-      </TouchableOpacity>
-      <View style={styles.nameContainer}>
-        <View style={styles.textWrapper}>
-        <Text style={styles.labelStyle}>{item.title}</Text>
-        <Text style={styles.model}>{item.album}</Text>
-        </View>
-      </View>
-    </View>
-//               <>
-              
-//   <View style={{flexDirection:'column'}}> 
-//   <Text>{item.title}</Text>
-//       <Text>{item.album}</Text>
-//       </View>
-//       <Text>{item.artwork}</Text> 
-// </>
-              // <MusicCard
-              //   name={item.title}
-              //   model={item.album}
-              //   img={item.artwork}
-              // />
-            )}
-
-
-          />
-             <Header title="My Playlist" />
-             
-             <FlatList
-            contentContainerStyle={{ alignSelf: 'flex-start' }}
-            horizontal={true}
-            showsVerticalScrollIndicator={false}
-            showsHorizontalScrollIndicator={false}
-            data={Track}
-            keyExtractor={(item) => item.id}
-            // renderItem={renderItemsss}
-            renderItem={({ item }) => (
-              <View style={styles.container}>
-
-      <TouchableOpacity style={styles.taskCard} >
-        <View style={styles.imgcontainer}>
-          <Image style={styles.img} source={{ uri: item.artwork }}></Image>
-        </View>
-
-      </TouchableOpacity>
-      <View style={styles.nameContainer}>
-        <Text style={styles.labelStyle}>{item.title}</Text>
-
-        <Text style={styles.model}>{item.album}</Text>
-
-        
-
-      </View>
-    </View>
-            )}
-
-
-          />
-        </ScrollView>
-       
+ 
+          {isLoader ? (
+            <HomeShimmer />
+          ) : (
+            <HomeComponent musicList={musicList} />
+          )}
       </View>
     </>
   );
