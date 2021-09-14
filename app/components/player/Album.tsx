@@ -16,8 +16,10 @@ interface MusicProps {
   image?: string,
   url?: any,
   onPress?: any,
+  isFavorite?: any
   title?: string,
   artist?: string,
+  onRemoveFavoritePress?: any,
   onFavoritePress?: any,
   onTitlePress?: any,
   onArtistPress?: any,
@@ -33,13 +35,15 @@ const Album: React.FC<MusicProps> = ({
   onPress,
   title,
   artist,
+  onRemoveFavoritePress,
   onFavoritePress,
   onTitlePress,
   onArtistPress,
   onPressShuffle,
   shuffleOn,
   onPressRepeat,
-  repeatOn
+  repeatOn,
+  isFavorite
 }) => {
   const styles = useStyles();
   const theme = useTheme();
@@ -57,17 +61,29 @@ const Album: React.FC<MusicProps> = ({
             <Text style={styles.title} onPress={onTitlePress}>{title}</Text>
             <Text style={styles.artist} onPress={onArtistPress}>{artist}</Text>
           </View>
-          <TouchableOpacity onPress={onFavoritePress}>
-            <View style={styles.favoriteIcon}>
+
+
+
+          {!isFavorite ?
+            <TouchableOpacity style={styles.favoriteIcon} onPress={() => onFavoritePress()}>
+                <Ionicons
+                  name="heart-outline"
+                  style={styles.favoriteIcon}
+                  size={25}
+                  color={theme.colors.primary}
+                  onPress={() => onFavoritePress()}
+                />
+            </TouchableOpacity> :
+            <TouchableOpacity style={styles.favoriteIcon} onPress={() => onRemoveFavoritePress()}>
               <Ionicons
-                name="heart-outline"
+                name="heart"
                 style={styles.favoriteIcon}
                 size={25}
                 color={theme.colors.primary}
-                onPress={onFavoritePress}
+                onPress={() => onRemoveFavoritePress()}
               />
-            </View>
-          </TouchableOpacity>
+            </TouchableOpacity>
+          }
         </View>
         <View style={styles.VolumeContainer}>
           <TouchableOpacity activeOpacity={0.0} onPress={onPressShuffle}>

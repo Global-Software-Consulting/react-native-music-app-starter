@@ -13,7 +13,8 @@ import { IAppState } from '../../models/reducers/app';
 import { IPlayerState } from '../../models/reducers/player';
 import { musicListRequest } from '../../store/actions/appActions';
 import { playerListRequest } from '../../store/actions/playerActions';
-import { isPlayerShow,isPlayerPlay } from '../../store/actions/playerActions';
+import { favoriteListRequest } from '../../store/actions/appActions';
+import { isPlayerShow, isPlayerPlay } from '../../store/actions/playerActions';
 
 
 interface IState {
@@ -23,16 +24,14 @@ interface IState {
 
 const Player: React.FC<any> = (props): JSX.Element => {
   const musicList = useSelector((state: IState) => state.appReducer.musicList);
-  const isPlay = useSelector((state: IState) => state.playerReducer.isPlayerPlay);
+  const favoriteList = useSelector((state: IState) => state.appReducer.favoriteList);
   const [selectedTrack, setSelectedTrack] = useState<any>(null);
+  const [isFavorite, setIsFavorite] = useState<boolean>(false);
   const isVisible = useIsFocused()
   const [duration, setDuration] = useState(0);
-  // console.log('playerList.playerList.playerList',playerList);
-
   const route: any = useRoute();
   const item: any = route.params.item;
   const [paused, setPaused] = useState<boolean>(false);
-
   const navigation = useNavigation();
   const styles = useStyles();
   const [sliderValue, setSliderValue] = useState(0);
@@ -40,7 +39,8 @@ const Player: React.FC<any> = (props): JSX.Element => {
   const { position } = useProgress();
   const dispatch = useDispatch();
 
-  
+console.log('nooooooooooooooor favoriteList', favoriteList);
+
   const trackPlayerInit = async () => {
     TrackPlayer.updateOptions({
       stopWithApp: true, // false=> music continues in background even when app is closed
@@ -79,6 +79,14 @@ const Player: React.FC<any> = (props): JSX.Element => {
       await trackPlayerInit();
     }
     startPlayer();
+
+    let found = favoriteList?.find((element: any) => element.id == item.id)
+    if (found) {
+      setIsFavorite(true)     
+    } else {
+      setIsFavorite(false)
+    }
+
   }, []);
   //this hook updates the value of the slider whenever the current position of the song changes
   useEffect(() => {
@@ -126,14 +134,6 @@ const Player: React.FC<any> = (props): JSX.Element => {
     setDuration(dur);
 
   };
-  // const filterPlayList = (track: any) => {
-  //   let abc  = playerList?.filter((element: any) => element.id != track?.id);
-  //   console.log("hjellloooooohjellloooooohjellloooooo:", abc);
-  //   abc.push(track);
-  //   console.log("hjellloooooohjellloooooohjellloooooolist:", abc);
-
-  //   dispatch(playerListRequest(abc));
-  // };
 
   const onPressPause = () => {
     TrackPlayer.pause();
@@ -164,6 +164,25 @@ const Player: React.FC<any> = (props): JSX.Element => {
     setIsSeeking(false);
   };
 
+  const onFavoritePress = () => {
+    
+    let data = favoriteList;
+    console.log('onFavoritePress ininininininin',data);
+    let found = favoriteList?.find((element: any) => element.id == selectedTrack.id)
+    if (!found) {
+      data.push(selectedTrack);
+      setIsFavorite(true);
+      console.log('data.data.data.data',data);
+      dispatch(favoriteListRequest(data));
+    }
+
+  };
+
+  const onRemoveFavoritePress = () => {
+    setIsFavorite(false);
+    let data = favoriteList?.filter((element: any) => element.id != selectedTrack.id)
+    dispatch(favoriteListRequest(data));
+  };
   return (
 
     <View style={styles.container}>
@@ -181,6 +200,9 @@ const Player: React.FC<any> = (props): JSX.Element => {
       />
       <Album url={selectedTrack?.artwork || `https://picsum.photos/150/200/?random=${Math.random()}`}
         title={selectedTrack?.title || 'No Title'} artist={selectedTrack?.artist || selectedTrack?.album || 'unknown'}
+        isFavorite={isFavorite}
+        onFavoritePress={onFavoritePress}
+        onRemoveFavoritePress={onRemoveFavoritePress}
         onPressRepeat={onPressRepeat}
         onPressShuffle={onPressShuffle} />
       {selectedTrack && <TrackBar

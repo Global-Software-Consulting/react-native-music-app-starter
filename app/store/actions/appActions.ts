@@ -9,24 +9,20 @@ export function musicListRequest() {
     type: types.MUSIC_LIST_REQUEST,
   };
 }
-export function musicListResponse(response:any) {
+export function musicListResponse(response: any) {
   // console.log("reponsereponsereponsereponsereponse:", response.data.data);
-  
+
   return {
     type: types.MUSIC_LIST_RESPONSE,
     response,
   };
 
 }
-export function favoriteListRequest(data:any) {
+export function favoriteListRequest(data: any) {
+  console.log('datadatadatadatadatadata hehe',data);
+  
   return {
     type: types.FAVORITE_LIST_REQUEST,
-data,
-  };
-}
-export function favoriteListResponse(response:any) {
-  return {
-    type: types.FAVORITE_LIST_RESPONSE,
-    response,
+    data,
   };
 }

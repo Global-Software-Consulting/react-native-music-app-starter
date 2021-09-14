@@ -64,7 +64,6 @@ const TrackBar: React.FC<MusicProps> = ({
   const remaining = minutesAndSeconds(trackLength - currentPosition);
   const playerList = useSelector((state: IState) => state.playerReducer.playerList);
   const isPlayerPlay = useSelector((state:IState) => state.playerReducer.isPlayerPlay);
-  console.log ("isplayer play:",isPlayerPlay);
   const dispatch = useDispatch();
 
   useEffect(() => {

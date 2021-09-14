@@ -20,7 +20,6 @@ interface IState {
 const Favorites: React.FC = () => {
   const dispatch = useDispatch();
   const isLoading = useSelector((state:IState) => state.loadingReducer.isLoginLoading);
-  const favoriteList = useSelector((state:IState) => state.appReducer.favoriteList);
 
   const [refreshing, setRefreshing] = useState<boolean>(false);
   const { t, i18n } = useTranslation();

@@ -37,7 +37,8 @@ interface Itrack {
 }
 const HomeComponent: React.FC<any> = (props): JSX.Element => {
   const musicList = useSelector((state: IState) => state.appReducer.musicList);
-  const favoriteList = useSelector((state: IState) => state.appReducer.favoriteList);
+
+  // type homeScreenProp = StackNavigationProp<RootStackParamList, 'Player'>;
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const [refreshing, setRefreshing] = useState<boolean>(false);
@@ -48,22 +49,9 @@ const HomeComponent: React.FC<any> = (props): JSX.Element => {
   };
  
 
-  const addToFavorites = (item: any) => {
-    let data = favoriteList
-    let found = favoriteList?.find((element: any) => element.id == item.id)
-    if (!found) {
-      data.push(item);
-      dispatch(favoriteListRequest(data));
-    }
 
-  };
   const RecommendedRenderItem = ({ item }: any) => (
-    <TouchableOpacity
-      key={item}
-      onPress={() => {
-        addToFavorites(item)
-      }}
-    >
+  
       <MusicCard
         name={item.title}
         model={item.artist}
@@ -75,7 +63,6 @@ const HomeComponent: React.FC<any> = (props): JSX.Element => {
           })
         }
       />
-    </TouchableOpacity>
   );
   const PlayListRenderItem = ({ item }: any) => (
 

@@ -5,8 +5,15 @@ import { useTranslation } from 'react-i18next';
 import Header from '../../components/Header';
 import i18n from "../../config/Languages/i18n";
 import { tracks } from '../../data/tracks';
+import { useSelector} from 'react-redux';
 import MusicCardShimmer from '../../components/Music/MusicCardShimmer';
+import {ILoading} from '../../models/reducers/loading';
 const initI18n = i18n;
+
+interface IState {
+  loadingReducer: ILoading;
+}
+
 interface Itrack {
 
   id: string
@@ -20,6 +27,8 @@ interface Itrack {
 
 const Home: React.FC<any> = (props): JSX.Element => {
   const [refreshing, setRefreshing] = useState<boolean>(false);
+  const isLoading = useSelector((state:IState) => state.loadingReducer.isLoginLoading);
+
   const [listData, setListData] = useState<any>(tracks);
   const { t, i18n } = useTranslation();
   const Track: Itrack[] = tracks;
@@ -27,10 +36,7 @@ const Home: React.FC<any> = (props): JSX.Element => {
   const wait = (timeout: number) => {
     return new Promise(resolve => setTimeout(resolve, timeout));
   }
-  const onRefresh = React.useCallback(() => {
-    setRefreshing(true);
-    wait(2000).then(() => setRefreshing(false));
-  }, []);
+
 
   const PlayListRenderItem = ({ item }: any) => (
 
@@ -58,8 +64,7 @@ const Home: React.FC<any> = (props): JSX.Element => {
       <View style={styles.container}>
         <ScrollView
           refreshControl={<RefreshControl
-            refreshing={refreshing}
-            onRefresh={onRefresh}
+            refreshing={isLoading}
           />}
         >
           <Header title="Recommended for you" />

@@ -10,7 +10,7 @@ import favoriteListSaga from './favoriteListSaga';
 export default function* watch() {
   yield all([takeEvery(types.LOGIN_REQUEST, loginSaga),
     takeEvery(types.MUSIC_LIST_REQUEST, musicListSaga),
-    takeEvery(types.FAVORITE_LIST_REQUEST, favoriteListSaga),
+    // takeEvery(types.FAVORITE_LIST_REQUEST, favoriteListSaga),
    
   ]);
 }
