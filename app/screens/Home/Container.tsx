@@ -38,9 +38,6 @@ interface Itrack {
 const HomeComponent: React.FC<any> = (props): JSX.Element => {
   const musicList = useSelector((state: IState) => state.appReducer.musicList);
   const favoriteList = useSelector((state: IState) => state.appReducer.favoriteList);
-  const isLoader = useSelector((state: IState) => state.loadingReducer.isLoginLoading);
-
-  // type homeScreenProp = StackNavigationProp<RootStackParamList, 'Player'>;
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const [refreshing, setRefreshing] = useState<boolean>(false);
@@ -73,7 +70,8 @@ const HomeComponent: React.FC<any> = (props): JSX.Element => {
         img={item.artwork}
         onPress={() =>
           navigation.navigate('Player', {
-            item: item,
+         hidePlayer:true,
+         item:item
           })
         }
       />
@@ -92,6 +90,9 @@ const HomeComponent: React.FC<any> = (props): JSX.Element => {
         onPress={() =>
           navigation.navigate('Player', {
             item: item,
+            hidePlayer:true
+         
+         
           })
         }
       />
@@ -142,9 +143,7 @@ const HomeComponent: React.FC<any> = (props): JSX.Element => {
 
 
         </ScrollView>
-        <Footer title="Footer" 
-        // url="https://www.shutterstock.com/image-illustration/3d-illustration-musical-notes-signs-abstract-761313844"
-        />
+      
 
       </View>
     </>

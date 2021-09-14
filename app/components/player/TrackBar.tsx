@@ -8,6 +8,9 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import useStyles from './styles';
 import Slider from 'react-native-slider';
 import TrackPlayer, { Capability, useProgress, State } from "react-native-track-player";
+import { useSelector, useDispatch } from 'react-redux';
+import { IPlayerState } from '../../models/reducers/player';
+import { isPlayerShow } from 'app/store/actions/playerActions';
 
 function pad(n: any, width: any, z: any = 0) {
   n = n + '';
@@ -36,6 +39,10 @@ interface MusicProps {
   forwardDisabled?: any,
 }
 
+interface IState {
+  playerReducer: IPlayerState;
+}
+
 const TrackBar: React.FC<MusicProps> = ({
   trackLength,
   currentPosition,
@@ -49,29 +56,30 @@ const TrackBar: React.FC<MusicProps> = ({
   onForward,
   forwardDisabled,
 }) => {
-  console.log('currentPosition', currentPosition);
-  console.log('duration', trackLength);
+
 
   const theme = useTheme();
   const styles = useStyles();
   const elapsed = minutesAndSeconds(currentPosition);
   const remaining = minutesAndSeconds(trackLength - currentPosition);
+  const playerList = useSelector((state: IState) => state.playerReducer.playerList);
+  const isPlayerPlay = useSelector((state:IState) => state.playerReducer.isPlayerPlay);
+  console.log ("isplayer play:",isPlayerPlay);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const addsongs = async () => {
-       TrackPlayer.add(track);
-      console.log('useEffect addsongs');
-      onPressPlay();
+      TrackPlayer.add(track);
+      onPressPlay(track);
     }
-    addsongs();
+    if (isPlayerPlay) {
+      addsongs();
+    }
+  
+
   }, []);
 
-    // if (paused && trackLength == 0) {
-    //   console.log(' if (trackLength == 0) ')
-    //   onPressPlay();
-    // }
 
-   
   return (
     <>
       <View style={styles.Trackcontainer}>
@@ -96,7 +104,7 @@ const TrackBar: React.FC<MusicProps> = ({
           trackStyle={styles.track} />
         <View style={styles.Controlcontainer}>
 
-          <View style={{ width: 30 }} />
+          <View style={{ width: 5 }} />
           <TouchableOpacity onPress={() => onBack()}>
             <Ionicons
               name="play-skip-back-outline"
@@ -106,7 +114,7 @@ const TrackBar: React.FC<MusicProps> = ({
             />
           </TouchableOpacity>
           <View style={{ width: 20 }} />
-          {paused ?
+          {isPlayerPlay ?
             <TouchableOpacity onPress={() => onPressPause()}>
               <View style={styles.playButton}>
                 <Ionicons
@@ -138,10 +146,10 @@ const TrackBar: React.FC<MusicProps> = ({
             />
 
           </TouchableOpacity>
-        
+
 
         </View>
-      </View>
+        </View>
 
     </>
   );

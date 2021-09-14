@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StatusBar, RefreshControl } from 'react-native';
 import LeftArrowIcon from 'react-native-vector-icons/MaterialIcons';
 import AppHeader from '../../components/AppHeader';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useIsFocused } from '@react-navigation/native';
 import useStyles from './styles';
 import Album from '../../components/player/Album';
 import TrackBar from '../../components/player/TrackBar';
@@ -13,6 +13,7 @@ import { IAppState } from '../../models/reducers/app';
 import { IPlayerState } from '../../models/reducers/player';
 import { musicListRequest } from '../../store/actions/appActions';
 import { playerListRequest } from '../../store/actions/playerActions';
+import { isPlayerShow,isPlayerPlay } from '../../store/actions/playerActions';
 
 
 interface IState {
@@ -22,10 +23,11 @@ interface IState {
 
 const Player: React.FC<any> = (props): JSX.Element => {
   const musicList = useSelector((state: IState) => state.appReducer.musicList);
-  const playerList = useSelector((state: IState) => state.playerReducer.playerList);
+  const isPlay = useSelector((state: IState) => state.playerReducer.isPlayerPlay);
   const [selectedTrack, setSelectedTrack] = useState<any>(null);
-
+  const isVisible = useIsFocused()
   const [duration, setDuration] = useState(0);
+  // console.log('playerList.playerList.playerList',playerList);
 
   const route: any = useRoute();
   const item: any = route.params.item;
@@ -37,7 +39,8 @@ const Player: React.FC<any> = (props): JSX.Element => {
   const [isSeeking, setIsSeeking] = useState(false);
   const { position } = useProgress();
   const dispatch = useDispatch();
-  let list = playerList;
+
+  
   const trackPlayerInit = async () => {
     TrackPlayer.updateOptions({
       stopWithApp: true, // false=> music continues in background even when app is closed
@@ -64,9 +67,14 @@ const Player: React.FC<any> = (props): JSX.Element => {
     return true;
 
   };
+
+  useEffect(() => {
+    dispatch(isPlayerShow(false));
+
+  }, [isVisible]);
   useEffect(() => {
     onTrackItemPress(item);
-    selectedTrackList();
+    dispatch(playerListRequest(item));
     const startPlayer = async () => {
       await trackPlayerInit();
     }
@@ -88,12 +96,7 @@ const Player: React.FC<any> = (props): JSX.Element => {
   //   startDuration();
 
   // }, [paused]);
-  const selectedTrackList = () => {
-    let list = playerList;
-    list.push(item);
-    console.log("onTrackItemPressonTrackItemPressonTrackItemPress:", list);
-    dispatch(playerListRequest(list));
-  };
+
 
   const onTrackItemPress = async (track: any) => {
     await TrackPlayer.stop();
@@ -102,11 +105,9 @@ const Player: React.FC<any> = (props): JSX.Element => {
   };
 
   const playNextPrev = async (prevOrNext: 'prev' | 'next') => {
-    // const currentTrackId = await TrackPlayer.getCurrentTrack();
     const currentTrackId = await selectedTrack?.id;
     if (!currentTrackId) return;
     const trkIndex = musicList.findIndex((trk: any) => trk.id == currentTrackId);
-
     if (prevOrNext === 'next' && trkIndex < musicList.length - 1) {
       onTrackItemPress(musicList[trkIndex + 1]);
     }
@@ -114,20 +115,30 @@ const Player: React.FC<any> = (props): JSX.Element => {
       onTrackItemPress(musicList[trkIndex - 1]);
     }
   };
-
-
-  const onPressPlay = async () => {
+  const onPressPlay = async (track: any) => {
+    dispatch(isPlayerPlay(true))
     TrackPlayer.play();
     setPaused(true);
+    // filterPlayList(track);
 
     // setPosition(pos)
     const dur = await TrackPlayer.getDuration();
     setDuration(dur);
 
   };
+  // const filterPlayList = (track: any) => {
+  //   let abc  = playerList?.filter((element: any) => element.id != track?.id);
+  //   console.log("hjellloooooohjellloooooohjellloooooo:", abc);
+  //   abc.push(track);
+  //   console.log("hjellloooooohjellloooooohjellloooooolist:", abc);
+
+  //   dispatch(playerListRequest(abc));
+  // };
+
   const onPressPause = () => {
     TrackPlayer.pause();
     setPaused(false);
+    dispatch(isPlayerPlay(false))
   };
   const onPressRepeat = () => {
     // onPressPlay()
@@ -161,7 +172,10 @@ const Player: React.FC<any> = (props): JSX.Element => {
           name="keyboard-arrow-left"
           style={styles.icon}
           size={30}
-          onPress={() => navigation.navigate('Home')}
+          onPress={() => {
+            dispatch(isPlayerShow(true));
+            navigation.navigate('Home')
+          }}
         />}
         title="Playing Now"
       />
@@ -171,7 +185,6 @@ const Player: React.FC<any> = (props): JSX.Element => {
         onPressShuffle={onPressShuffle} />
       {selectedTrack && <TrackBar
         trackLength={Math.floor(duration)}
-        paused={paused}
         track={selectedTrack}
         onPressPlay={onPressPlay}
         onPressPause={onPressPause}

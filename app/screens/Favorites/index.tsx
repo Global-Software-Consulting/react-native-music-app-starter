@@ -12,7 +12,6 @@ import FavoriteShimmer from './Shimmer';
 import Favorite from './Conatiner';
 import { IAppState } from '../../models/reducers/app';
 import {ILoading} from '../../models/reducers/loading';
-import { favoriteListRequest } from '../../store/actions/appActions';
 
 interface IState {
   appReducer: IAppState;
