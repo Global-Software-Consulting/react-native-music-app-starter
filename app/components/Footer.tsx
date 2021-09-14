@@ -32,23 +32,40 @@ interface IState {
   appReducer: IAppState;
   playerReducer: IPlayerState;
 }
+function pad(n: any, width: any, z: any = 0) {
+  n = n + '';
+  return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+}
 
+const minutesAndSeconds = (position: any) => ([
+  pad(Math.floor(position / 60), 2),
+  pad(position % 60, 2),
+]);
 const Footer: React.FC<any> = (props, isShowFooter): JSX.Element => {
   const currentPlayer: any = useSelector((state: IState) => state.playerReducer.playerList);
   const isPlayerShown = useSelector((state: IState) => state.playerReducer.isPlayer);
   const isPlay = useSelector((state: IState) => state.playerReducer.isPlayerPlay);
   const [sliderValue, setSliderValue] = useState(0);
   const [isSeeking, setIsSeeking] = useState(false);
+  const { position } = useProgress();
   const [duration, setDuration] = useState(0);
+  let trackLength = Math.floor(duration);
+  let currentPosition = Math.floor(position);
+  const elapsed = minutesAndSeconds(currentPosition);
+  const remaining = minutesAndSeconds(trackLength - currentPosition);
   const theme = useTheme();
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const styles = useStyles();
+  useEffect(() => {
+    if (!isSeeking && position && duration) {
+      setSliderValue(position / duration);
+    }
+  }, [position, duration]);
   const onPressPlay = async () => {
     dispatch(isPlayerPlay(true));
     TrackPlayer.play();
 
-    // setPosition(pos)
     const dur = await TrackPlayer.getDuration();
     // setDuration(dur);
 
@@ -61,17 +78,23 @@ const Footer: React.FC<any> = (props, isShowFooter): JSX.Element => {
     dispatch(isPlayerPlay(false))
     TrackPlayer.pause();
   };
+  const onTrackItemPress = async (track: any) => {
+    await TrackPlayer.stop();
+    await TrackPlayer.reset();
+  };
+
+
   // const playNextPrev = async (prevOrNext: 'prev' | 'next') => {
   //   // const currentTrackId = await TrackPlayer.getCurrentTrack();
-  //   const currentTrackId = await selectedTrack?.id;
+  //   const currentTrackId = await currentPlayer?.id;
   //   if (!currentTrackId) return;
-  //   const trkIndex = musicList.findIndex((trk: any) => trk.id == currentTrackId);
+  //   const trkIndex = currentPlayer.findIndex((trk: any) => trk.id == currentTrackId);
 
-  //   if (prevOrNext === 'next' && trkIndex < musicList.length - 1) {
-  //     onTrackItemPress(musicList[trkIndex + 1]);
+  //   if (prevOrNext === 'next' && trkIndex < currentPlayer.length - 1) {
+  //     onTrackItemPress(currentPlayer[trkIndex + 1]);
   //   }
   //   if (prevOrNext === 'prev' && trkIndex > 0) {
-  //     onTrackItemPress(musicList[trkIndex - 1]);
+  //     onTrackItemPress(currentPlayer[trkIndex - 1]);
   //   }
   // };
 
@@ -91,14 +114,32 @@ const Footer: React.FC<any> = (props, isShowFooter): JSX.Element => {
     <>
       {isPlayerShown &&
         <View style={styles.container}>
-          <TouchableOpacity   onPress={() =>
-          navigation.navigate('Player', {
-         hidePlayer:true,
-         item:currentPlayer
-          })
-        }>
+          <TouchableOpacity onPress={() =>
+            navigation.navigate('Player', {
+              hidePlayer: true,
+              item: currentPlayer
+            })
+          }>
             <View style={styles.Trackcontainer}>
+              {/* <View style={{ flexDirection: 'row' }}>
+                <Text style={styles.text}>
+                  {elapsed[0] + ":" + elapsed[1]}
+                </Text>
+                <View style={{ flex: 1 }} />
+                <Text style={[styles.text, { width: 40 }]}>
+                  {trackLength > 1 && remaining[0] + ":" + remaining[1]}
+                </Text>
+              </View> */}
               <Slider
+                maximumValue={Math.max(trackLength, 1, currentPosition + 1)}
+                onSlidingComplete={onSeek}
+                value={currentPosition}
+                style={styles.slider}
+                minimumTrackTintColor={theme.colors.primary}
+                maximumTrackTintColor={theme.colors.background}
+                thumbStyle={styles.thumb}
+                trackStyle={styles.track} />
+              {/* <Slider
                 style={styles.slider}
                 //  onSlidingStart={onSlidingStart}
 
@@ -107,7 +148,7 @@ const Footer: React.FC<any> = (props, isShowFooter): JSX.Element => {
                 minimumTrackTintColor={theme.colors.primary}
                 maximumTrackTintColor={theme.colors.background}
                 thumbStyle={styles.thumb}
-                trackStyle={styles.track} />
+                trackStyle={styles.track} /> */}
             </View>
             <View style={styles.container}>
 
@@ -138,7 +179,7 @@ const Footer: React.FC<any> = (props, isShowFooter): JSX.Element => {
                     />
                   </TouchableOpacity>
                   <View style={{ width: 20 }} />
-                  { isPlay ?
+                  {isPlay ?
                     <TouchableOpacity onPress={() => onPressPause()}>
                       <View style={styles.playButton}>
                         <Ionicons
@@ -207,6 +248,11 @@ export const useStyles = () => {
       height: hp('10%'), // 70% of height device screen
       width: wp('15%'),
     },
+    text: {
+      fontSize: 12,
+      textAlign: 'center',
+      marginBottom: 5
+    },
     TrackDetailcontainer: {
       width: wp('100%'),
       flexDirection: 'row',
@@ -252,7 +298,8 @@ export const useStyles = () => {
 
     slider: {
       marginTop: -12,
-
+      width: '90%',
+      height: 40
     },
     Trackcontainer: {
       height: 20,
@@ -262,6 +309,7 @@ export const useStyles = () => {
 
     },
     track: {
+      // width:5,
       height: 3.5,
       borderRadius: 1,
 
