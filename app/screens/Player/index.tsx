@@ -39,8 +39,6 @@ const Player: React.FC<any> = (props): JSX.Element => {
   const { position } = useProgress();
   const dispatch = useDispatch();
 
-console.log('nooooooooooooooor favoriteList', favoriteList);
-
   const trackPlayerInit = async () => {
     TrackPlayer.updateOptions({
       stopWithApp: true, // false=> music continues in background even when app is closed
