@@ -33,10 +33,9 @@ export const useStyles = () => {
   const theme = useTheme();
   const styles = StyleSheet.create({
     container: {
-      marginTop: 2,
       flexDirection: 'row',
       backgroundColor: theme.colors.accent,
-      height: hp('10%'), // 70% of height device screen
+      height: hp('12%'), // 70% of height device screen
       alignItems: 'center',
       borderBottomColor: "lightgray",
       borderBottomWidth: hp('0.1%'),

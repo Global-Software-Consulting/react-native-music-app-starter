@@ -64,7 +64,7 @@ console.log("route:",route);
       />
    
     </AppStack.Navigator>
-     <Footer /> 
+     {/* <Footer />  */}
     </>
   );
 };

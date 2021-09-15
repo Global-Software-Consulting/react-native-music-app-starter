@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from 'react';
-import {View, TouchableOpacity, ActivityIndicator} from 'react-native';
-import {useTheme, Text} from 'react-native-paper';
+import React, { useEffect, useState } from 'react';
+import { View, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { useTheme, Text } from 'react-native-paper';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import useStyles from './styles';
 import Slider from 'react-native-slider';
@@ -9,9 +9,10 @@ import TrackPlayer, {
   useProgress,
   State,
 } from 'react-native-track-player';
-import {useSelector, useDispatch} from 'react-redux';
-import {IPlayerState} from '../../models/reducers/player';
-import {isPlayerShow} from 'app/store/actions/playerActions';
+import { useSelector, useDispatch } from 'react-redux';
+import { IPlayerState } from '../../models/reducers/player';
+import { isPlayerShow } from 'app/store/actions/playerActions';
+import { widthPercentageToDP } from 'react-native-responsive-screen';
 
 function pad(n: any, width: any, z: any = 0) {
   n = n + '';
@@ -30,15 +31,14 @@ interface MusicProps {
   trackLength?: any;
   currentPosition?: any;
   onSeek?: any;
-  onSlidingStart?: any;
-  paused?: any;
-  track?: any;
-  onPressPlay?: any;
-  onPressPause?: any;
+  track?:any;
+  onPressPlay?:any;
   onBack?: any;
+  onPressPause?:any;
   onForward?: any;
   forwardDisabled?: any;
-  playbackState: string;
+  playbackState: any;
+  togglePlayback: any;
 }
 
 interface IState {
@@ -49,13 +49,11 @@ const TrackBar: React.FC<MusicProps> = ({
   trackLength,
   currentPosition,
   onSeek,
-  track,
-  onSlidingStart,
-  paused,
-  onPressPlay,
-  onPressPause,
   onBack,
+  track,
   onForward,
+  onPressPause,
+  onPressPlay,
   forwardDisabled,
   playbackState,
   togglePlayback,
@@ -81,20 +79,18 @@ const TrackBar: React.FC<MusicProps> = ({
   //     addsongs();
   //   }
   // }, []);
-
   return (
     <>
       <View style={styles.Trackcontainer}>
-        <View style={{flexDirection: 'row'}}>
+        <View style={{ flexDirection: 'row' }}>
           <Text style={styles.text}>{elapsed[0] + ':' + elapsed[1]}</Text>
-          <View style={{flex: 1}} />
-          <Text style={[styles.text, {width: 40}]}>
+          <View style={{ flex: 1 }} />
+          <Text style={[styles.text, { width: 40 }]}>
             {trackLength > 1 && remaining[0] + ':' + remaining[1]}
           </Text>
         </View>
         <Slider
           maximumValue={Math.max(trackLength, 1, currentPosition + 1)}
-          onSlidingStart={onSlidingStart}
           onSlidingComplete={onSeek}
           value={currentPosition}
           style={styles.slider}
@@ -104,7 +100,7 @@ const TrackBar: React.FC<MusicProps> = ({
           trackStyle={styles.track}
         />
         <View style={styles.Controlcontainer}>
-          <View style={{width: 5}} />
+          <View style={{ width: 5 }} />
           <TouchableOpacity onPress={() => onBack()}>
             <Ionicons
               name="play-skip-back-outline"
@@ -113,46 +109,47 @@ const TrackBar: React.FC<MusicProps> = ({
               onPress={() => onBack()}
             />
           </TouchableOpacity>
-          <View style={{width: 20}} />
-          {playbackState == 2 || playbackState == 3 ? (
-            playbackState == 2 ? (
-              <TouchableOpacity onPress={() => togglePlayback(playbackState)}>
-                <View style={styles.playButton}>
-                  <Ionicons
-                    name="play"
-                    size={35}
-                    color={theme.colors.primary}
-                  />
-                </View>
-              </TouchableOpacity>
+            <View style={{ width: 20 }} />
+            {playbackState == 'loading' ? (
+              <ActivityIndicator size="large" color="black" style={styles.activityIndicator}/>
             ) : (
-              <TouchableOpacity onPress={() => togglePlayback(playbackState)}>
-                <View style={styles.playButton}>
-                  <Ionicons
-                    name="pause"
-                    size={35}
-                    color={theme.colors.primary}
-                  />
-                </View>
-              </TouchableOpacity>
-            )
-          ) : (
-            <ActivityIndicator size="small" color="black" />
-          )}
-          <View style={{width: 20}} />
-          <TouchableOpacity
-            onPress={() => onForward()}
-            disabled={forwardDisabled}>
-            <Ionicons
-              name="play-skip-forward-outline"
-              size={30}
-              style={[forwardDisabled && {opacity: 0.3}]}
-              color={theme.colors.primary}
+              playbackState == 'paused' ? (
+                <TouchableOpacity onPress={() => togglePlayback(playbackState)}>
+                  <View style={styles.playButton}>
+                    <Ionicons
+                      name="play"
+                      size={35}
+                      color={theme.colors.primary}
+                    />
+                  </View>
+                </TouchableOpacity>
+              ) : (
+                <TouchableOpacity onPress={() => togglePlayback(playbackState)}>
+                  <View style={styles.playButton}>
+                    <Ionicons
+                      name="pause"
+                      size={35}
+                      color={theme.colors.primary}
+                    />
+                  </View>
+                </TouchableOpacity>
+              )
+            )}
+
+            <View style={{ width: 20 }} />
+            <TouchableOpacity
               onPress={() => onForward()}
-            />
-          </TouchableOpacity>
+              disabled={forwardDisabled}>
+              <Ionicons
+                name="play-skip-forward-outline"
+                size={30}
+                style={[forwardDisabled && { opacity: 0.3 }]}
+                color={theme.colors.primary}
+                onPress={() => onForward()}
+              />
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
     </>
   );
 };

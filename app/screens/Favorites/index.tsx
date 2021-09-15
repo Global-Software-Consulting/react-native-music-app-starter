@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, ScrollView, StatusBar, RefreshControl } from 'react-native';
+import { View, ScrollView, StatusBar, TouchableOpacity } from 'react-native';
 import LeftArrowIcon from 'react-native-vector-icons/MaterialIcons';
 import AppHeader from '../../components/AppHeader';
 import { useNavigation } from '@react-navigation/native';
@@ -11,7 +11,7 @@ import { DrawerParamList } from '../../navigation/DrawerNavigator';
 import FavoriteShimmer from './Shimmer';
 import Favorite from './Conatiner';
 import { IAppState } from '../../models/reducers/app';
-import {ILoading} from '../../models/reducers/loading';
+import { ILoading } from '../../models/reducers/loading';
 
 interface IState {
   appReducer: IAppState;
@@ -19,7 +19,7 @@ interface IState {
 }
 const Favorites: React.FC = () => {
   const dispatch = useDispatch();
-  const isLoading = useSelector((state:IState) => state.loadingReducer.isLoginLoading);
+  const isLoading = useSelector((state: IState) => state.loadingReducer.isLoginLoading);
 
   const [refreshing, setRefreshing] = useState<boolean>(false);
   const { t, i18n } = useTranslation();
@@ -32,36 +32,43 @@ const Favorites: React.FC = () => {
   useEffect(() => {
     onRefresh();
   }, []);
-  
+
   const onRefresh = () => {
     // getFavoriteList();
     if (isLoading) {
       <FavoriteShimmer />;
     } else {
-      
+
     }
   };
- console.log("favLoderfavLoderfavLoderfavLoder:",isLoading);
- 
+  console.log("favLoderfavLoderfavLoderfavLoder:", isLoading);
+
   return (
 
 
 
     <View style={styles.container}>
       <AppHeader
-        renderLeft={<LeftArrowIcon
-          name="keyboard-arrow-left"
-          style={styles.icon}
-          size={30}
-          onPress={() => navigation.navigate('Home')}
-        />}
+        renderLeft={
+          <TouchableOpacity
+            style={{ paddingHorizontal: 20 }}
+            onPress={() => {
+              navigation.navigate('Home');
+            }}>
+            <LeftArrowIcon
+              name="keyboard-arrow-left"
+              style={styles.icon}
+              size={30}
+
+            />
+          </ TouchableOpacity>}
+
       />
- 
-        {isLoading ? (
-          <FavoriteShimmer />
-        ) : (
-          <Favorite />
-        )}
+      {isLoading ? (
+        <FavoriteShimmer />
+      ) : (
+        <Favorite />
+      )}
     </View>
 
 

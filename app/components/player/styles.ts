@@ -179,6 +179,14 @@ export const useStyles = () => {
     },
     off: {
       opacity: 0.30,
+    },
+    activityIndicator:{
+      
+      // flex: 1,
+      padding:55,
+      justifyContent: 'center',
+      alignItems: 'center',
+      height: 70
     }
   });
   return styles;

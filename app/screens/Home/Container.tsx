@@ -68,7 +68,7 @@ const HomeComponent: React.FC<any> = (props): JSX.Element => {
 
     <TouchableOpacity
       key={item}
-      onPress={() => { addToFavorites(item) }}
+      
     >
       <MusicCard
         name={item.title}
