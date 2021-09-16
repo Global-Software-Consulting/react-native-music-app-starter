@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StatusBar, RefreshControl } from 'react-native';
+import { View, Text, StatusBar, RefreshControl, TouchableOpacity } from 'react-native';
 import LeftArrowIcon from 'react-native-vector-icons/MaterialIcons';
 import AppHeader from '../../components/AppHeader';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
@@ -7,7 +7,15 @@ import useStyles from './styles';
 import Album from '../../components/player/Album';
 import TrackBar from '../../components/player/TrackBar';
 import { useRoute } from '@react-navigation/native';
-import TrackPlayer, { Capability, useProgress } from "react-native-track-player";
+import TrackPlayer, {
+  Capability,
+  useProgress,
+  usePlaybackState,
+  RepeatMode,
+  State,
+  Event,
+  useTrackPlayerEvents
+} from 'react-native-track-player';
 import { useSelector, useDispatch } from 'react-redux';
 import { IAppState } from '../../models/reducers/app';
 import { IPlayerState } from '../../models/reducers/player';
@@ -16,7 +24,6 @@ import { playerListRequest } from '../../store/actions/playerActions';
 import { favoriteListRequest } from '../../store/actions/appActions';
 import { isPlayerShow, isPlayerPlay } from '../../store/actions/playerActions';
 
-
 interface IState {
   appReducer: IAppState;
   playerReducer: IPlayerState;
@@ -24,11 +31,13 @@ interface IState {
 
 const Player: React.FC<any> = (props): JSX.Element => {
   const musicList = useSelector((state: IState) => state.appReducer.musicList);
-  const favoriteList = useSelector((state: IState) => state.appReducer.favoriteList);
+  const favoriteList = useSelector(
+    (state: IState) => state.appReducer.favoriteList,
+  );
   const [selectedTrack, setSelectedTrack] = useState<any>(null);
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
-  const isVisible = useIsFocused()
-  const [duration, setDuration] = useState(0);
+  const isVisible = useIsFocused();
+  // const [duration, setDuration] = useState(0);
   const route: any = useRoute();
   const item: any = route.params.item;
   const [paused, setPaused] = useState<boolean>(false);
@@ -36,13 +45,14 @@ const Player: React.FC<any> = (props): JSX.Element => {
   const styles = useStyles();
   const [sliderValue, setSliderValue] = useState(0);
   const [isSeeking, setIsSeeking] = useState(false);
-  const { position } = useProgress();
+  const { position, duration } = useProgress();
   const dispatch = useDispatch();
+  const playbackState = usePlaybackState();
 
-  const trackPlayerInit = async () => {
-    TrackPlayer.updateOptions({
-      stopWithApp: true, // false=> music continues in background even when app is closed
-      // Media controls capabilities
+  const setup = async () => {
+    await TrackPlayer.setupPlayer({});
+    await TrackPlayer.updateOptions({
+      stopWithApp: true,
       capabilities: [
         Capability.Play,
         Capability.Pause,
@@ -50,70 +60,71 @@ const Player: React.FC<any> = (props): JSX.Element => {
         Capability.SkipToPrevious,
         Capability.Stop,
       ],
-
-      // Capabilities that will show up when the notification is in the compact form on Android
-      compactCapabilities: [Capability.Play,
-      Capability.Pause,
-      Capability.SkipToNext,
-      Capability.SkipToPrevious,
-      Capability.Stop,
-
-      ],
+      compactCapabilities: [Capability.Play, Capability.Pause],
     });
 
-    await TrackPlayer.setupPlayer();
-    return true;
-
+    await TrackPlayer.add({
+      url: item?.url,
+      title: '1324234',
+      artist: 'David Chavez',
+      artwork:
+        'https://i.scdn.co/image/e5c7b168be89098eb686e02152aaee9d3a24e5b6',
+      // duration: startDuration(),
+    });
+    TrackPlayer.play();
+    TrackPlayer.setRepeatMode(RepeatMode.Track);
   };
-
   useEffect(() => {
-    dispatch(isPlayerShow(false));
+    if (isVisible) {
+      dispatch(isPlayerShow(false));
+      TrackPlayer.reset();
+      setSelectedTrack(item)
+      setup();
+    } else {
+      TrackPlayer.stop();
+      TrackPlayer.reset();
+    }
+    return () => {
+      TrackPlayer.stop();
+      TrackPlayer.reset();
 
+    }
   }, [isVisible]);
+  // useEffect(() => {
+  //   dispatch(isPlayerShow(false));
+  // }, [isVisible]);
   useEffect(() => {
     onTrackItemPress(item);
     dispatch(playerListRequest(item));
-    const startPlayer = async () => {
-      await trackPlayerInit();
-    }
-    startPlayer();
 
-    let found = favoriteList?.find((element: any) => element.id == item.id)
+    let found = favoriteList?.find((element: any) => element.id == item.id);
     if (found) {
-      setIsFavorite(true)     
+      setIsFavorite(true);
     } else {
-      setIsFavorite(false)
+      setIsFavorite(false);
     }
-
   }, []);
-  //this hook updates the value of the slider whenever the current position of the song changes
-  useEffect(() => {
-    if (!isSeeking && position && duration) {
-      setSliderValue(position / duration);
-    }
-  }, [position, duration]);
-
-  // useEffect(() => {
-  //   const startDuration = async() => {
-  //     console.log('startDuration useefct');
-  //     const dur = await TrackPlayer.getDuration();
-  //     setDuration(dur);
-  //   }
-  //   startDuration();
-
-  // }, [paused]);
-
-
   const onTrackItemPress = async (track: any) => {
+    setSelectedTrack(track)
     await TrackPlayer.stop();
     await TrackPlayer.reset();
-    setSelectedTrack(track);
+    await TrackPlayer.add({
+      url: track?.url,
+      title: '1324234',
+      artist: 'David Chavez',
+      artwork:
+        'https://i.scdn.co/image/e5c7b168be89098eb686e02152aaee9d3a24e5b6',
+    });
+    TrackPlayer.play();
+    TrackPlayer.setRepeatMode(RepeatMode.Queue);
   };
 
   const playNextPrev = async (prevOrNext: 'prev' | 'next') => {
     const currentTrackId = await selectedTrack?.id;
     if (!currentTrackId) return;
-    const trkIndex = musicList.findIndex((trk: any) => trk.id == currentTrackId);
+    const trkIndex = musicList.findIndex(
+      (trk: any) => trk.id == currentTrackId,
+    );
     if (prevOrNext === 'next' && trkIndex < musicList.length - 1) {
       onTrackItemPress(musicList[trkIndex + 1]);
     }
@@ -122,26 +133,32 @@ const Player: React.FC<any> = (props): JSX.Element => {
     }
   };
   const onPressPlay = async (track: any) => {
-    dispatch(isPlayerPlay(true))
+    dispatch(isPlayerPlay(true));
     TrackPlayer.play();
     setPaused(true);
-    // filterPlayList(track);
 
-    // setPosition(pos)
-    const dur = await TrackPlayer.getDuration();
-    setDuration(dur);
-
+  };
+  const togglePlayback = async (playbackState: State) => {
+    const currentTrack = await TrackPlayer.getCurrentTrack();
+    if (currentTrack == null) {
+      // TODO: Perhaps present an error or restart the playlist?
+    } else {
+      if (playbackState == 'paused') {
+        await TrackPlayer.play();
+      } else {
+        await TrackPlayer.pause();
+      }
+    }
   };
 
   const onPressPause = () => {
     TrackPlayer.pause();
     setPaused(false);
-    dispatch(isPlayerPlay(false))
+    dispatch(isPlayerPlay(false));
   };
   const onPressRepeat = () => {
     // onPressPlay()
-    // TrackPlayer.RepeatMode.Off();
-
+    TrackPlayer.getRepeatMode();
   };
   const onPressShuffle = () => {
     // onPressPlay()
@@ -154,69 +171,107 @@ const Player: React.FC<any> = (props): JSX.Element => {
     playNextPrev('prev');
   };
 
-
   //this function is called when the user stops sliding the seekbar
   const slidingCompleted = async (value: any) => {
-    await TrackPlayer.seekTo(value * duration);
-    setSliderValue(value);
-    setIsSeeking(false);
+    await TrackPlayer.seekTo(value);
   };
 
   const onFavoritePress = () => {
-    
     let data = favoriteList;
-    console.log('onFavoritePress ininininininin',data);
-    let found = favoriteList?.find((element: any) => element.id == selectedTrack.id)
+    let found = favoriteList?.find(
+      (element: any) => element.id == selectedTrack.id,
+    );
     if (!found) {
       data.push(selectedTrack);
       setIsFavorite(true);
-      console.log('data.data.data.data',data);
       dispatch(favoriteListRequest(data));
     }
-
   };
 
   const onRemoveFavoritePress = () => {
     setIsFavorite(false);
-    let data = favoriteList?.filter((element: any) => element.id != selectedTrack.id)
+    let data = favoriteList?.filter(
+      (element: any) => element.id != selectedTrack.id,
+    );
     dispatch(favoriteListRequest(data));
   };
-  return (
+  const [trackArtwork, setTrackArtwork] = useState<string | number>();
+  const [trackTitle, setTrackTitle] = useState<string>();
+  const [trackArtist, setTrackArtist] = useState<string>();
 
+  useTrackPlayerEvents(
+    [
+      Event.PlaybackQueueEnded,
+      Event.PlaybackTrackChanged,
+      Event.RemotePlay,
+      Event.RemotePause,
+    ],
+    async event => {
+      if (
+        event.type === Event.PlaybackTrackChanged &&
+        event.nextTrack !== undefined
+      ) {
+        const track = await TrackPlayer.getTrack(event.nextTrack);
+        const { title, artist, artwork } = track || {};
+        setTrackTitle(title);
+        setTrackArtist(artist);
+        setTrackArtwork(artwork);
+      } else if (event.type === Event.RemotePause) {
+        TrackPlayer.pause();
+      } else if (event.type === Event.RemotePlay) {
+        TrackPlayer.play();
+      } else if (event.type === Event.PlaybackQueueEnded) {
+      }
+    },
+  );
+  return (
     <View style={styles.container}>
       <AppHeader
-        renderLeft={<LeftArrowIcon
-          name="keyboard-arrow-left"
-          style={styles.icon}
-          size={30}
-          onPress={() => {
-            dispatch(isPlayerShow(true));
-            navigation.navigate('Home')
-          }}
-        />}
+        renderLeft={
+          <TouchableOpacity
+            style={{ paddingHorizontal: 20 }}
+            onPress={() => {
+              dispatch(isPlayerShow(true));
+              navigation.navigate('Home');
+            }}>
+            <LeftArrowIcon
+              name="keyboard-arrow-left"
+              style={styles.icon}
+              size={30}
+
+            />
+          </ TouchableOpacity>
+        }
         title="Playing Now"
       />
-      <Album url={selectedTrack?.artwork || `https://picsum.photos/150/200/?random=${Math.random()}`}
-        title={selectedTrack?.title || 'No Title'} artist={selectedTrack?.artist || selectedTrack?.album || 'unknown'}
+      <Album
+        url={
+          selectedTrack?.artwork ||
+          `https://picsum.photos/150/200/?random=${Math.random()}`
+        }
+        title={selectedTrack?.title || 'No Title'}
+        artist={selectedTrack?.artist || selectedTrack?.album || 'unknown'}
         isFavorite={isFavorite}
         onFavoritePress={onFavoritePress}
         onRemoveFavoritePress={onRemoveFavoritePress}
         onPressRepeat={onPressRepeat}
-        onPressShuffle={onPressShuffle} />
-      {selectedTrack && <TrackBar
-        trackLength={Math.floor(duration)}
-        track={selectedTrack}
-        onPressPlay={onPressPlay}
-        onPressPause={onPressPause}
-        onForward={onSkipToNext}
-        onBack={onSkipToPrevious}
-        currentPosition={Math.floor(position)}
-        onSeek={slidingCompleted}
-      />}
-
+        onPressShuffle={onPressShuffle}
+      />
+      {selectedTrack && (
+        <TrackBar
+          trackLength={Math.floor(duration)}
+          track={selectedTrack}
+          onPressPlay={onPressPlay}
+          onPressPause={onPressPause}
+          onForward={onSkipToNext}
+          onBack={onSkipToPrevious}
+          currentPosition={Math.floor(position)}
+          onSeek={slidingCompleted}
+          playbackState={playbackState}
+          togglePlayback={togglePlayback}
+        />
+      )}
     </View>
-
-
   );
 };
 

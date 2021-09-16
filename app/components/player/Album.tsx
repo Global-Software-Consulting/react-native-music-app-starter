@@ -86,34 +86,31 @@ const Album: React.FC<MusicProps> = ({
           }
         </View>
         <View style={styles.VolumeContainer}>
-          <TouchableOpacity activeOpacity={0.0} onPress={onPressShuffle}>
+          <TouchableOpacity onPress={onPressShuffle}>
             <Ionicons
               name="volume-low-outline"
               style={[styles.secondaryControl, shuffleOn ? [] : styles.off]}
               size={30}
               color={theme.colors.primary}
-              onPress={onPressShuffle}
             />
           </TouchableOpacity>
           <View style={{ width: "70%" }} />
-          <TouchableOpacity activeOpacity={0.0} onPress={onPressRepeat}>
+          <TouchableOpacity onPress={onPressRepeat}>
             <Ionicons
               name="repeat-sharp"
               size={30}
               style={[styles.secondaryControl, repeatOn ? [] : styles.off]}
               color={theme.colors.primary}
-              onPress={onPressRepeat}
             />
 
           </TouchableOpacity>
 
-          <TouchableOpacity activeOpacity={0.0} onPress={onPressShuffle}>
+          <TouchableOpacity onPress={onPressShuffle}>
             <MaterialCommunityIcons
               name="shuffle"
               style={[styles.secondaryControl, shuffleOn ? [] : styles.off]}
               size={28}
               color={theme.colors.primary}
-              onPress={onPressShuffle}
             />
           </TouchableOpacity>
 

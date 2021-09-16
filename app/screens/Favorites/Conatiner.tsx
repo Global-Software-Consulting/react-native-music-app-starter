@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, FlatList, TouchableHighlight } from 'react-native';
+import { View, FlatList, TouchableHighlight, TouchableOpacity } from 'react-native';
 import { Text } from 'react-native-paper';
 import { useDispatch, useSelector } from 'react-redux';
 import useStyles from './styles';
@@ -8,7 +8,8 @@ import Header from '../../components/Header';
 import { useNavigation } from '@react-navigation/native';
 import { favoriteListRequest } from '../../store/actions/appActions';
 import { IAppState } from '../../models/reducers/app';
-import {ILoading} from '../../models/reducers/loading';
+import { ILoading } from '../../models/reducers/loading';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 interface IState {
   appReducer: IAppState;
@@ -28,7 +29,7 @@ const Favorite: React.FC<any> = (props): JSX.Element => {
   const styles = useStyles();
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  const favoriteList = useSelector((state:IState) => state.appReducer.favoriteList);
+  const favoriteList = useSelector((state: IState) => state.appReducer.favoriteList);
   const removeFavorites = (id: any) => {
     let data = favoriteList?.filter((element: any) => element.id != id)
     dispatch(favoriteListRequest(data));
@@ -37,16 +38,25 @@ const Favorite: React.FC<any> = (props): JSX.Element => {
     <TouchableHighlight
       key={item}
       underlayColor='gray'
-      onPress={() => { removeFavorites(item.id) }}
-    >
+      onPress={() => { removeFavorites(item.id) }}>
+
+
+
       <View style={styles.Musiccontainer}>
         <MusicCard
           name={item.title}
           model={item.artist}
           img={item.artwork}
         />
-
+        <Ionicons
+          name="heart"
+          style={styles.favIcon}
+          size={30}
+          onPress={() => { removeFavorites(item.id) }}
+        />
+        
       </View>
+
     </TouchableHighlight>
   );
   console.log("favlisttt:", favoriteList);

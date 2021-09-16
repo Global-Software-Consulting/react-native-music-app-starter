@@ -13,6 +13,7 @@ export const useStyles = () => {
      },
     Musiccontainer: {
       backgroundColor: theme.colors.accent,
+      
     },
 
     model: {
@@ -24,11 +25,19 @@ export const useStyles = () => {
 
     },
     icon: {
-      paddingLeft:10,
+      paddingLeft:15,
       alignSelf: 'center',
       justifyContent: 'center',
       alignItems: 'center',
-      color:theme.colors.primary
+      color:theme.colors.primary,
+      position:'absolute',
+    },
+    favIcon: {
+    paddingLeft:wp ('5%'),
+      paddingTop:hp('21.5%'),
+      alignSelf:'flex-start',
+      color:'red',
+      position:'absolute',
     },
 
   });
