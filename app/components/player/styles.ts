@@ -187,6 +187,26 @@ export const useStyles = () => {
       justifyContent: 'center',
       alignItems: 'center',
       height: 70
+    },
+   
+    Musiccontainer: {
+      backgroundColor: theme.colors.accent,
+    },
+
+    icon: {
+      paddingLeft:5,
+      alignSelf: 'center',
+      justifyContent: 'center',
+      alignItems: 'center',
+      color:theme.colors.primary
+    },
+    // container: {
+    //   flex: 1,
+    //   backgroundColor: 'rgb(4,4,4)',
+    // },
+    audioElement: {
+      height: 0,
+      width: 0,
     }
   });
   return styles;

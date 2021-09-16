@@ -1,12 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, StatusBar, RefreshControl, TouchableOpacity } from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {
+  View,
+  Text,
+  StatusBar,
+  RefreshControl,
+  TouchableOpacity,
+} from 'react-native';
 import LeftArrowIcon from 'react-native-vector-icons/MaterialIcons';
-import AppHeader from '../../components/AppHeader';
-import { useNavigation, useIsFocused } from '@react-navigation/native';
+import AppHeader from '../AppHeader';
+import {useNavigation, useIsFocused} from '@react-navigation/native';
 import useStyles from './styles';
-import Album from '../../components/player/Album';
-import TrackBar from '../../components/player/TrackBar';
-import { useRoute } from '@react-navigation/native';
+import Album from './Album';
+import TrackBar from './TrackBar';
+import {useRoute} from '@react-navigation/native';
 import TrackPlayer, {
   Capability,
   useProgress,
@@ -14,15 +20,15 @@ import TrackPlayer, {
   RepeatMode,
   State,
   Event,
-  useTrackPlayerEvents
+  useTrackPlayerEvents,
 } from 'react-native-track-player';
-import { useSelector, useDispatch } from 'react-redux';
-import { IAppState } from '../../models/reducers/app';
-import { IPlayerState } from '../../models/reducers/player';
-import { musicListRequest } from '../../store/actions/appActions';
-import { playerListRequest } from '../../store/actions/playerActions';
-import { favoriteListRequest } from '../../store/actions/appActions';
-import { isPlayerShow, isPlayerPlay } from '../../store/actions/playerActions';
+import {useSelector, useDispatch} from 'react-redux';
+import {IAppState} from '../../models/reducers/app';
+import {IPlayerState} from '../../models/reducers/player';
+import {musicListRequest} from '../../store/actions/appActions';
+import {playerListRequest} from '../../store/actions/playerActions';
+import {favoriteListRequest} from '../../store/actions/appActions';
+import {isPlayerShow, isPlayerPlay} from '../../store/actions/playerActions';
 
 interface IState {
   appReducer: IAppState;
@@ -31,6 +37,10 @@ interface IState {
 
 const Player: React.FC<any> = (props): JSX.Element => {
   const musicList = useSelector((state: IState) => state.appReducer.musicList);
+  const playerList = useSelector(
+    (state: IState) => state.playerReducer.playerList,
+  );
+
   const favoriteList = useSelector(
     (state: IState) => state.appReducer.favoriteList,
   );
@@ -39,16 +49,16 @@ const Player: React.FC<any> = (props): JSX.Element => {
   const isVisible = useIsFocused();
   // const [duration, setDuration] = useState(0);
   const route: any = useRoute();
-  const item: any = route.params.item;
+  const item: any = route?.params?.item;
   const [paused, setPaused] = useState<boolean>(false);
   const navigation = useNavigation();
   const styles = useStyles();
   const [sliderValue, setSliderValue] = useState(0);
   const [isSeeking, setIsSeeking] = useState(false);
-  const { position, duration } = useProgress();
+  const {position, duration} = useProgress();
   const dispatch = useDispatch();
   const playbackState = usePlaybackState();
-
+  console.log('playerList', playerList);
   const setup = async () => {
     await TrackPlayer.setupPlayer({});
     await TrackPlayer.updateOptions({
@@ -78,7 +88,7 @@ const Player: React.FC<any> = (props): JSX.Element => {
     if (isVisible) {
       dispatch(isPlayerShow(false));
       TrackPlayer.reset();
-      setSelectedTrack(item)
+      setSelectedTrack(item);
       setup();
     } else {
       TrackPlayer.stop();
@@ -87,8 +97,7 @@ const Player: React.FC<any> = (props): JSX.Element => {
     return () => {
       TrackPlayer.stop();
       TrackPlayer.reset();
-
-    }
+    };
   }, [isVisible]);
   // useEffect(() => {
   //   dispatch(isPlayerShow(false));
@@ -105,7 +114,7 @@ const Player: React.FC<any> = (props): JSX.Element => {
     }
   }, []);
   const onTrackItemPress = async (track: any) => {
-    setSelectedTrack(track)
+    setSelectedTrack(track);
     await TrackPlayer.stop();
     await TrackPlayer.reset();
     await TrackPlayer.add({
@@ -136,7 +145,6 @@ const Player: React.FC<any> = (props): JSX.Element => {
     dispatch(isPlayerPlay(true));
     TrackPlayer.play();
     setPaused(true);
-
   };
   const togglePlayback = async (playbackState: State) => {
     const currentTrack = await TrackPlayer.getCurrentTrack();
@@ -212,7 +220,7 @@ const Player: React.FC<any> = (props): JSX.Element => {
         event.nextTrack !== undefined
       ) {
         const track = await TrackPlayer.getTrack(event.nextTrack);
-        const { title, artist, artwork } = track || {};
+        const {title, artist, artwork} = track || {};
         setTrackTitle(title);
         setTrackArtist(artist);
         setTrackArtwork(artwork);
@@ -226,24 +234,6 @@ const Player: React.FC<any> = (props): JSX.Element => {
   );
   return (
     <View style={styles.container}>
-      <AppHeader
-        renderLeft={
-          <TouchableOpacity
-            style={{ paddingHorizontal: 20 }}
-            onPress={() => {
-              dispatch(isPlayerShow(true));
-              navigation.navigate('Home');
-            }}>
-            <LeftArrowIcon
-              name="keyboard-arrow-left"
-              style={styles.icon}
-              size={30}
-
-            />
-          </ TouchableOpacity>
-        }
-        title="Playing Now"
-      />
       <Album
         url={
           selectedTrack?.artwork ||

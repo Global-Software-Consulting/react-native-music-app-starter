@@ -1,24 +1,21 @@
-import React, { useState, useEffect } from 'react';
-import {
-  View,
-  FlatList,
-  TouchableOpacity,
-  ScrollView,
-
-} from 'react-native';
-import { Text } from 'react-native-paper';
+import React, {useState, useEffect} from 'react';
+import {View, FlatList, TouchableOpacity, ScrollView} from 'react-native';
+import {Text} from 'react-native-paper';
 import useStyles from './styles';
-import { useTranslation } from 'react-i18next';
+import {useTranslation} from 'react-i18next';
 import Header from '../../components/Header';
 import i18n from '../../config/Languages/i18n';
 import MusicCard from '../../components/Music/MusicCard';
-import { useDispatch, useSelector } from 'react-redux';
-import { favoriteListRequest } from '../../store/actions/appActions';
-import { useNavigation } from '@react-navigation/native';
-import { IAppState } from '../../models/reducers/app';
+import {useDispatch, useSelector} from 'react-redux';
+import {favoriteListRequest} from '../../store/actions/appActions';
+import {useNavigation} from '@react-navigation/native';
+import {IAppState} from '../../models/reducers/app';
 import {ILoading} from '../../models/reducers/loading';
+import {
+  isPlayerShow,
+  playerListRequest,
+} from '../../store/actions/playerActions';
 
-import Footer from '../../components/Footer';
 const initI18n = i18n;
 
 interface IState {
@@ -26,14 +23,12 @@ interface IState {
   loadingReducer: ILoading;
 }
 interface Itrack {
-
-  id: string,
-  url: string,
-  title: string,
-  artwork: string,
-  artist: string,
-  duration: number,
-
+  id: string;
+  url: string;
+  title: string;
+  artwork: string;
+  artist: string;
+  duration: number;
 }
 const HomeComponent: React.FC<any> = (props): JSX.Element => {
   const musicList = useSelector((state: IState) => state.appReducer.musicList);
@@ -42,46 +37,30 @@ const HomeComponent: React.FC<any> = (props): JSX.Element => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const [refreshing, setRefreshing] = useState<boolean>(false);
-  const { t, i18n } = useTranslation();
+  const {t, i18n} = useTranslation();
   const styles = useStyles();
   const wait = (timeout: number) => {
     return new Promise(resolve => setTimeout(resolve, timeout));
   };
- 
 
-
-  const RecommendedRenderItem = ({ item }: any) => (
-  
-      <MusicCard
-        name={item.title}
-        model={item.artist}
-        img={item.artwork}
-        onPress={() =>
-          navigation.navigate('Player', {
-         hidePlayer:true,
-         item:item
-          })
-        }
-      />
+  const RecommendedRenderItem = ({item}: any) => (
+    <MusicCard
+      name={item.title}
+      model={item.artist}
+      img={item.artwork}
+      onPress={() => dispatch(isPlayerShow(true))}
+    />
   );
-  const PlayListRenderItem = ({ item }: any) => (
-
-    <TouchableOpacity
-      key={item}
-      
-    >
+  const PlayListRenderItem = ({item}: any) => (
+    <TouchableOpacity key={item}>
       <MusicCard
         name={item.title}
         model={item.artist}
         img={item.artwork}
-        onPress={() =>
-          navigation.navigate('Player', {
-            item: item,
-            hidePlayer:true
-         
-         
-          })
-        }
+        onPress={() => {
+          dispatch(isPlayerShow(true));
+          dispatch(playerListRequest(item));
+        }}
       />
     </TouchableOpacity>
   );
@@ -89,12 +68,11 @@ const HomeComponent: React.FC<any> = (props): JSX.Element => {
   return (
     <>
       <View style={styles.container}>
-        <ScrollView
-          nestedScrollEnabled={true}>
+        <ScrollView nestedScrollEnabled={true}>
           <Header title="Recommended for you" />
           {props?.musicList?.length > 0 ? (
             <FlatList
-              contentContainerStyle={{ alignSelf: 'flex-start' }}
+              contentContainerStyle={{alignSelf: 'flex-start'}}
               horizontal={true}
               showsVerticalScrollIndicator={false}
               showsHorizontalScrollIndicator={false}
@@ -107,13 +85,12 @@ const HomeComponent: React.FC<any> = (props): JSX.Element => {
             <View style={styles.container}>
               <Text style={styles.model}>No Reommendations Available</Text>
             </View>
-
           )}
           <Header title="My Playlist" />
 
           {props?.musicList?.length > 0 ? (
             <FlatList
-              contentContainerStyle={{ alignSelf: 'flex-start' }}
+              contentContainerStyle={{alignSelf: 'flex-start'}}
               horizontal={true}
               showsVerticalScrollIndicator={false}
               showsHorizontalScrollIndicator={false}
@@ -125,13 +102,8 @@ const HomeComponent: React.FC<any> = (props): JSX.Element => {
             <View style={styles.container}>
               <Text style={styles.model}>Playlist Empty</Text>
             </View>
-
           )}
-
-
         </ScrollView>
-      
-
       </View>
     </>
   );
