@@ -22,12 +22,12 @@ interface MusicProps {
   shuffleOn?: any;
   onPressRepeat?: any;
   repeatOn?: any;
+  
 }
 const {width, height} = Dimensions.get('window');
 
 const Album: React.FC<MusicProps> = ({
   url,
-  onPress,
   title,
   artist,
   onRemoveFavoritePress,

@@ -9,6 +9,7 @@ export const useStyles = () => {
   const { width, height } = Dimensions.get('window');
   const imageSize = width - 48;
   const styles = StyleSheet.create({
+    // Index styles
 
     container: {
       justifyContent: 'center',
@@ -136,6 +137,7 @@ export const useStyles = () => {
 
     slider: {
       marginTop: -12,
+      width:wp ('80%')
 
     },
     Trackcontainer: {
@@ -167,11 +169,42 @@ export const useStyles = () => {
       justifyContent: 'center',
     },
     playButton: {
-      height: hp('12%'), // 70% of height device screen
-      width: wp('10%'),
+      height: hp('10%'), // 70% of height device screen
+      width: wp('20%'),
       borderRadius:hp('15%')/ 2,
       alignItems: 'center',
       justifyContent: 'center',
+      backgroundColor: 'orange',
+      paddingLeft: 7,
+      shadowColor: theme.colors.primary,
+      shadowOffset: {
+        width: 0,
+        height: 7,
+      },
+      
+      shadowOpacity: 0.41,
+      shadowRadius: 9.11,
+
+      elevation: 14,
+    },
+
+    controlButton: {
+      justifyContent: 'center',
+      backgroundColor:'lightgray',
+      alignSelf: 'center',
+      height: hp('5%'), // 70% of height device screen
+      width: wp('10%'),
+      borderRadius: hp('15%') / 2,
+      paddingLeft: 5,
+      shadowColor: theme.colors.primary,
+      shadowOffset: {
+        width: 0,
+        height: 7,
+      },
+      shadowOpacity: 0.41,
+      shadowRadius: 9.11,
+
+      elevation: 14,
     },
     secondaryControl: {
       height: hp('7%'), // 70% of height device screen

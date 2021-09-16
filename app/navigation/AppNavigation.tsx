@@ -1,14 +1,14 @@
-import React, {useState, useEffect} from 'react';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import React, { useState, useEffect } from 'react';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Settings from '../screens/Settings';
 import Favorites from '../screens/Favorites';
 import DrawerNavigator from './DrawerNavigator';
 import Footer from '../components/player/index';
-import {IPlayerState} from '../models/reducers/player';
-import {useSelector} from 'react-redux';
-import {useRoute} from '@react-navigation/native';
+import { IPlayerState } from '../models/reducers/player';
+import { useSelector } from 'react-redux';
+import { useRoute } from '@react-navigation/native';
 
-import {View, Text, Button} from 'react-native';
+import { View, Text, Button } from 'react-native';
 
 const AppStack = createNativeStackNavigator();
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -46,26 +46,27 @@ const AppNavigation = () => {
         <Stack.Screen
           name="DrawerNavigator"
           component={DrawerNavigator}
-          options={{headerShown: false}}
-          initialParams={{itemId: 42}}
+          options={{ headerShown: false }}
+          initialParams={{ itemId: 42 }}
         />
 
         <Stack.Screen
           name="Favorites"
           component={Favorites}
-          options={{headerShown: false}}
-          initialParams={{itemId: 43}}
+          options={{ headerShown: false }}
+          initialParams={{ itemId: 43 }}
         />
 
         <Stack.Screen
           name="Settings"
           component={Settings}
-          options={{headerShown: false}}
-          initialParams={{itemId: 44}}
+          options={{ headerShown: false }}
+          initialParams={{ itemId: 44 }}
         />
       </AppStack.Navigator>
-
-      <Footer />
+      <>
+        <Footer />
+      </>
     </>
   );
 };

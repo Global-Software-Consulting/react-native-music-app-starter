@@ -1,10 +1,9 @@
 /*
  * Reducer actions related with login
  */
-import { Value } from 'react-native-reanimated';
 import * as types from './types';
 
-export function playerListRequest(list: any) {
+export function playerListRequest(list: any){
     console.log("reponsereponsereponsereponsereponse abc:", list);
   return {
     type: types.PLAYER_LIST_REQUEST,
