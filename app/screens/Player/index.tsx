@@ -158,7 +158,7 @@ const Player: React.FC<any> = (props): JSX.Element => {
   };
   const onPressRepeat = () => {
     // onPressPlay()
-    // TrackPlayer.RepeatMode();
+    TrackPlayer.getRepeatMode();
   };
   const onPressShuffle = () => {
     // onPressPlay()
