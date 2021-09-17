@@ -2,7 +2,6 @@ import { DefaultTheme as dF } from 'react-native-paper';
 import { StyleSheet, Dimensions } from 'react-native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { useTheme } from 'react-native-paper';
-import styles from 'app/screens/Settings/styles';
 
 export const useStyles = () => {
   const theme = useTheme();
@@ -10,12 +9,16 @@ export const useStyles = () => {
   const imageSize = width - 48;
   const styles = StyleSheet.create({
     // Index styles
-
+    Indexcontainer: {
+      justifyContent: 'center',
+      height: hp('100%'),
+      flexDirection: 'row',
+      backgroundColor: 'white',
+    },
     container: {
       justifyContent: 'center',
       alignItems: 'center',
       backgroundColor: theme.colors.accent,
-      // backgroundColor: "red",
       marginBottom: 2,
       paddingLeft: 24,
       paddingRight: 24,
@@ -209,9 +212,15 @@ export const useStyles = () => {
     secondaryControl: {
       height: hp('7%'), // 70% of height device screen
       width: wp('10%'),
+      // color:'orange',
     },
     off: {
       opacity: 0.30,
+      color:'black'
+    },
+    on: {
+      color:'orange'
+
     },
     activityIndicator:{
       
@@ -227,21 +236,40 @@ export const useStyles = () => {
     },
 
     icon: {
-      paddingLeft:5,
+      paddingLeft:25,
       alignSelf: 'center',
       justifyContent: 'center',
       alignItems: 'center',
       color:theme.colors.primary
     },
-    // container: {
-    //   flex: 1,
-    //   backgroundColor: 'rgb(4,4,4)',
-    // },
+    Dropicon: {
+      marginLeft: wp('15%'),
+      justifyContent:'center',
+    },
+    
     audioElement: {
       height: 0,
       width: 0,
-    }
+    },
+    line: {
+      width: wp('35%'),
+      justifyContent: 'center',
+      marginLeft: wp('30%'),
+      marginBottom:25,
+      borderBottomColor:theme.colors.primary,
+      borderBottomWidth: 1.5,
+      // marginRight:44,
+    },
+    wrapHeader: {
+      backgroundColor:'red',
+      justifyContent:'center',
+      flexDirection:'row',
+      width:'100%',
+      marginBottom:30
+    },
+
   });
   return styles;
-}
+};
+ 
 export default useStyles;

@@ -165,7 +165,7 @@ export const useStyles = () => {
     PlayerBottomcontainer: {
       height: hp('100%'),
       flexDirection: 'row',
-      backgroundColor: 'black',
+      backgroundColor: theme.colors.primary,
       justifyContent: 'flex-start',
       paddingLeft: 20
     },
@@ -288,6 +288,7 @@ export const useStyles = () => {
       height: hp('2.5%'), // 70% of height device screen
       width: wp('4.5%'),
       borderRadius: 10,
+      color:theme.colors.accent
     },
     activityIndicator: {
 

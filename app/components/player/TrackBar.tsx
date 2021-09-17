@@ -4,15 +4,8 @@ import { useTheme, Text } from 'react-native-paper';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import useStyles from './styles';
 import Slider from 'react-native-slider';
-import TrackPlayer, {
-  Capability,
-  useProgress,
-  State,
-} from 'react-native-track-player';
 import { useSelector, useDispatch } from 'react-redux';
 import { IPlayerState } from '../../models/reducers/player';
-import { isPlayerShow } from 'app/store/actions/playerActions';
-import { widthPercentageToDP } from 'react-native-responsive-screen';
 
 function pad(n: any, width: any, z: any = 0) {
   n = n + '';

@@ -1,8 +1,9 @@
 import React from 'react';
-import {View, Image, TouchableOpacity, Dimensions} from 'react-native';
+import { View, Image, TouchableOpacity, Dimensions } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {useTheme, Text} from 'react-native-paper';
+import DownArrowIcon from 'react-native-vector-icons/AntDesign';
+import { useTheme, Text } from 'react-native-paper';
 import useStyles from './styles';
 
 interface MusicProps {
@@ -22,9 +23,9 @@ interface MusicProps {
   shuffleOn?: any;
   onPressRepeat?: any;
   repeatOn?: any;
-  
+
 }
-const {width, height} = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 
 const Album: React.FC<MusicProps> = ({
   url,
@@ -42,11 +43,13 @@ const Album: React.FC<MusicProps> = ({
 }) => {
   const styles = useStyles();
   const theme = useTheme();
+  console.log(":color",repeatOn);
+  
   return (
     <>
       <View style={styles.container}>
         <View style={styles.imgcontainer}>
-          <Image style={styles.image} source={{uri: url}} />
+          <Image style={styles.image} source={{ uri: url }} />
         </View>
         <View style={styles.TrackDetailcontainer}>
           <View style={styles.detailsWrapper}>
@@ -93,12 +96,12 @@ const Album: React.FC<MusicProps> = ({
               color={theme.colors.primary}
             />
           </TouchableOpacity>
-          <View style={{width: '70%'}} />
+          <View style={{ width: '70%' }} />
           <TouchableOpacity onPress={onPressRepeat}>
             <Ionicons
               name="repeat-sharp"
               size={30}
-              style={[styles.secondaryControl, repeatOn ? [] : styles.off]}
+              style={[styles.secondaryControl, repeatOn ? styles.on : styles.off]}
               color={theme.colors.primary}
             />
           </TouchableOpacity>

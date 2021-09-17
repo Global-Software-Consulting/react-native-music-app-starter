@@ -4,19 +4,17 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import { useTheme, Text } from 'react-native-paper';
+import { useTheme } from 'react-native-paper';
 import { useSelector, useDispatch } from 'react-redux';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import { IAppState } from '../../models/reducers/app';
 import { IPlayerState } from '../../models/reducers/player';
-import Slider from 'react-native-slider';
 import { isPlayerPlay } from '../../store/actions/playerActions';
-import { useNavigation ,useIsFocused} from '@react-navigation/native';
-import Animated from 'react-native-reanimated';
+import { useNavigation, useIsFocused } from '@react-navigation/native';
 import BottomSheet from 'reanimated-bottom-sheet';
 import { favoriteListRequest } from '../../store/actions/appActions';
 import FullPlayer from './PlayerFullScreen';
 import PlyerBottom from './PlyerBottom';
+import useStyles from './styles';
 import TrackPlayer, {
   Capability,
   useProgress,
@@ -50,7 +48,7 @@ const minutesAndSeconds = (position: any) => [
   pad(position % 60, 2),
 ];
 const Footer: React.FC<any> = (props, isShowFooter): JSX.Element => {
-  const selectedTrack: any = useSelector(
+  const item: any = useSelector(
     (state: IState) => state.playerReducer.playerList,
   );
   const isPlayerShown = useSelector(
@@ -64,15 +62,10 @@ const Footer: React.FC<any> = (props, isShowFooter): JSX.Element => {
   );
   const musicList = useSelector((state: IState) => state.appReducer.musicList);
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
-  const [sliderValue, setSliderValue] = useState(0);
-  const [isSeeking, setIsSeeking] = useState(false);
-  const { position } = useProgress();
-  const [duration, setDuration] = useState(0);
-  let trackLength = Math.floor(duration);
-  let currentPosition = Math.floor(position);
-  const elapsed = minutesAndSeconds(currentPosition);
-  const remaining = minutesAndSeconds(trackLength - currentPosition);
-  const theme = useTheme();
+  const [paused, setPaused] = useState<boolean>(false);
+  const [isRepeat, setIsRepeat] = useState<boolean>(false);
+  const [repeatOn, setRepeatOn] = useState<boolean>(false);
+  const [selectedTrack, setSelectedTrack] = useState<any>(null);
   const sheetRef = React.useRef(null);
   const playbackState = usePlaybackState();
   const dispatch = useDispatch();
@@ -80,20 +73,13 @@ const Footer: React.FC<any> = (props, isShowFooter): JSX.Element => {
   const styles = useStyles();
   const [fullPlayerView, setFullPlayerView] = useState(false);
   const isVisible = useIsFocused();
-  useEffect(() => {
-    if (isVisible) {
-      TrackPlayer.reset();
-   
-      setup();
-    } else {
-      TrackPlayer.stop();
-      TrackPlayer.reset();
-    }
-    return () => {
-      TrackPlayer.stop();
-      TrackPlayer.reset();
-    };
-  }, [selectedTrack]);
+  const { position, duration } = useProgress();
+  let trackLength = Math.floor(duration);
+  let currentPosition = Math.floor(position);
+  const elapsed = minutesAndSeconds(currentPosition);
+  const remaining = minutesAndSeconds(trackLength - currentPosition);
+  const theme = useTheme();
+
   const setup = async () => {
     await TrackPlayer.setupPlayer({});
     await TrackPlayer.updateOptions({
@@ -107,9 +93,9 @@ const Footer: React.FC<any> = (props, isShowFooter): JSX.Element => {
       ],
       compactCapabilities: [Capability.Play, Capability.Pause],
     });
-
+    const styles = useStyles();
     await TrackPlayer.add({
-      url: selectedTrack?.url,
+      url: item?.url,
       title: '1324234',
       artist: 'David Chavez',
       artwork:
@@ -117,37 +103,62 @@ const Footer: React.FC<any> = (props, isShowFooter): JSX.Element => {
       // duration: startDuration(),
     });
     TrackPlayer.play();
-    TrackPlayer.setRepeatMode(RepeatMode.Track);
+    // TrackPlayer.setRepeatMode(RepeatMode.Track);
   };
   useEffect(() => {
-    if (!isSeeking && position && duration) {
-      setSliderValue(position / duration);
+    if (isVisible) {
+      TrackPlayer.reset();
+      setSelectedTrack(item)
+      setup();
+    } else {
+      TrackPlayer.stop();
+      TrackPlayer.reset();
     }
-  }, [position, duration]);
+    return () => {
+      TrackPlayer.stop();
+      TrackPlayer.reset();
 
-  const onPressPlay = async () => {
-    dispatch(isPlayerPlay(true));
-    TrackPlayer.play();
+    }
+  }, [isVisible]);
+  // useEffect(() => {
+  //   if (isRepeat === true) {
+  //     onPressRepeat();
+  //     console.log('isRepeatttt:', isRepeat);
 
-    const dur = await TrackPlayer.getDuration();
-    // setDuration(dur);
-  };
+  //   }
+  //   // TrackPlayer.stop();
+  //   // TrackPlayer.reset();
+  //   setIsRepeat(isRepeat);
+  //   console.log('isRepeatttt:', isRepeat);
+    
+    
+  // }, []);
+
   useEffect(() => {
-    isPlayerShown && sheetRef.current.snapTo(0);
-    setFullPlayerView(true);
-  }, [isPlayerShown]);
-  // const filterPlayList =(id: any) => {
-  //   let data = pList?.filter((element: any) => element.id != id)
-  //   dispatch(playerListRequest(data));
-  // };
-  const onPressPause = () => {
-    dispatch(isPlayerPlay(false));
-    TrackPlayer.pause();
-  };
+    onTrackItemPress(item);
+
+    let found = favoriteList?.find((element: any) => element.id == item.id);
+    if (found) {
+      setIsFavorite(true);
+    } else {
+      setIsFavorite(false);
+    }
+  }, []);
   const onTrackItemPress = async (track: any) => {
+    setSelectedTrack(track)
     await TrackPlayer.stop();
     await TrackPlayer.reset();
+    await TrackPlayer.add({
+      url: track?.url,
+      title: '1324234',
+      artist: 'David Chavez',
+      artwork:
+        'https://i.scdn.co/image/e5c7b168be89098eb686e02152aaee9d3a24e5b6',
+    });
+    TrackPlayer.play();
+
   };
+
   const playNextPrev = async (prevOrNext: 'prev' | 'next') => {
     const currentTrackId = await selectedTrack?.id;
     if (!currentTrackId) return;
@@ -161,12 +172,80 @@ const Footer: React.FC<any> = (props, isShowFooter): JSX.Element => {
       onTrackItemPress(musicList[trkIndex - 1]);
     }
   };
+  const onPressPlay = async () => {
+    dispatch(isPlayerPlay(true));
+    TrackPlayer.play();
+    setPaused(true);
+
+  };
+  const togglePlayback = async (playbackState: State) => {
+    const currentTrack = await TrackPlayer.getCurrentTrack();
+    if (currentTrack == null) {
+      // TODO: Perhaps present an error or restart the playlist?
+    } else {
+      if (playbackState == 'paused') {
+        await TrackPlayer.play();
+      } else {
+        await TrackPlayer.pause();
+      }
+    }
+  };
+
+  const onPressPause = () => {
+    TrackPlayer.pause();
+    setPaused(false);
+    dispatch(isPlayerPlay(false));
+  };
+   // useEffect(() => {
+  //   if (isRepeat === true) {
+  //     onPressRepeat();
+  //     console.log('isRepeatttt:', isRepeat);
+
+  //   }
+  //   // TrackPlayer.stop();
+  //   // TrackPlayer.reset();
+  //   setIsRepeat(isRepeat);
+  //   console.log('isRepeatttt:', isRepeat);
+    
+    
+  // }, []);
+
+  const onPressRepeat = () => {
+    if (repeatOn) {
+      TrackPlayer.setRepeatMode(RepeatMode.Off)
+
+      setRepeatOn(!repeatOn);
+
+
+        }
+        else{
+
+        setRepeatOn(!repeatOn);
+        TrackPlayer.setRepeatMode(RepeatMode.Track);
+
+
+        }
+
+    // onPressPlay();
+    // // TrackPlayer.getRepeatMode();
+   
+  };
+  const onPressShuffle = () => {
+    // onPressPlay()
+    // TrackPlayer.skipToPrevious();
+  };
   const onSkipToNext = () => {
     playNextPrev('next');
   };
   const onSkipToPrevious = () => {
     playNextPrev('prev');
   };
+
+  //this function is called when the user stops sliding the seekbar
+  const slidingCompleted = async (value: any) => {
+    await TrackPlayer.seekTo(value);
+  };
+
   const onFavoritePress = () => {
     let data = favoriteList;
     let found = favoriteList?.find(
@@ -186,50 +265,44 @@ const Footer: React.FC<any> = (props, isShowFooter): JSX.Element => {
     );
     dispatch(favoriteListRequest(data));
   };
-  const togglePlayback = async (playbackState: State) => {
-    const currentTrack = await TrackPlayer.getCurrentTrack();
-    if (currentTrack == null) {
-      // TODO: Perhaps present an error or restart the playlist?
-    } else {
-      if (playbackState == 'paused') {
-        await TrackPlayer.play();
-      } else {
-        await TrackPlayer.pause();
-      }
-    }
-  };
-  const onForward = () => {
-    // playNextPrev('next');
-  };
-  const onBack = () => {
-    // playNextPrev('prev');
-  };
-  const onSeek = async (value: any) => {
-    await TrackPlayer.seekTo(value * duration);
-    setSliderValue(value);
-    setIsSeeking(false);
-  };
-  const onPressRepeat = () => {
-    // onPressPlay()
-    TrackPlayer.getRepeatMode();
-  };
-  const onPressShuffle = () => {
-    // onPressPlay()
-    // TrackPlayer.skipToPrevious();
-  };
-  const slidingCompleted = async (value: any) => {
-    await TrackPlayer.seekTo(value);
-  };
+  const [trackArtwork, setTrackArtwork] = useState<string | number>();
+  const [trackTitle, setTrackTitle] = useState<string>();
+  const [trackArtist, setTrackArtist] = useState<string>();
 
+  useTrackPlayerEvents(
+    [
+      Event.PlaybackQueueEnded,
+      Event.PlaybackTrackChanged,
+      Event.RemotePlay,
+      Event.RemotePause,
+    ],
+    async (event: any) => {
+      if (
+        event.type === Event.PlaybackTrackChanged &&
+        event.nextTrack !== undefined
+      ) {
+        const track = await TrackPlayer.getTrack(event.nextTrack);
+        const { title, artist, artwork } = track || {};
+        setTrackTitle(title);
+        setTrackArtist(artist);
+        setTrackArtwork(artwork);
+      } else if (event.type === Event.RemotePause) {
+        TrackPlayer.pause();
+      } else if (event.type === Event.RemotePlay) {
+        TrackPlayer.play();
+      } else if (event.type === Event.PlaybackQueueEnded) {
+      }
+    },
+  );
   const renderContent = () => {
     return fullPlayerView ? (
-      <View style={styles.container}>
-        <FullPlayer url={
+      <View style={styles.Indexcontainer}>
+        {selectedTrack && (<FullPlayer url={
           selectedTrack?.artwork ||
           `https://picsum.photos/150/200/?random=${Math.random()}`
         }
-          title={selectedTrack?.title || 'No Title'}
-          artist={selectedTrack?.artist || selectedTrack?.album || 'unknown'}
+          title={item?.title || 'No Title'}
+          artist={item?.artist || item?.album || 'unknown'}
           isFavorite={isFavorite}
           onFavoritePress={onFavoritePress}
           onRemoveFavoritePress={onRemoveFavoritePress}
@@ -244,16 +317,21 @@ const Footer: React.FC<any> = (props, isShowFooter): JSX.Element => {
           currentPosition={Math.floor(position)}
           onSeek={slidingCompleted}
           playbackState={playbackState}
-          togglePlayback={togglePlayback} />
+          togglePlayback={togglePlayback}
+          sheetRef={sheetRef}
+          repeatOn={repeatOn}
+          
+        />
+        )}
       </View>
     ) : (
       <PlyerBottom
         img={
-          selectedTrack?.artwork ||
+          item?.artwork ||
           `https://picsum.photos/150/200/?random=${Math.random()}`
         }
-        title={selectedTrack?.title || 'No Title'}
-        artist={selectedTrack?.artist || selectedTrack?.album || 'unknown'} 
+        title={item?.title || 'No Title'}
+        artist={item?.artist || item?.album || 'unknown'}
         trackLength={Math.floor(duration)}
         track={selectedTrack}
         onForward={onSkipToNext}
@@ -268,119 +346,18 @@ const Footer: React.FC<any> = (props, isShowFooter): JSX.Element => {
   };
   return (
     <>
-  
-    <BottomSheet
-      ref={sheetRef}
-      initialSnap={0}
-      snapPoints={['100%', 130, 130]}
-      borderRadius={10}
-      renderContent={renderContent}
-      onOpenEnd={() => setFullPlayerView(true)}
-      onCloseEnd={() => setFullPlayerView(false)}
-    />
+
+      <BottomSheet
+        ref={sheetRef}
+        initialSnap={0}
+        snapPoints={['100%', 130, 130]}
+        borderRadius={10}
+        renderContent={renderContent}
+        onOpenEnd={() => setFullPlayerView(true)}
+        onCloseEnd={() => setFullPlayerView(false)}
+      />
     </>
   );
 };
 
-export const useStyles = () => {
-  const theme = useTheme();
-  const styles = StyleSheet.create({
-    container: {
-      justifyContent: 'center',
-      height: hp('100%'),
-      flexDirection: 'row',
-      backgroundColor: 'white',
-    },
-    PlayerBottomcontainer: {
-      height: hp('100%'),
-      flexDirection: 'row',
-      backgroundColor: 'white',
-      justifyContent: 'flex-start',
-      paddingLeft: 10
-    },
-
-    imgcontainer: {
-      height: hp('10%'), // 70% of height device screen
-      width: wp('10%'),
-      borderRadius: 10,
-      shadowColor: 'black',
-      shadowOffset: { width: 0, height: 2 },
-      shadowOpacity: 0.2,
-      shadowRadius: 8,
-      elevation: 20,
-    },
-    image: {
-      height: hp('10%'), // 70% of height device screen
-      width: wp('15%'),
-    },
-    text: {
-      fontSize: 12,
-      textAlign: 'center',
-      marginBottom: 5,
-    },
-    TrackDetailcontainer: {
-      width: wp('100%'),
-      flexDirection: 'row',
-      paddingLeft: 20,
-      paddingTop: 5,
-      // alignItems: 'center',
-      // paddingRight: 20,
-    },
-    title: {
-      fontSize: hp('3%'),
-      fontWeight: 'bold',
-      // textAlign: 'center',
-    },
-    artist: {
-      fontSize: hp('2%'),
-      // marginTop: 4,
-    },
-    detailsWrapper: {
-      paddingLeft: 5,
-    },
-    // <-------------------------Control Bar styles--------------->
-    Controlcontainer: {
-      flexDirection: 'row',
-      flex: 1,
-      padding: 10,
-    },
-    playButton: {
-      height: hp('12%'), // 70% of height device screen
-      width: wp('10%'),
-      borderRadius: hp('15%') / 2,
-    },
-    secondaryControl: {
-      height: hp('7%'), // 70% of height device screen
-      width: wp('10%'),
-    },
-    off: {
-      opacity: 0.3,
-    },
-    // <-------------------------Track Bar styles--------------->
-
-    slider: {
-      marginTop: -12,
-      width: '90%',
-      height: 40,
-    },
-    Trackcontainer: {
-      height: 20,
-      paddingLeft: 2,
-      paddingRight: 2,
-      backgroundColor: 'transparent',
-    },
-    track: {
-      // width:5,
-      height: 3.5,
-      borderRadius: 1,
-    },
-    thumb: {
-      height: hp('2.5%'), // 70% of height device screen
-      width: wp('4.5%'),
-      borderRadius: 10,
-    },
-   
-  });
-  return styles;
-};
 export default Footer;
