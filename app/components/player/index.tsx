@@ -1,9 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, Image, TouchableOpacity, Button } from 'react-native';
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from 'react-native-responsive-screen';
 import { useTheme } from 'react-native-paper';
 import { useSelector, useDispatch } from 'react-redux';
 import { IAppState } from '../../models/reducers/app';
@@ -63,7 +59,6 @@ const Footer: React.FC<any> = (props, isShowFooter): JSX.Element => {
   const musicList = useSelector((state: IState) => state.appReducer.musicList);
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
   const [paused, setPaused] = useState<boolean>(false);
-  const [isRepeat, setIsRepeat] = useState<boolean>(false);
   const [repeatOn, setRepeatOn] = useState<boolean>(false);
   const [selectedTrack, setSelectedTrack] = useState<any>(null);
   const sheetRef = React.useRef(null);
@@ -76,10 +71,7 @@ const Footer: React.FC<any> = (props, isShowFooter): JSX.Element => {
   const { position, duration } = useProgress();
   let trackLength = Math.floor(duration);
   let currentPosition = Math.floor(position);
-  const elapsed = minutesAndSeconds(currentPosition);
-  const remaining = minutesAndSeconds(trackLength - currentPosition);
-  const theme = useTheme();
-
+ 
   const setup = async () => {
     await TrackPlayer.setupPlayer({});
     await TrackPlayer.updateOptions({
@@ -120,19 +112,6 @@ const Footer: React.FC<any> = (props, isShowFooter): JSX.Element => {
 
     }
   }, [isVisible]);
-  // useEffect(() => {
-  //   if (isRepeat === true) {
-  //     onPressRepeat();
-  //     console.log('isRepeatttt:', isRepeat);
-
-  //   }
-  //   // TrackPlayer.stop();
-  //   // TrackPlayer.reset();
-  //   setIsRepeat(isRepeat);
-  //   console.log('isRepeatttt:', isRepeat);
-    
-    
-  // }, []);
 
   useEffect(() => {
     onTrackItemPress(item);
@@ -196,19 +175,7 @@ const Footer: React.FC<any> = (props, isShowFooter): JSX.Element => {
     setPaused(false);
     dispatch(isPlayerPlay(false));
   };
-   // useEffect(() => {
-  //   if (isRepeat === true) {
-  //     onPressRepeat();
-  //     console.log('isRepeatttt:', isRepeat);
 
-  //   }
-  //   // TrackPlayer.stop();
-  //   // TrackPlayer.reset();
-  //   setIsRepeat(isRepeat);
-  //   console.log('isRepeatttt:', isRepeat);
-    
-    
-  // }, []);
 
   const onPressRepeat = () => {
     if (repeatOn) {
@@ -225,9 +192,6 @@ const Footer: React.FC<any> = (props, isShowFooter): JSX.Element => {
 
 
         }
-
-    // onPressPlay();
-    // // TrackPlayer.getRepeatMode();
    
   };
   const onPressShuffle = () => {

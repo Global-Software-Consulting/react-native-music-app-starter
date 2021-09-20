@@ -43,7 +43,6 @@ const Album: React.FC<MusicProps> = ({
 }) => {
   const styles = useStyles();
   const theme = useTheme();
-  console.log(":color",repeatOn);
   
   return (
     <>
