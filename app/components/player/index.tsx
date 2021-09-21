@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, Image, TouchableOpacity, Button } from 'react-native';
+import { View, Text, Button } from 'react-native';
 import { useTheme } from 'react-native-paper';
 import { useSelector, useDispatch } from 'react-redux';
 import { IAppState } from '../../models/reducers/app';
@@ -11,6 +11,7 @@ import { favoriteListRequest } from '../../store/actions/appActions';
 import FullPlayer from './PlayerFullScreen';
 import PlyerBottom from './PlyerBottom';
 import useStyles from './styles';
+import Modal from "react-native-modal";
 import TrackPlayer, {
   Capability,
   useProgress,
@@ -20,6 +21,8 @@ import TrackPlayer, {
   Event,
   useTrackPlayerEvents
 } from 'react-native-track-player';
+import AppPlaylistModal from './AppPlaylistModal';
+import AppCreatePlaylistModal from './AppCreatePlaylistModal';
 interface FooterProps {
   title?: string;
   url?: string;
@@ -59,6 +62,9 @@ const Footer: React.FC<any> = (props, isShowFooter): JSX.Element => {
   const musicList = useSelector((state: IState) => state.appReducer.musicList);
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
   const [paused, setPaused] = useState<boolean>(false);
+  const [addPlaylist, setAddPlaylist] = useState<boolean>(false);
+  const [isModalVisible, setModalVisible] = useState(false);
+  const [isCreateModalVisible, setIsCreateModalVisible] = useState(false);
   const [repeatOn, setRepeatOn] = useState<boolean>(false);
   const [selectedTrack, setSelectedTrack] = useState<any>(null);
   const sheetRef = React.useRef(null);
@@ -69,9 +75,8 @@ const Footer: React.FC<any> = (props, isShowFooter): JSX.Element => {
   const [fullPlayerView, setFullPlayerView] = useState(false);
   const isVisible = useIsFocused();
   const { position, duration } = useProgress();
-  let trackLength = Math.floor(duration);
-  let currentPosition = Math.floor(position);
- 
+
+
   const setup = async () => {
     await TrackPlayer.setupPlayer({});
     await TrackPlayer.updateOptions({
@@ -157,6 +162,7 @@ const Footer: React.FC<any> = (props, isShowFooter): JSX.Element => {
     setPaused(true);
 
   };
+
   const togglePlayback = async (playbackState: State) => {
     const currentTrack = await TrackPlayer.getCurrentTrack();
     if (currentTrack == null) {
@@ -169,6 +175,7 @@ const Footer: React.FC<any> = (props, isShowFooter): JSX.Element => {
       }
     }
   };
+
 
   const onPressPause = () => {
     TrackPlayer.pause();
@@ -184,16 +191,32 @@ const Footer: React.FC<any> = (props, isShowFooter): JSX.Element => {
       setRepeatOn(!repeatOn);
 
 
-        }
-        else{
+    }
+    else {
 
-        setRepeatOn(!repeatOn);
-        TrackPlayer.setRepeatMode(RepeatMode.Track);
+      setRepeatOn(!repeatOn);
+      TrackPlayer.setRepeatMode(RepeatMode.Track);
 
 
-        }
-   
+    }
+
   };
+  const onPressPlaylist = () => {
+    setAddPlaylist(!addPlaylist);
+    setModalVisible(!isModalVisible);
+    // setModalVisible(!isModalVisible);
+
+  };
+  const onPressNewPlaylist = () => {
+    setAddPlaylist(!addPlaylist);
+    setModalVisible(!isModalVisible);
+  setTimeout(() => {
+    setIsCreateModalVisible(!isCreateModalVisible);
+  }, 400);
+  
+
+  };
+
   const onPressShuffle = () => {
     // onPressPlay()
     // TrackPlayer.skipToPrevious();
@@ -284,7 +307,8 @@ const Footer: React.FC<any> = (props, isShowFooter): JSX.Element => {
           togglePlayback={togglePlayback}
           sheetRef={sheetRef}
           repeatOn={repeatOn}
-          
+          addPlaylist={addPlaylist}
+          onPressPlaylist={onPressPlaylist}
         />
         )}
       </View>
@@ -313,14 +337,23 @@ const Footer: React.FC<any> = (props, isShowFooter): JSX.Element => {
 
       <BottomSheet
         ref={sheetRef}
-        initialSnap={0}
+        initialSnap={1}
         snapPoints={['100%', 130, 130]}
         borderRadius={10}
         renderContent={renderContent}
         onOpenEnd={() => setFullPlayerView(true)}
         onCloseEnd={() => setFullPlayerView(false)}
       />
-    </>
+    <AppPlaylistModal 
+    isModalVisible={isModalVisible}
+    onPressPlaylist={onPressPlaylist}
+    onPressNewPlaylist={onPressNewPlaylist}
+    />
+    <AppCreatePlaylistModal 
+    isCreateModalVisible={isCreateModalVisible}
+    onPressNewPlaylist={onPressNewPlaylist}
+    />
+        </>
   );
 };
 

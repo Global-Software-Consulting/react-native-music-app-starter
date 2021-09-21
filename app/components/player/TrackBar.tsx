@@ -63,15 +63,6 @@ const TrackBar: React.FC<MusicProps> = ({
   );
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   const addsongs = async () => {
-  //     TrackPlayer.add(track);
-  //     onPressPlay(track);
-  //   };
-  //   if (isPlayerPlay) {
-  //     addsongs();
-  //   }
-  // }, []);
   return (
     <>
       <View style={styles.Trackcontainer}>

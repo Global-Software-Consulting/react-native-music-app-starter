@@ -7,6 +7,7 @@ import i18n from "../../config/Languages/i18n";
 import { tracks } from '../../data/tracks';
 import { useSelector} from 'react-redux';
 import MusicCardShimmer from '../../components/Music/MusicCardShimmer';
+import PlaylistCardShimmer from '../../components/Playlist/PlaylistCardShimmer';
 import {ILoading} from '../../models/reducers/loading';
 const initI18n = i18n;
 
@@ -50,9 +51,8 @@ const Home: React.FC<any> = (props): JSX.Element => {
   );
   const RecommendedRenderItem = ({ item }: any) => (
 
-    <MusicCardShimmer
+    <PlaylistCardShimmer
       name={item.title}
-      model={item.album}
       img={item.artwork}
     />
 

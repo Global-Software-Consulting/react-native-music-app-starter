@@ -23,6 +23,8 @@ interface MusicProps {
   shuffleOn?: any;
   onPressRepeat?: any;
   repeatOn?: any;
+  addPlaylist?:any;
+  onPressPlaylist?:any
 
 }
 const { width, height } = Dimensions.get('window');
@@ -40,9 +42,13 @@ const Album: React.FC<MusicProps> = ({
   onPressRepeat,
   repeatOn,
   isFavorite,
+  addPlaylist,
+  onPressPlaylist
 }) => {
   const styles = useStyles();
   const theme = useTheme();
+  console.log("addplaylist:", addPlaylist);
+  console.log("onPres addplaylist:", onPressPlaylist);
   
   return (
     <>
@@ -87,31 +93,39 @@ const Album: React.FC<MusicProps> = ({
           )}
         </View>
         <View style={styles.VolumeContainer}>
-          <TouchableOpacity onPress={onPressShuffle}>
+        <TouchableOpacity onPress={onPressRepeat}>
+            <Ionicons
+              name="repeat-sharp"
+              size={30}
+              style={[styles.secondaryControl, repeatOn ? styles.on :  styles.off]}
+              color={theme.colors.primary}
+            />
+          </TouchableOpacity>
+          {/* <TouchableOpacity onPress={onPressShuffle}>
             <Ionicons
               name="volume-low-outline"
               style={[styles.secondaryControl, shuffleOn ? [] : styles.off]}
               size={30}
               color={theme.colors.primary}
             />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
           <View style={{ width: '70%' }} />
-          <TouchableOpacity onPress={onPressRepeat}>
-            <Ionicons
-              name="repeat-sharp"
+         
+
+          <TouchableOpacity onPress={onPressPlaylist}>
+            <MaterialCommunityIcons
+              name="playlist-plus"
+              style={[styles.secondaryControl, addPlaylist ? styles.on :  styles.off]}
               size={30}
-              style={[styles.secondaryControl, repeatOn ? styles.on : styles.off]}
               color={theme.colors.primary}
             />
-          </TouchableOpacity>
-
-          <TouchableOpacity onPress={onPressShuffle}>
-            <MaterialCommunityIcons
+          
+            {/* <MaterialCommunityIcons
               name="shuffle"
               style={[styles.secondaryControl, shuffleOn ? [] : styles.off]}
               size={28}
               color={theme.colors.primary}
-            />
+            /> */}
           </TouchableOpacity>
         </View>
       </View>

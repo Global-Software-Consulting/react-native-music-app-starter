@@ -14,6 +14,26 @@ export const useStyles = () => {
       flexDirection: 'row',
       backgroundColor: 'white',
     },
+    ModalContainer: {
+      // paddingLeft: 20,
+      // paddingRight: 20,
+      width: "80%",
+      height: "70%",
+      alignSelf: 'center',
+      backgroundColor: theme.colors.accent,
+      borderRadius: 10
+    },
+    CreateModalContainer: {
+      // paddingLeft: 20,
+      // paddingRight: 20,
+      width: "80%",
+      height: "50%",
+      alignSelf: 'center',
+      backgroundColor: theme.colors.accent,
+      borderRadius: 10
+    },
+
+
     container: {
       justifyContent: 'center',
       alignItems: 'center',
@@ -31,10 +51,10 @@ export const useStyles = () => {
 
     },
     VolumeContainer: {
-
+      paddingLeft: 25,
       height: hp('8%'), // 70% of height device screen
       width: wp('90%'),
-      paddingTop:5,
+      paddingTop: 5,
       flexDirection: 'row',
       alignItems: 'center',
 
@@ -43,7 +63,12 @@ export const useStyles = () => {
     label: {
       marginBottom: 12,
       fontSize: hp('2.5%'),
-      fontWeight: 'bold'
+      fontWeight: 'bold',
+      paddingLeft: '5%'
+    },
+    newListLabel: {
+      flexDirection: 'row',
+      paddingTop: '5%'
     },
     taskCard: {
       borderRadius: 12,
@@ -72,6 +97,7 @@ export const useStyles = () => {
     name: {
       fontSize: hp('2%'),
       fontWeight: 'bold',
+      paddingLeft: '5%'
 
     },
     textWrapper: {
@@ -139,7 +165,7 @@ export const useStyles = () => {
 
     slider: {
       marginTop: -12,
-      width:wp ('80%')
+      width: wp('80%')
 
     },
     Trackcontainer: {
@@ -162,7 +188,7 @@ export const useStyles = () => {
     text: {
       fontSize: 12,
       textAlign: 'center',
-      marginBottom:5
+      marginBottom: 5
     },
     // <-------------------------Control Bar styles--------------->
     Controlcontainer: {
@@ -173,7 +199,7 @@ export const useStyles = () => {
     playButton: {
       height: hp('10%'), // 70% of height device screen
       width: wp('20%'),
-      borderRadius:hp('15%')/ 2,
+      borderRadius: hp('15%') / 2,
       alignItems: 'center',
       justifyContent: 'center',
       backgroundColor: 'orange',
@@ -183,7 +209,7 @@ export const useStyles = () => {
         width: 0,
         height: 7,
       },
-      
+
       shadowOpacity: 0.41,
       shadowRadius: 9.11,
 
@@ -192,7 +218,7 @@ export const useStyles = () => {
 
     controlButton: {
       justifyContent: 'center',
-      backgroundColor:'lightgray',
+      backgroundColor: 'lightgray',
       alignSelf: 'center',
       height: hp('5%'), // 70% of height device screen
       width: wp('10%'),
@@ -215,37 +241,37 @@ export const useStyles = () => {
     },
     off: {
       opacity: 0.30,
-      color:'black'
+      color: theme.colors.primary
     },
     on: {
-      color:'orange'
+      color: 'orange'
 
     },
-    activityIndicator:{
-      
+    activityIndicator: {
+
       // flex: 1,
-      padding:55,
+      padding: 55,
       justifyContent: 'center',
       alignItems: 'center',
       height: 70
     },
-   
+
     Musiccontainer: {
       backgroundColor: theme.colors.accent,
     },
 
     icon: {
-      paddingLeft:25,
+      paddingLeft: 25,
       alignSelf: 'center',
       justifyContent: 'center',
       alignItems: 'center',
-      color:theme.colors.primary
+      color: theme.colors.primary
     },
     Dropicon: {
       marginLeft: wp('15%'),
-      justifyContent:'center',
+      justifyContent: 'center',
     },
-    
+
     audioElement: {
       height: 0,
       width: 0,
@@ -254,21 +280,49 @@ export const useStyles = () => {
       width: wp('35%'),
       justifyContent: 'center',
       marginLeft: wp('30%'),
-      marginBottom:25,
-      borderBottomColor:theme.colors.primary,
+      marginBottom: 25,
+      borderBottomColor: theme.colors.primary,
       borderBottomWidth: 1.5,
       // marginRight:44,
     },
     wrapHeader: {
-      backgroundColor:'red',
-      justifyContent:'center',
-      flexDirection:'row',
-      width:'100%',
-      marginBottom:30
+      backgroundColor: 'red',
+      justifyContent: 'center',
+      flexDirection: 'row',
+      width: '100%',
+      marginBottom: 30
     },
+    saveButtonText: {
+      height: hp('2%'),
+      fontWeight: 'bold',
+      color: theme.colors.accent,
+      borderBottomWidth: 1,
+      // padding: 5,
+    },
+    saveButton: {
+      padding: 3,
+      backgroundColor: theme.colors.primary,
+      justifyContent: 'center',
+      flexDirection: 'row',
+      width: wp('12%'),
+      height: hp('3%'),
+      borderRadius: 5,
+      borderStartColor: "red"
+      // marginBottom: 30
+    },
+    inputWrapper: {
+      padding: 12,
+      justifyContent: 'space-between',
 
+    },
+    input: {
+      height: 40,
+      borderColor:theme.colors.primary,
+      borderBottomWidth: 1,
+      color:theme.colors.primary
+    },
   });
   return styles;
 };
- 
+
 export default useStyles;

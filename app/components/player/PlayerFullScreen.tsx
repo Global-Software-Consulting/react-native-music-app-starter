@@ -40,6 +40,9 @@ interface PlyerFullScreenProps {
   onPressShuffle: any;
   sheetRef: any;
   repeatOn:any,
+  addPlaylist:any,
+  onPressPlaylist:any,
+
 }
 
 interface IState {
@@ -67,8 +70,9 @@ const PlayerFullScreen: React.FC<PlyerFullScreenProps> = ({
   onPressRepeat,
   onPressShuffle,
   sheetRef,
-  repeatOn
-
+  repeatOn,
+  addPlaylist,
+  onPressPlaylist,
 }) => {
   const styles = useStyles();
 
@@ -94,6 +98,8 @@ const PlayerFullScreen: React.FC<PlyerFullScreenProps> = ({
         onPressRepeat={onPressRepeat}
         onPressShuffle={onPressShuffle}
         repeatOn={repeatOn}
+        addPlaylist={addPlaylist}
+        onPressPlaylist={onPressPlaylist}
       />
       <TrackBar
         trackLength={trackLength}

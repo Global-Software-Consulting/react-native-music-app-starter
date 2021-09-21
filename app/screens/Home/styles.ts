@@ -25,7 +25,29 @@ export const useStyles = () => {
       
 
     },
+    noMusicIcon: {
+      // paddingLeft:15,
+      alignSelf: 'center',
+      justifyContent: 'center',
+      alignItems: 'center',
+      color:theme.colors.background,
+    },
+    noPlaylistContainer: {
+      flex: 1,
+      justifyContent: 'center',
+      backgroundColor: theme.colors.accent,
+      // backgroundColor:'red'
+    },
+    noPlaylistText: {
+      justifyContent: 'center',
+      textAlign: 'center',
+      fontSize: hp('2.75%'),
+      fontWeight: 'bold',
+      color: theme.colors.primary,
+      marginBottom: 10,
 
+
+    },
   });
   return styles;
 }

@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import Header from '../../components/Header';
 import i18n from '../../config/Languages/i18n';
 import MusicCard from '../../components/Music/MusicCard';
+import PlaylistCard from '../../components/Playlist/PlaylistCard';
 import { useDispatch, useSelector } from 'react-redux';
 import { favoriteListRequest } from '../../store/actions/appActions';
 import { useNavigation } from '@react-navigation/native';
@@ -15,6 +16,7 @@ import {
   isPlayerShow,
   playerListRequest,
 } from '../../store/actions/playerActions';
+import { CardStyleInterpolators } from '@react-navigation/stack';
 
 const initI18n = i18n;
 
@@ -56,13 +58,13 @@ const HomeComponent: React.FC<any> = (props): JSX.Element => {
   );
   const PlayListRenderItem = ({ item }: any) => (
     <TouchableOpacity key={item}>
-      <MusicCard
-        name={item.title}
-        model={item.artist}
-        img={item.artwork}
+      <PlaylistCard
+        name={"Noor"}
+        img={"https://arrestedmotion.com/wp-content/uploads/2015/10/JB_Purpose-digital-deluxe-album-cover_lr.jpg"}
         onPress={() => {
           dispatch(isPlayerShow(true));
-          dispatch(playerListRequest(item));
+          // dispatch(playerListRequest(item));
+          navigation.navigate('Playlist')
         }}
       />
     </TouchableOpacity>
