@@ -13,7 +13,7 @@ export const useStyles = () => {
     },
     playlistContainer: {
       flex: 1,
-      padding:"5%",
+      padding: "5%",
       backgroundColor: theme.colors.accent,
       // backgroundColor:'red'
     },
@@ -25,7 +25,7 @@ export const useStyles = () => {
     },
     Musiccontainer: {
       backgroundColor: theme.colors.accent,
-      
+
     },
     noPlaylistText: {
       justifyContent: 'center',
@@ -72,18 +72,28 @@ export const useStyles = () => {
     },
     labelNameWrapper: {
       marginLeft: '5%',
-      // alignItems:'flex-end',
-      width: wp('20%'),
+      width: wp('40%'),
       justifyContent: 'flex-end',
       marginTop: hp('35%'),
-      backgroundColor: theme.colors.primary
+      shadowColor:theme.colors.accent,
+      shadowOffset: {
+        width: 0,
+        height: 2,
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 3.84,
+
+      elevation: 5,
+
 
     },
     labelPlaylist: {
       paddingLeft: '10%',
       fontSize: hp('3%'),
       fontWeight: 'bold',
-      color: theme.colors.accent
+      color: theme.colors.accent,
+      backgroundColor: theme.colors.primary,
+
     },
     noMusicIcon: {
       // paddingLeft:15,

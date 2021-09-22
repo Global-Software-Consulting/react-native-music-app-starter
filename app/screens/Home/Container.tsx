@@ -12,6 +12,8 @@ import { favoriteListRequest } from '../../store/actions/appActions';
 import { useNavigation } from '@react-navigation/native';
 import { IAppState } from '../../models/reducers/app';
 import { ILoading } from '../../models/reducers/loading';
+import { IPlayerState } from '../../models/reducers/player';
+
 import {
   isPlayerShow,
   playerListRequest,
@@ -24,6 +26,10 @@ interface IState {
   appReducer: IAppState;
   loadingReducer: ILoading;
 }
+interface IPState {
+  playerReducer: IPlayerState;
+
+}
 interface Itrack {
   id: string;
   url: string;
@@ -34,6 +40,9 @@ interface Itrack {
 }
 const HomeComponent: React.FC<any> = (props): JSX.Element => {
   const musicList = useSelector((state: IState) => state.appReducer.musicList);
+  const playList = useSelector((state: IPState) => state.playerReducer.playList);
+// console.log("Playlist",Array.isArray(playList)  ) // Returns true);
+console.log("Playlist", playList ) // Returns true);
 
   // type homeScreenProp = StackNavigationProp<RootStackParamList, 'Player'>;
   const navigation = useNavigation();
@@ -57,31 +66,36 @@ const HomeComponent: React.FC<any> = (props): JSX.Element => {
     />
   );
   const PlayListRenderItem = ({ item }: any) => (
-    <TouchableOpacity key={item}>
+    <>
+
+    
+    <TouchableOpacity key={item} onPress={()=>navigation.navigate('Playlist',{ item: item })}>
       <PlaylistCard
-        name={"Noor"}
-        img={"https://arrestedmotion.com/wp-content/uploads/2015/10/JB_Purpose-digital-deluxe-album-cover_lr.jpg"}
+        name={item.name}
+        img={item?.songs[0]?.artwork}
         onPress={() => {
-          dispatch(isPlayerShow(true));
+          // dispatch(isPlayerShow(true));
           // dispatch(playerListRequest(item));
-          navigation.navigate('Playlist')
+          navigation.navigate('Playlist',{ item: item })
         }}
       />
     </TouchableOpacity>
+    </>
   );
+
 
   return (
     <>
       <View style={styles.container}>
         <ScrollView nestedScrollEnabled={true}>
           <Header title="Recommended for you" />
-          {props?.musicList?.length > 0 ? (
+          {musicList?.length > 0 ? (
             <FlatList
               contentContainerStyle={{ alignSelf: 'flex-start' }}
               horizontal={true}
               showsVerticalScrollIndicator={false}
               showsHorizontalScrollIndicator={false}
-              data={props.musicList}
+              data={musicList}
               scrollEventThrottle={2}
               keyExtractor={item => item.id}
               renderItem={RecommendedRenderItem}
@@ -93,15 +107,16 @@ const HomeComponent: React.FC<any> = (props): JSX.Element => {
           )}
           <Header title="My Playlist" />
 
-          {props?.musicList?.length > 0 ? (
+          {playList?.length > 0 ? (
             <FlatList
               contentContainerStyle={{ alignSelf: 'flex-start' }}
               horizontal={true}
               showsVerticalScrollIndicator={false}
               showsHorizontalScrollIndicator={false}
-              data={props.musicList}
-              keyExtractor={item => item.id}
+              data={playList}
+              // keyExtractor={item => item.id}
               renderItem={PlayListRenderItem}
+              
             />
           ) : (
             <View style={styles.container}>

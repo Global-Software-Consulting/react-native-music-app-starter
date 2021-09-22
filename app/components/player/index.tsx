@@ -23,6 +23,7 @@ import TrackPlayer, {
 } from 'react-native-track-player';
 import AppPlaylistModal from './AppPlaylistModal';
 import AppCreatePlaylistModal from './AppCreatePlaylistModal';
+import { select } from 'redux-saga/effects';
 interface FooterProps {
   title?: string;
   url?: string;
@@ -203,17 +204,17 @@ const Footer: React.FC<any> = (props, isShowFooter): JSX.Element => {
   };
   const onPressPlaylist = () => {
     setAddPlaylist(!addPlaylist);
-    setModalVisible(!isModalVisible);
+    // setModalVisible(!isModalVisible);
+
     // setModalVisible(!isModalVisible);
 
   };
   const onPressNewPlaylist = () => {
-    setAddPlaylist(!addPlaylist);
-    setModalVisible(!isModalVisible);
-  setTimeout(() => {
-    setIsCreateModalVisible(!isCreateModalVisible);
-  }, 400);
-  
+  onPressPlaylist();
+    setTimeout(() => {
+      setIsCreateModalVisible(!isCreateModalVisible);
+    }, 400);
+
 
   };
 
@@ -236,10 +237,10 @@ const Footer: React.FC<any> = (props, isShowFooter): JSX.Element => {
   const onFavoritePress = () => {
     let data = favoriteList;
     let found = favoriteList?.find(
-      (element: any) => element.id == selectedTrack.id,
+      (element: any) => element.id == item.id,
     );
     if (!found) {
-      data.push(selectedTrack);
+      data.push(item);
       setIsFavorite(true);
       dispatch(favoriteListRequest(data));
     }
@@ -248,7 +249,7 @@ const Footer: React.FC<any> = (props, isShowFooter): JSX.Element => {
   const onRemoveFavoritePress = () => {
     setIsFavorite(false);
     let data = favoriteList?.filter(
-      (element: any) => element.id != selectedTrack.id,
+      (element: any) => element.id != item.id,
     );
     dispatch(favoriteListRequest(data));
   };
@@ -284,19 +285,28 @@ const Footer: React.FC<any> = (props, isShowFooter): JSX.Element => {
   const renderContent = () => {
     return fullPlayerView ? (
       <View style={styles.Indexcontainer}>
-        {selectedTrack && (<FullPlayer url={
-          selectedTrack?.artwork ||
-          `https://picsum.photos/150/200/?random=${Math.random()}`
-        }
-          title={item?.title || 'No Title'}
-          artist={item?.artist || item?.album || 'unknown'}
+        {item && (<FullPlayer
+          url={
+            selectedTrack?.artwork ||
+            `https://picsum.photos/150/200/?random=${Math.random()}`
+          }
+          // img={
+          //   item?.artwork ||
+          //   `https://picsum.photos/150/200/?random=${Math.random()}`
+          // }
+          //  url={
+          //   item?.url ||
+          //   `https://picsum.photos/150/200/?random=${Math.random()}`
+          // }
+          title={selectedTrack?.title || 'No Title'}
+          artist={selectedTrack?.artist || selectedTrack?.album || 'unknown'}
           isFavorite={isFavorite}
           onFavoritePress={onFavoritePress}
           onRemoveFavoritePress={onRemoveFavoritePress}
           onPressRepeat={onPressRepeat}
           onPressShuffle={onPressShuffle}
           trackLength={Math.floor(duration)}
-          track={selectedTrack}
+          track={item}
           onPressPlay={onPressPlay}
           onPressPause={onPressPause}
           onForward={onSkipToNext}
@@ -309,6 +319,7 @@ const Footer: React.FC<any> = (props, isShowFooter): JSX.Element => {
           repeatOn={repeatOn}
           addPlaylist={addPlaylist}
           onPressPlaylist={onPressPlaylist}
+          onPressNewPlaylist={onPressNewPlaylist}
         />
         )}
       </View>
@@ -318,10 +329,11 @@ const Footer: React.FC<any> = (props, isShowFooter): JSX.Element => {
           item?.artwork ||
           `https://picsum.photos/150/200/?random=${Math.random()}`
         }
+
         title={item?.title || 'No Title'}
         artist={item?.artist || item?.album || 'unknown'}
         trackLength={Math.floor(duration)}
-        track={selectedTrack}
+        track={item}
         onForward={onSkipToNext}
         onBack={onSkipToPrevious}
         currentPosition={Math.floor(position)}
@@ -344,16 +356,20 @@ const Footer: React.FC<any> = (props, isShowFooter): JSX.Element => {
         onOpenEnd={() => setFullPlayerView(true)}
         onCloseEnd={() => setFullPlayerView(false)}
       />
-    <AppPlaylistModal 
-    isModalVisible={isModalVisible}
-    onPressPlaylist={onPressPlaylist}
-    onPressNewPlaylist={onPressNewPlaylist}
-    />
-    <AppCreatePlaylistModal 
-    isCreateModalVisible={isCreateModalVisible}
-    onPressNewPlaylist={onPressNewPlaylist}
-    />
-        </>
+      <AppPlaylistModal
+        isModalVisible={isModalVisible}
+        onPressPlaylist={onPressPlaylist}
+        onPressNewPlaylist={onPressNewPlaylist}
+        addPlaylist={addPlaylist}
+      />
+      <AppCreatePlaylistModal
+      addPlaylist={addPlaylist}
+      onPressPlaylist={onPressPlaylist}
+        isCreateModalVisible={isCreateModalVisible}
+        onPressNewPlaylist={onPressNewPlaylist}
+        // saveNewPlaylist={saveNewPlaylist}
+      />
+    </>
   );
 };
 

@@ -28,7 +28,7 @@ interface PlyerFullScreenProps {
   playbackState: any;
   togglePlayback: any;
   title: string;
-  url: string;
+  url?: string;
   artwork?: string;
   artist: string;
   onRemoveFavoritePress: any;
@@ -42,6 +42,7 @@ interface PlyerFullScreenProps {
   repeatOn:any,
   addPlaylist:any,
   onPressPlaylist:any,
+  onPressNewPlaylist:any,
 
 }
 
@@ -73,6 +74,7 @@ const PlayerFullScreen: React.FC<PlyerFullScreenProps> = ({
   repeatOn,
   addPlaylist,
   onPressPlaylist,
+  onPressNewPlaylist,
 }) => {
   const styles = useStyles();
 
@@ -100,6 +102,7 @@ const PlayerFullScreen: React.FC<PlyerFullScreenProps> = ({
         repeatOn={repeatOn}
         addPlaylist={addPlaylist}
         onPressPlaylist={onPressPlaylist}
+        onPressNewPlaylist={onPressNewPlaylist}
       />
       <TrackBar
         trackLength={trackLength}

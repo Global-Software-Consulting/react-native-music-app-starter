@@ -17,7 +17,7 @@ export const useStyles = () => {
     ModalContainer: {
       // paddingLeft: 20,
       // paddingRight: 20,
-      width: "80%",
+      width: "100%",
       height: "70%",
       alignSelf: 'center',
       backgroundColor: theme.colors.accent,
@@ -37,10 +37,20 @@ export const useStyles = () => {
     container: {
       justifyContent: 'center',
       alignItems: 'center',
+
       backgroundColor: theme.colors.accent,
       marginBottom: 2,
       paddingLeft: 24,
       paddingRight: 24,
+    },
+    folderContainer: {
+
+      // justifyContent: 'center',
+      // alignItems: 'center',
+      backgroundColor: theme.colors.accent,
+      marginBottom: 2,
+      paddingLeft: 5,
+      paddingRight:5,
     },
     TrackDetailcontainer: {
       flexDirection: 'row',
@@ -317,9 +327,33 @@ export const useStyles = () => {
     },
     input: {
       height: 40,
-      borderColor:theme.colors.primary,
+      borderColor: theme.colors.primary,
       borderBottomWidth: 1,
-      color:theme.colors.primary
+      color: theme.colors.primary
+    },
+    noPlaylistContainer: {
+      flex: 1,
+      justifyContent: 'center',
+      backgroundColor: theme.colors.accent,
+      // backgroundColor:'red'
+    },
+
+    noPlaylistText: {
+      justifyContent: 'center',
+      textAlign: 'center',
+      fontSize: hp('2.75%'),
+      fontWeight: 'bold',
+      color: theme.colors.primary,
+      marginBottom: 10,
+
+
+    },
+    noMusicIcon: {
+      // paddingLeft:15,
+      alignSelf: 'center',
+      justifyContent: 'center',
+      alignItems: 'center',
+      color: theme.colors.background,
     },
   });
   return styles;

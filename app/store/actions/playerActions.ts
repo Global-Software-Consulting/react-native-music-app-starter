@@ -3,10 +3,12 @@
  */
 import * as types from './types';
 
-export function playerListRequest(list: any) {
+export function playerListRequest(item: any) {
+  console.log("reponsereponsereponsereponsereponse", item);
+
   return {
     type: types.PLAYER_LIST_REQUEST,
-    list,
+    payload:item,
   };
 }
 export function isPlayerPlay(value: boolean) {
@@ -26,9 +28,27 @@ export function isPlayerShow(value: boolean) {
 
 }
 export function playListRequest(list: any) {
-  console.log("reponsereponsereponsereponsereponse abc:", list);
   return {
-    type: types.PLAYER_LIST_REQUEST,
+    type: types.ADD_PLAY_LIST,
     payload: list,
   };
 }
+export function updatePlayList(item: any) {
+  return {
+    type: types.UPDATE_PLAY_LIST,
+    payload: item,
+  };
+}
+export function deletePlayListFolder(item: any) {
+  return {
+    type: types.DELETE_PLAY_LIST,
+    payload: item,
+  };
+}
+export function deletePlayListSong(playlist: any) {
+  return {
+    type: types.DELETE_SONG_IN_PLAYLIST,
+    payload: playlist,
+  };
+}
+

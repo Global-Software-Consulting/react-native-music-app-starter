@@ -25,6 +25,7 @@ interface MusicProps {
   repeatOn?: any;
   addPlaylist?:any;
   onPressPlaylist?:any
+  onPressNewPlaylist?:any
 
 }
 const { width, height } = Dimensions.get('window');
@@ -43,7 +44,8 @@ const Album: React.FC<MusicProps> = ({
   repeatOn,
   isFavorite,
   addPlaylist,
-  onPressPlaylist
+  onPressPlaylist,
+  onPressNewPlaylist
 }) => {
   const styles = useStyles();
   const theme = useTheme();

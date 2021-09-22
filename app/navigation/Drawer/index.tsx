@@ -99,6 +99,13 @@ const Drawer: React.FC = (props) => {
           />
           <DrawerItem
             icon={({ color, size }) => (
+              <MaterialCommunityIcons name="file-multiple-outline" color={color} size={size} />
+            )}
+            label="Playlist & Albums"
+            onPress={() => {NavigationService.navigate("PlaylistAndAlbums");}}
+          />
+          <DrawerItem
+            icon={({ color, size }) => (
               <MaterialCommunityIcons
                 name="tune"
                 color={color}

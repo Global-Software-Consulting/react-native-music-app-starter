@@ -38,7 +38,7 @@ export const useStyles = () => {
       height: hp('12%'), // 70% of height device screen
       alignItems: 'center',
       borderBottomColor: "lightgray",
-      borderBottomWidth: hp('0.1%'),
+      // borderBottomWidth: hp('0.1%'),
       shadowColor: "#000",
       shadowOffset: {
         width: 0,

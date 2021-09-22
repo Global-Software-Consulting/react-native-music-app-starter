@@ -5,13 +5,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import useStyles from './styles';
 import MusicCard from '../../components/Music/MusicCard';
 import Header from '../../components/Header';
-import { useNavigation } from '@react-navigation/native';
-import { favoriteListRequest } from '../../store/actions/appActions';
+import { useRoute, useNavigation } from '@react-navigation/native';
+import { deletePlayListSong } from '../../store/actions/playerActions';
 import { IAppState } from '../../models/reducers/app';
 import { ILoading } from '../../models/reducers/loading';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { ScrollView } from 'react-native-gesture-handler';
 import PlaylistSongsCard from '../../components/Playlist/PlaylistSongs/PlaylistSongsCard';
+import { IPlayerState } from '../../models/reducers/player';
 
 interface IState {
   appReducer: IAppState;
@@ -27,16 +28,36 @@ interface Itrack {
   album: string,
   duration: number,
 }
+interface IPState {
+  playerReducer: IPlayerState;
+
+}
 const Playlist: React.FC<any> = (props): JSX.Element => {
   const styles = useStyles();
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  const songList = useSelector((state: IState) => state.appReducer.musicList);
-  const removePlaylist = (id: any) => {
-    console.log("hello");
+  const playList = useSelector((state: any) => state.playerReducer.playList);
+
+  // console.log("Playlist",Array.isArray(playList)  ) // Returns true);
+  console.log('playList.playList',playList);
+  
+  const route: any = useRoute();
+  const item = route.params.item;
+  const deleteSongOfPlaylist = (id: any) => {
     
-    let data = songList?.filter((element: any) => element.id != id)
-    dispatch(favoriteListRequest(data));
+    let data = item?.songs?.filter((element: any) => element.id != id);
+    console.log("dataaa:",data);
+    
+    let updatedList = { name: item.name, songs: data}
+    console.log("updateLiist:",updatedList);
+    let updatedPlayList = playList.map((element: any) => {
+      if (element.name == item.name) {
+        return updatedList;
+      } else {
+        return element;
+      }
+    });
+    dispatch(deletePlayListSong(updatedPlayList));
   };
   const PlaylistRenderItem = ({ item }: any) => (
     <TouchableHighlight
@@ -44,14 +65,13 @@ const Playlist: React.FC<any> = (props): JSX.Element => {
       underlayColor='gray'
  >
 
-
-
       <View style={styles.Musiccontainer}>
         <PlaylistSongsCard
-          name={item.title}
-          img={item.artwork}
-          model={item.artist}
-          // onPress={() => { removePlaylist(item.id) }}
+          name={item?.title}
+          img={item?.artwork}
+          model={item?.artist}
+          onPressRemove={() => { deleteSongOfPlaylist(item?.id) }}
+          showDel={true}
         />
       
 
@@ -59,29 +79,28 @@ const Playlist: React.FC<any> = (props): JSX.Element => {
 
     </TouchableHighlight>
   );
-  console.log("favlisttt:", songList);
 
   return (
 
     <View style={styles.container}>
       {/* <ScrollView></ScrollView> */}
-      <ImageBackground source={{ uri: 'https://arrestedmotion.com/wp-content/uploads/2015/10/JB_Purpose-digital-deluxe-album-cover_lr.jpg' }}
+      <ImageBackground source={{ uri: item.songs[0].artwork }}
         resizeMode="cover"
         style={styles.image}>
         <View style={styles.labelNameWrapper}>
 
-          <Text style={styles.labelPlaylist}>Noor</Text>
+          <Text style={styles.labelPlaylist}>{item.name}</Text>
 
         </View>
       </ImageBackground>
       <View style={styles.playlistContainer}>
-        {songList?.length > 0 ? (
+        {item.songs?.length > 0 ? (
 
           <FlatList
             contentContainerStyle={{ alignSelf: 'flex-start' }}
             showsVerticalScrollIndicator={false}
             showsHorizontalScrollIndicator={false}
-            data={songList}
+            data={item.songs}
             keyExtractor={(item) => item.id}
             renderItem={PlaylistRenderItem}
 

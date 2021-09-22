@@ -7,7 +7,8 @@ import Footer from '../components/player/index';
 import { IPlayerState } from '../models/reducers/player';
 import { useSelector } from 'react-redux';
 import { useRoute } from '@react-navigation/native';
-import Playlist from '../screens/Playlist'
+import Playlist from '../screens/Playlist';
+import PlaylistAndAlbums from '../screens/PlaylistAndAlbums';
 import { View, Text, Button } from 'react-native';
 
 const AppStack = createNativeStackNavigator();
@@ -18,6 +19,7 @@ export type RootStackParamList = {
   Settings: any;
   Player: any;
   Playlist:any;
+  PlaylistAndAlbums:any;
 };
 interface IState {
   playerReducer: IPlayerState;
@@ -68,6 +70,12 @@ const AppNavigation = () => {
          <Stack.Screen
           name="Playlist"
           component={Playlist}
+          options={{ headerShown: false }}
+        
+        />
+         <Stack.Screen
+          name="PlaylistAndAlbums"
+          component={PlaylistAndAlbums}
           options={{ headerShown: false }}
         
         />
