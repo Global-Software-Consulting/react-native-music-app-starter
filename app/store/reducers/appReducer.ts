@@ -21,7 +21,6 @@ export const appReducer = createReducer(initialState, {
     };
   },
   [types.FAVORITE_LIST_REQUEST](state: IAppState, action:any) {
-    // console.log("action.response",action.response);
     
     return {
       ...state,

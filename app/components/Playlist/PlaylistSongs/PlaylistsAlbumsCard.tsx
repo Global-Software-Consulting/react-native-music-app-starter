@@ -14,14 +14,23 @@ interface MusicProps {
   img?: string,
   onPressRemove?: any,
   showDel?: any,
+  onPressModal?: any,
+  item?: any,
+  setThePlaylist?: any,
+  playlistRef?: any,
+
 }
 
-const PlaylistSongsCard: React.FC<MusicProps> = ({
+const PlaylistsAlbumsCard: React.FC<MusicProps> = ({
   name,
   model,
   img,
   showDel,
-  onPressRemove
+  onPressRemove,
+  onPressModal,
+  setThePlaylist,
+  item,
+  playlistRef
 }) => {
   const styles = useStyles();
   
@@ -42,18 +51,23 @@ const PlaylistSongsCard: React.FC<MusicProps> = ({
         </View>
 
       </View>
-      {showDel && <TouchableOpacity onPress={()=> onPressRemove(name) }>
+      <View style={{width:'15%'}}/>
+      {/* {showDel && <TouchableOpacity onPress={()=> onPressRemove(name) }> */}
+      <TouchableOpacity onPress={()=> {
+        setThePlaylist(item)
+        playlistRef.current.snapTo(0) 
+      }}>
         <MaterialCommunityIcons
-          name="delete-outline"
+          name="dots-vertical"
           size={25}
 
         />
-      </TouchableOpacity>}
+      </TouchableOpacity>
     </View>
   );
 };
 
-export default PlaylistSongsCard;
+export default PlaylistsAlbumsCard;
 
 
 

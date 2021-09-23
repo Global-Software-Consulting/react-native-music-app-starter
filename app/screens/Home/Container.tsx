@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, FlatList, TouchableOpacity, ScrollView } from 'react-native';
+import { View, FlatList, TouchableOpacity, ScrollView,RefreshControl } from 'react-native';
 import { Text } from 'react-native-paper';
 import useStyles from './styles';
 import { useTranslation } from 'react-i18next';
@@ -9,16 +9,16 @@ import MusicCard from '../../components/Music/MusicCard';
 import PlaylistCard from '../../components/Playlist/PlaylistCard';
 import { useDispatch, useSelector } from 'react-redux';
 import { favoriteListRequest } from '../../store/actions/appActions';
-import { useNavigation } from '@react-navigation/native';
 import { IAppState } from '../../models/reducers/app';
 import { ILoading } from '../../models/reducers/loading';
 import { IPlayerState } from '../../models/reducers/player';
-
+import { useNavigation, useIsFocused } from '@react-navigation/native';
+import HomeShimmer from './Shimmer';
 import {
   isPlayerShow,
   playerListRequest,
 } from '../../store/actions/playerActions';
-import { CardStyleInterpolators } from '@react-navigation/stack';
+import {musicListRequest} from '../../store/actions/appActions';
 
 const initI18n = i18n;
 
@@ -41,19 +41,40 @@ interface Itrack {
 const HomeComponent: React.FC<any> = (props): JSX.Element => {
   const musicList = useSelector((state: IState) => state.appReducer.musicList);
   const playList = useSelector((state: IPState) => state.playerReducer.playList);
-// console.log("Playlist",Array.isArray(playList)  ) // Returns true);
-console.log("Playlist", playList ) // Returns true);
-
+  const isLoader = useSelector((state: IState) => state.loadingReducer.isLoginLoading);
+  const isVisible = useIsFocused();
   // type homeScreenProp = StackNavigationProp<RootStackParamList, 'Player'>;
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  const [refreshing, setRefreshing] = useState<boolean>(false);
+  const [userPlaylist, setUserPlaylist] = useState<any>([]);
   const { t, i18n } = useTranslation();
   const styles = useStyles();
-  const wait = (timeout: number) => {
-    return new Promise(resolve => setTimeout(resolve, timeout));
+ 
+  console.log("userPlaylist", userPlaylist );
+  useEffect(()=> {
+    if(isVisible){
+      // console.log("userPlaylist", playList );
+      setUserPlaylist(playList);
+    }
+    else{
+      console.log("Nothing");
+      
+    }
+  }, [playList.length,isVisible])
+  const getMusicList = async () => {
+    dispatch(musicListRequest());
   };
 
+  const onRefresh = () => {
+  
+    getMusicList();
+    // if (isLoader) {
+    //   <HomeShimmer />;
+    // } else {
+     
+    // }
+  };
+  
   const RecommendedRenderItem = ({ item }: any) => (
     <MusicCard
       name={item.title}
@@ -87,7 +108,14 @@ console.log("Playlist", playList ) // Returns true);
   return (
     <>
       <View style={styles.container}>
-        <ScrollView nestedScrollEnabled={true}>
+        <ScrollView nestedScrollEnabled={true}
+         refreshControl={
+          <RefreshControl
+            refreshing={isLoader}
+            onRefresh={onRefresh}
+          />
+        }
+        >
           <Header title="Recommended for you" />
           {musicList?.length > 0 ? (
             <FlatList
@@ -107,13 +135,13 @@ console.log("Playlist", playList ) // Returns true);
           )}
           <Header title="My Playlist" />
 
-          {playList?.length > 0 ? (
+          {userPlaylist?.length > 0 ? (
             <FlatList
               contentContainerStyle={{ alignSelf: 'flex-start' }}
               horizontal={true}
               showsVerticalScrollIndicator={false}
               showsHorizontalScrollIndicator={false}
-              data={playList}
+              data={userPlaylist}
               // keyExtractor={item => item.id}
               renderItem={PlayListRenderItem}
               

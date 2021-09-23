@@ -54,7 +54,7 @@ export const useStyles = () => {
       justifyContent: 'center',
       textAlign: 'center',
       fontSize: hp('1.75%'),
-      color: "darkgray",
+      color: theme.colors.background,
       marginTop: -7,
       
 

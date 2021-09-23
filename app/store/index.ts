@@ -10,8 +10,7 @@ import sagas from 'store/sagas';
 const config = {
   key: 'root',
   storage: AsyncStorage,
-  blacklist: ['loadingReducer'],
-  debug: true, //to get useful logging
+  blacklist: ['loadingReducer','playerReducer'],
 };
 
 const middleware = [];
@@ -28,9 +27,7 @@ const enhancers = [applyMiddleware(...middleware)];
 // const initialState = {};
 const persistConfig: any = { enhancers };
 const store = createStore(reducers, undefined, compose(...enhancers));
-const persistor = persistStore(store, persistConfig, () => {
-  //   console.log('Test', store.getState());
-});
+const persistor = persistStore(store, persistConfig, () => {});
 const configureStore = () => {
   return { persistor, store };
 };

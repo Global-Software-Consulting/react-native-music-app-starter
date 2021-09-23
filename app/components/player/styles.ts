@@ -26,7 +26,7 @@ export const useStyles = () => {
     CreateModalContainer: {
       // paddingLeft: 20,
       // paddingRight: 20,
-      width: "80%",
+      width: "90%",
       height: "50%",
       alignSelf: 'center',
       backgroundColor: theme.colors.accent,
@@ -354,6 +354,24 @@ export const useStyles = () => {
       justifyContent: 'center',
       alignItems: 'center',
       color: theme.colors.background,
+    },
+    
+    contentContainer: {
+      ...StyleSheet.absoluteFillObject,
+      borderTopLeftRadius: 10,
+      borderTopRightRadius: 10,
+      backgroundColor:theme.colors.primary
+    },
+
+    closeLineContainer: {
+      alignSelf: 'center',
+    },
+    closeLine: {
+      width: 40,
+      height: 6,
+      borderRadius: 3,
+      backgroundColor:  theme.colors.accent,
+      marginTop: 2,
     },
   });
   return styles;

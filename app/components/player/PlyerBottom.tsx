@@ -66,14 +66,11 @@ const PlyerBottom: React.FC<MusicProps> = ({
       <TouchableOpacity
         onPress={
           () => {
-            sheetRef.current.snapTo(0)
+            sheetRef.current.snapToIndex(1)
             // sheetRef.current.snapTo(0);
           }
         }>
 
-        <View
-          style={styles.line}
-        />
 
         <View style={styles.Trackcontainer}>
 

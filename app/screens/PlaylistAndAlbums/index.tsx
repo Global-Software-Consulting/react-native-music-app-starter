@@ -36,12 +36,11 @@ const Favorites: React.FC = () => {
   const onRefresh = () => {
     // getFavoriteList();
     if (isLoading) {
-      <PlaylistShimmer />;
+      <PlaylistAndAlbumsShimmer />;
     } else {
 
     }
   };
-  console.log("favLoderfavLoderfavLoderfavLoder:", isLoading);
 
   return (
 
@@ -65,7 +64,7 @@ const Favorites: React.FC = () => {
           </ TouchableOpacity>
           <View style={styles.labelWrapper}/>
          
-          <Text style={styles.label}>Playlist And Albums</Text>
+          <Text style={styles.label}>Playlists</Text>
          
           </View>
           }

@@ -10,7 +10,6 @@ export function musicListRequest() {
   };
 }
 export function musicListResponse(response: any) {
-  // console.log("reponsereponsereponsereponsereponse:", response.data.data);
 
   return {
     type: types.MUSIC_LIST_RESPONSE,
@@ -19,7 +18,6 @@ export function musicListResponse(response: any) {
 
 }
 export function favoriteListRequest(data: any) {
-  console.log('datadatadatadatadatadata hehe',data);
   
   return {
     type: types.FAVORITE_LIST_REQUEST,

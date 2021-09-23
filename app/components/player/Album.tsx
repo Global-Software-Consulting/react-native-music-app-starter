@@ -23,9 +23,8 @@ interface MusicProps {
   shuffleOn?: any;
   onPressRepeat?: any;
   repeatOn?: any;
-  addPlaylist?:any;
   onPressPlaylist?:any
-  onPressNewPlaylist?:any
+  isModalVisible?:any
 
 }
 const { width, height } = Dimensions.get('window');
@@ -43,14 +42,11 @@ const Album: React.FC<MusicProps> = ({
   onPressRepeat,
   repeatOn,
   isFavorite,
-  addPlaylist,
   onPressPlaylist,
-  onPressNewPlaylist
+  isModalVisible,
 }) => {
   const styles = useStyles();
   const theme = useTheme();
-  console.log("addplaylist:", addPlaylist);
-  console.log("onPres addplaylist:", onPressPlaylist);
   
   return (
     <>
@@ -117,7 +113,7 @@ const Album: React.FC<MusicProps> = ({
           <TouchableOpacity onPress={onPressPlaylist}>
             <MaterialCommunityIcons
               name="playlist-plus"
-              style={[styles.secondaryControl, addPlaylist ? styles.on :  styles.off]}
+              style={[styles.secondaryControl, isModalVisible ? styles.on :  styles.off]}
               size={30}
               color={theme.colors.primary}
             />

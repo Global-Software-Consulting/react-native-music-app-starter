@@ -40,9 +40,9 @@ interface PlyerFullScreenProps {
   onPressShuffle: any;
   sheetRef: any;
   repeatOn:any,
-  addPlaylist:any,
+  isModalVisible:any,
   onPressPlaylist:any,
-  onPressNewPlaylist:any,
+  onPressNewPlaylist?:any,
 
 }
 
@@ -72,7 +72,7 @@ const PlayerFullScreen: React.FC<PlyerFullScreenProps> = ({
   onPressShuffle,
   sheetRef,
   repeatOn,
-  addPlaylist,
+  isModalVisible,
   onPressPlaylist,
   onPressNewPlaylist,
 }) => {
@@ -86,7 +86,8 @@ const PlayerFullScreen: React.FC<PlyerFullScreenProps> = ({
         ></TouchableOpacity>
 
         <TouchableOpacity style={{ justifyContent: 'flex-end' }} onPress={ () => {
-            sheetRef.current.snapTo(1)}}>
+            sheetRef.current.snapToIndex(0)}}
+            >
           <DownArrowIcon name='downcircle' size={50} color={'lightgray'} style={styles.Dropicon} />
         </TouchableOpacity>
       </View>
@@ -100,7 +101,7 @@ const PlayerFullScreen: React.FC<PlyerFullScreenProps> = ({
         onPressRepeat={onPressRepeat}
         onPressShuffle={onPressShuffle}
         repeatOn={repeatOn}
-        addPlaylist={addPlaylist}
+        isModalVisible={isModalVisible}
         onPressPlaylist={onPressPlaylist}
         onPressNewPlaylist={onPressNewPlaylist}
       />

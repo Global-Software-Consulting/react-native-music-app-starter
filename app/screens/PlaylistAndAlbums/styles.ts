@@ -9,7 +9,12 @@ export const useStyles = () => {
     container: {
       flex: 1,
       backgroundColor: theme.colors.accent,
-      // backgroundColor:'red'
+      // backgroundColor:'yellow'
+    },
+    modalcontainer: {
+      flex: 1,
+      // bacskgroundColor: theme.colors.accent,
+      // backgroundColor:'yellow'
     },
     icon: {
       paddingLeft: 15,
@@ -20,23 +25,40 @@ export const useStyles = () => {
       position: 'absolute',
     },
     labelWrapper: {
-    
+
       width: '10%',
       justifyContent: 'center',
       alignSelf: 'center'
     },
     ModalContainer: {
+      shadowColor: "#000",
+      shadowOffset: {
+        width: 0,
+        height: 2,
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 3.84,
+
+      elevation: 5,
       // paddingLeft: 20,
       // paddingRight: 20,
-      width: "100%",
-      height: "70%",
-      alignSelf: 'center',
-      backgroundColor: theme.colors.accent,
-      borderRadius: 10
+
+      // position:'absolute',
+      // width: "50%",
+      // height: "30%",
+      // marginLeft:"40%",
+      // marginVertical:"50%",
+
+      // alignSelf:'flex-end',
+      // backgroundColor: theme.colors.accent,
+      // backgroundColor: 'blue',
+
+      borderRadius: 10,
+
     },
     label: {
       marginBottom: 12,
-      fontSize: hp('2.5%'),
+      fontSize: hp('3%'),
       fontWeight: 'bold',
       paddingLeft: '5%'
     },
@@ -46,11 +68,16 @@ export const useStyles = () => {
     },
     taskCard: {
       borderRadius: 12,
-      paddingLeft: 5,
+      padding: 15,
       flexDirection: 'row',
-      justifyContent: 'center',
-      alignItems: 'center',
+      // justifyContent: 'center',
+      // alignItems: 'center',
 
+    },
+
+    //noMusic
+    errorContainer: {
+      backgroundColor: theme.colors.accent,
     },
     noPlaylistText: {
       justifyContent: 'center',
@@ -73,7 +100,7 @@ export const useStyles = () => {
       justifyContent: 'center',
       textAlign: 'center',
       fontSize: hp('1.75%'),
-      color: "darkgray",
+      color: theme.colors.primary,
       marginTop: -7,
 
 
@@ -85,15 +112,34 @@ export const useStyles = () => {
       backgroundColor: theme.colors.accent,
       marginBottom: 2,
       paddingLeft: 5,
-      paddingRight:5,
+      paddingRight: 5,
+    },
+    bottomModalContainer: {
+
+      flexDirection: 'row',
+      paddingLeft: 5,
+      // paddingTop: '5%',
     },
     name: {
-      paddingTop:'1%',
+      paddingTop: '1%',
       fontSize: hp('2%'),
       fontWeight: 'bold',
       color: theme.colors.background,
       // paddingLeft: '5%'
 
+    },
+    iconName: {
+      paddingTop: '1%',
+      fontSize: hp('2%'),
+      fontWeight: 'bold',
+      color: theme.colors.primary,
+      // paddingLeft: '5%'
+
+    },
+    modal: {
+      height: 400,
+      width: "100%",
+      backgroundColor: theme.colors.background,
     },
     secondaryControl: {
       height: hp('7%'), // 70% of height device screen
@@ -108,6 +154,71 @@ export const useStyles = () => {
       color: 'orange'
 
     },
+
+
+
+
+    //modalstyles
+    imgcontainer: {
+      margin: 5,
+      height: hp('10%'), // 70% of height device screen
+      width: wp('20%'),
+      flexDirection: 'row',
+      borderRadius: 10,
+      shadowColor: 'blue',
+      shadowOffset: { width: 0, height: 2 },
+      shadowOpacity: .2,
+      shadowRadius: 8,
+      elevation: 20,
+    },
+    img: {
+      resizeMode: 'cover',
+      height: hp('8%'), // 70% of height device screen
+      width: wp('15%'),  // 80% of width device screen
+      borderRadius: 5,
+
+
+    },
+    nameContainer: {
+      flexDirection: 'row',
+      height: hp('7%'), // 70% of height device screen
+      width: wp('40%'),  // 80% of width device screen
+      justifyContent: 'center',
+      alignItems: 'center',
+      alignSelf: 'center',
+    },
+    textWrapper: {
+      paddingLeft: 5,
+      justifyContent: 'flex-start',
+      alignItems: 'flex-start',
+      height: hp('5%'), // 70% of height device screen
+      width: wp('45%'),   // 80% of width device screen
+    },
+    bottomlabel: {
+      marginBottom: 12,
+      fontSize: hp('2%'),
+      fontWeight: 'bold',
+      // paddingLeft: '5%'
+    },
+    bottomTaskCard: {
+      borderRadius: 12,
+      margin: 15,
+      flexDirection: 'row',
+      borderBottomWidth: 0.25,
+      shadowColor: theme.colors.primary,
+      shadowOffset: {
+        width: 0,
+        height: 2,
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 3.84,
+
+      elevation: 5,
+      // justifyContent: 'center',
+      // alignItems: 'center',
+
+    },
+
   });
   return styles;
 }

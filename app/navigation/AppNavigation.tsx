@@ -42,7 +42,6 @@ const AppNavigation = () => {
     </View>
   );
   const route = useRoute();
-  console.log('route:', route);
   return (
     <>
       <AppStack.Navigator>

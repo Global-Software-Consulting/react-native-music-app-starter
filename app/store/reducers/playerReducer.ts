@@ -25,8 +25,6 @@ export const playerReducer = createReducer(initialState, {
 
   //Flag for showing bottom player
   [types.ISPLAYER_SHOWN](state: IPlayerState, action: any) {
-    // console.log("action.response",action.response);
-
     return {
       ...state,
       isPlayer: action.payload,
@@ -36,7 +34,6 @@ export const playerReducer = createReducer(initialState, {
 
   //Flag for showing playing state in bottom and full screen
   [types.MUSIC_PLAYER_PLAY](state: IPlayerState, action: any) {
-    console.log("action.response", action.response);
 
     return {
       ...state,
@@ -46,12 +43,7 @@ export const playerReducer = createReducer(initialState, {
   },
 
   //Playlist
-  [types.ADD_PLAY_LIST](state: IPlayerState, action: any) {
-    return {
-      ...state,
-      playList: action.payload,
-    }
-  },
+
   [types.UPDATE_PLAY_LIST](state: IPlayerState, action: any) {
     return {
       ...state,

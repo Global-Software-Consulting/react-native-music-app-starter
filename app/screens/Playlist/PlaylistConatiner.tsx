@@ -36,20 +36,13 @@ const Playlist: React.FC<any> = (props): JSX.Element => {
   const styles = useStyles();
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  const playList = useSelector((state: any) => state.playerReducer.playList);
-
-  // console.log("Playlist",Array.isArray(playList)  ) // Returns true);
-  console.log('playList.playList',playList);
-  
+  const playList = useSelector((state: any) => state.playerReducer.playList);  
   const route: any = useRoute();
   const item = route.params.item;
   const deleteSongOfPlaylist = (id: any) => {
     
-    let data = item?.songs?.filter((element: any) => element.id != id);
-    console.log("dataaa:",data);
-    
+    let data = item?.songs?.filter((element: any) => element.id != id);    
     let updatedList = { name: item.name, songs: data}
-    console.log("updateLiist:",updatedList);
     let updatedPlayList = playList.map((element: any) => {
       if (element.name == item.name) {
         return updatedList;

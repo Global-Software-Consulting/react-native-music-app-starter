@@ -41,7 +41,6 @@ const Favorites: React.FC = () => {
 
     }
   };
-  console.log("favLoderfavLoderfavLoderfavLoder:", isLoading);
 
   return (
 

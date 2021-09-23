@@ -4,8 +4,6 @@
 import * as types from './types';
 
 export function playerListRequest(item: any) {
-  console.log("reponsereponsereponsereponsereponse", item);
-
   return {
     type: types.PLAYER_LIST_REQUEST,
     payload:item,
@@ -27,12 +25,8 @@ export function isPlayerShow(value: boolean) {
   };
 
 }
-export function playListRequest(list: any) {
-  return {
-    type: types.ADD_PLAY_LIST,
-    payload: list,
-  };
-}
+
+
 export function updatePlayList(item: any) {
   return {
     type: types.UPDATE_PLAY_LIST,

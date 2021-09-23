@@ -59,7 +59,6 @@ const Favorite: React.FC<any> = (props): JSX.Element => {
 
     </TouchableHighlight>
   );
-  console.log("favlisttt:", favoriteList);
 
   return (
 
