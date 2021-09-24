@@ -278,7 +278,7 @@ export const useStyles = () => {
       color: theme.colors.primary
     },
     Dropicon: {
-      marginLeft: wp('15%'),
+      marginLeft: wp('25%'),
       justifyContent: 'center',
     },
 
@@ -287,12 +287,13 @@ export const useStyles = () => {
       width: 0,
     },
     line: {
-      width: wp('35%'),
+      width: wp('15%'),
       justifyContent: 'center',
-      marginLeft: wp('30%'),
+      marginLeft: wp('35%'),
       marginBottom: 25,
       borderBottomColor: theme.colors.primary,
-      borderBottomWidth: 1.5,
+      borderBottomWidth: 3.5,
+      // borderRadius:3
       // marginRight:44,
     },
     wrapHeader: {

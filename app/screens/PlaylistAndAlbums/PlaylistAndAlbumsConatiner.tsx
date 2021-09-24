@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, TouchableOpacity, Button, FlatList } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import BottomSheet from 'reanimated-bottom-sheet';
+import BottomSheet from '@gorhom/bottom-sheet';
 import { useTheme, Text } from 'react-native-paper';
 import useStyles from './styles';
 import Modal from "react-native-modal";
@@ -67,13 +67,12 @@ const PlaylistAndAlbumsConatiner: React.FC<any> = (props): JSX.Element => {
       <TouchableOpacity key={item} onPress={() => addSongToPlaylist(item)}>
         <PlaylistsAlbumsCard
           name={item.name}
-          img={item?.songs[0]?.artwork}
+          img={item.songs.length > 0 ? item.songs[0].artwork : `https://picsum.photos/150/200/?random=${Math.random()}`}
           model={item.songs.length}
           playlistRef={playlistRef}
           item={item}
           setThePlaylist={setThePlaylist}
         // onPress={() => {
-        //   // dispatch(isPlayerShow(true));
         //   // dispatch(playerListRequest(item));
         //   navigation.navigate('Playlist',{ item: item })
         // }}
@@ -81,19 +80,6 @@ const PlaylistAndAlbumsConatiner: React.FC<any> = (props): JSX.Element => {
       </TouchableOpacity>
     </>
   );
-
-  const renderContent = () => {
-
-    return (
-      <View style={styles.modal}>
-        <PlaylistAndAlbumsModal
-          showDel={true}
-          item={selectPlaylist}
-          playlistRef={playlistRef}
-        />
-      </View>
-    )
-  };
 
   useEffect(() => {
     if (playList?.length > 0) {
@@ -156,15 +142,29 @@ const PlaylistAndAlbumsConatiner: React.FC<any> = (props): JSX.Element => {
 
         {/* </Modal> */}
       </View>
-      {/* <PlaylistAndAlbumsModal isModalVisible={isModalVisible} onPressModal={onPressModal}/> */}
       <BottomSheet
         ref={playlistRef}
-        initialSnap={1}
-        snapPoints={['35%', 0, 0]}
-        borderRadius={10}
-        renderContent={renderContent}
+        index={-1}
+        snapPoints={[400, 2]}
+        onAnimate={(fromIndex: number, toIndex: number) => {
+        }}
 
-      />
+        backgroundComponent={() =>
+          <View style={styles.contentContainer} />
+        }
+        handleComponent={() =>
+          <View style={styles.closeLineContainer}>
+            <View style={styles.closeLine}></View>
+          </View>
+        }
+      >
+        <View style={styles.modal}>
+          <PlaylistAndAlbumsModal
+            item={selectPlaylist}
+            playlistRef={playlistRef}
+          />
+        </View>
+      </BottomSheet>
       <AppCreatePlaylistModal
         closeModals={closeAllModals}
         isCreateModalVisible={isCreateModalVisible}

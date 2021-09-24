@@ -6,7 +6,7 @@ import * as types from 'store/actions/types';
 import { IPlayerState } from '../../models/reducers/player';
 
 const initialState: IPlayerState = {
-  playerList: [],
+  playerList: null,
   isPlayer: false,
   isPlayerPlay: false,
   playList: [],

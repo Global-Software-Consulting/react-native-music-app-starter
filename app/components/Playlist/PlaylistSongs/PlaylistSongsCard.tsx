@@ -14,6 +14,7 @@ interface MusicProps {
   img?: string,
   onPressRemove?: any,
   showDel?: any,
+  addSongToPlaylist?: any,
 }
 
 const PlaylistSongsCard: React.FC<MusicProps> = ({
@@ -21,7 +22,8 @@ const PlaylistSongsCard: React.FC<MusicProps> = ({
   model,
   img,
   showDel,
-  onPressRemove
+  onPressRemove,
+  addSongToPlaylist
 }) => {
   const styles = useStyles();
   
@@ -29,7 +31,7 @@ const PlaylistSongsCard: React.FC<MusicProps> = ({
   return (
     <View style={styles.container}>
 
-      <TouchableOpacity style={styles.taskCard} >
+      <TouchableOpacity style={styles.taskCard} onPress={() => addSongToPlaylist}>
         <View style={styles.imgcontainer}>
           <Image style={styles.img} source={{ uri: img }}></Image>
         </View>
@@ -42,13 +44,14 @@ const PlaylistSongsCard: React.FC<MusicProps> = ({
         </View>
 
       </View>
-      {showDel && <TouchableOpacity onPress={()=> onPressRemove(name) }>
+      {/* {showDel && <TouchableOpacity onPress={()=> onPressRemove(name) }> */}
+      <TouchableOpacity onPress={()=> onPressRemove(name) }>
         <MaterialCommunityIcons
           name="delete-outline"
           size={25}
 
         />
-      </TouchableOpacity>}
+      </TouchableOpacity>
     </View>
   );
 };

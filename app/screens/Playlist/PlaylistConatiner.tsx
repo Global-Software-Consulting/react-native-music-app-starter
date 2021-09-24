@@ -10,9 +10,13 @@ import { deletePlayListSong } from '../../store/actions/playerActions';
 import { IAppState } from '../../models/reducers/app';
 import { ILoading } from '../../models/reducers/loading';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { ScrollView } from 'react-native-gesture-handler';
 import PlaylistSongsCard from '../../components/Playlist/PlaylistSongs/PlaylistSongsCard';
 import { IPlayerState } from '../../models/reducers/player';
+import PlaylistsAlbumsCard from '../../components/Playlist/PlaylistSongs/PlaylistsAlbumsCard';
+import BottomSheet from '@gorhom/bottom-sheet';
+import PlaylistModal from './PlaylistModal';
+import PlaylistsTracksCard from '../../components/Playlist/PlaylistSongs/PlaylistsTracksCard';
+import { favoriteListRequest } from '../../store/actions/appActions';
 
 interface IState {
   appReducer: IAppState;
@@ -36,56 +40,75 @@ const Playlist: React.FC<any> = (props): JSX.Element => {
   const styles = useStyles();
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  const playList = useSelector((state: any) => state.playerReducer.playList);  
+  const playlistSongsRef = React.useRef(null);
+  const playList = useSelector((state: any) => state.playerReducer.playList);
+  const [selectPlaylist, setSelectPlaylist] = useState(null);
+
   const route: any = useRoute();
   const item = route.params.item;
-  const deleteSongOfPlaylist = (id: any) => {
-    
-    let data = item?.songs?.filter((element: any) => element.id != id);    
-    let updatedList = { name: item.name, songs: data}
-    let updatedPlayList = playList.map((element: any) => {
-      if (element.name == item.name) {
-        return updatedList;
-      } else {
-        return element;
-      }
-    });
-    dispatch(deletePlayListSong(updatedPlayList));
-  };
+  
+//   const deleteSongOfPlaylist = (id: any) => {
+// console.log("hello ia m remove",id);
+
+//     let data = item?.songs?.filter((element: any) => element.id != id);
+//     let updatedList = { name: item.name, songs: data }
+//     console.log("updatedList:",updatedList);
+//     let updatedPlayList = playList.map((element: any) => {
+//       if (element.name == item.name) {
+//         return updatedList;
+//       } else {
+//         return element;
+//       }
+//     });
+//     console.log("updatedPlayList:",updatedPlayList);
+
+//     // dispatch(deletePlayListSong(updatedPlayList));
+//   };
+
+
+  const setThePlaylist = (item: any) => {
+    setSelectPlaylist(item)
+  }
   const PlaylistRenderItem = ({ item }: any) => (
     <TouchableHighlight
       key={item}
       underlayColor='gray'
- >
+    >
 
       <View style={styles.Musiccontainer}>
-        <PlaylistSongsCard
+        <PlaylistsTracksCard
           name={item?.title}
           img={item?.artwork}
           model={item?.artist}
-          onPressRemove={() => { deleteSongOfPlaylist(item?.id) }}
+          playlistRef={playlistSongsRef}
+          // onPressRemove={() => { deleteSongOfPlaylist(item?.id) }}
           showDel={true}
+          item={item}
+          setThePlaylist={setThePlaylist}
         />
-      
+
 
       </View>
 
     </TouchableHighlight>
   );
+  
 
   return (
 
     <View style={styles.container}>
       {/* <ScrollView></ScrollView> */}
-      <ImageBackground source={{ uri: item.songs[0].artwork }}
+      <ImageBackground source={{ uri: item.songs.length > 0 ? item.songs[0].artwork : `https://picsum.photos/150/200/?random=${Math.random()}` }}
         resizeMode="cover"
         style={styles.image}>
-        <View style={styles.labelNameWrapper}>
 
-          <Text style={styles.labelPlaylist}>{item.name}</Text>
-
-        </View>
       </ImageBackground>
+
+      <View style={styles.labelNameWrapper}>
+        <Text style={styles.labelPlaylist}>{item.name}</Text>
+        <Text style={styles.model}>Playlist: {item.length || item.name} Tracks: {item.songs.length}</Text>
+      </View>
+
       <View style={styles.playlistContainer}>
         {item.songs?.length > 0 ? (
 
@@ -106,12 +129,38 @@ const Playlist: React.FC<any> = (props): JSX.Element => {
               size={80}
 
             />
-            <Text style={styles.noPlaylistText}>No Playlist or Albums yet </Text>
-            <Text style={styles.model}>Playlist or album you have liked or created will show up here. </Text>
+            <Text style={styles.noPlaylistText}>No Playlist Available </Text>
           </View>
 
         )}
       </View>
+      <BottomSheet
+        ref={playlistSongsRef}
+        index={-1}
+        snapPoints={[450, 2]}
+        onAnimate={(fromIndex: number, toIndex: number) => {
+        }}
+
+        backgroundComponent={() =>
+          <View style={styles.contentContainer} />
+        }
+        handleComponent={() =>
+          <View style={styles.closeLineContainer}>
+            <View style={styles.closeLine}></View>
+          </View>
+        }
+      >
+        <View style={styles.modal}>
+          <PlaylistModal
+            item={selectPlaylist}
+            playlistRef={playlistSongsRef}
+
+            // onPressRemove={deleteSongOfPlaylist(item?.id)}
+          />
+
+
+        </View>
+      </BottomSheet>
     </View>
 
   );

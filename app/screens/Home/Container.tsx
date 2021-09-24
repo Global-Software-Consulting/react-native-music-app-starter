@@ -49,15 +49,12 @@ const HomeComponent: React.FC<any> = (props): JSX.Element => {
   const [userPlaylist, setUserPlaylist] = useState<any>([]);
   const { t, i18n } = useTranslation();
   const styles = useStyles();
- 
-  console.log("userPlaylist", userPlaylist );
-  useEffect(()=> {
+   useEffect(()=> {
     if(isVisible){
-      // console.log("userPlaylist", playList );
       setUserPlaylist(playList);
     }
     else{
-      console.log("Nothing");
+      // console.log("Nothing");
       
     }
   }, [playList.length,isVisible])
@@ -93,9 +90,8 @@ const HomeComponent: React.FC<any> = (props): JSX.Element => {
     <TouchableOpacity key={item} onPress={()=>navigation.navigate('Playlist',{ item: item })}>
       <PlaylistCard
         name={item.name}
-        img={item?.songs[0]?.artwork}
+        img={item.songs.length>0? item.songs[0].artwork :`https://picsum.photos/150/200/?random=${Math.random()}`}
         onPress={() => {
-          // dispatch(isPlayerShow(true));
           // dispatch(playerListRequest(item));
           navigation.navigate('Playlist',{ item: item })
         }}

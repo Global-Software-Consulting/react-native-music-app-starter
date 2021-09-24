@@ -1,6 +1,6 @@
 export interface IPlayerState {
   isPlayer:Boolean;
   isPlayerPlay:Boolean;
-  playerList: Array<object>;
+  playerList: any;
   playList: Array<object>;
 }

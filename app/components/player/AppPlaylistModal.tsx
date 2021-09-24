@@ -11,6 +11,8 @@ import PlaylistSongsCard from '../Playlist/PlaylistSongs/PlaylistSongsCard';
 import { IPlayerState } from '../../models/reducers/player';
 import { useDispatch, useSelector } from 'react-redux';
 import { updatePlayList, deletePlayListFolder } from '../../store/actions/playerActions';
+import Toast from 'react-native-simple-toast';
+
 
 interface MusicProps {
 
@@ -36,10 +38,10 @@ const AppPlaylistModal: React.FC<MusicProps> = ({
   const selectedTrack: any = useSelector((state: IPState) => state.playerReducer.playerList);
 
   const addSongToPlaylist = (item: any) => {
+    Toast.show(`Added in ${item.name} Playlist`);
     let found = item.songs.find((el: any) => el.id == selectedTrack.id);
     let data = item;
     if (!found) data.songs.push(selectedTrack);
-
     let list = playList.map((item: any) => {
       if (item.name == data.name) {
         return data;
@@ -52,7 +54,7 @@ const AppPlaylistModal: React.FC<MusicProps> = ({
   };
 
   const removePlaylist = (name: any) => {
-    
+
     let data = playList?.filter((element: any) => element.name != name)
     dispatch(deletePlayListFolder(data));
   };
@@ -63,9 +65,10 @@ const AppPlaylistModal: React.FC<MusicProps> = ({
         <PlaylistSongsCard
           name={item.name}
           model={item?.songs?.length}
-          img={item?.songs[0]?.artwork}
+          img={item.songs.length > 0 ? item.songs[0].artwork : `https://picsum.photos/150/200/?random=${Math.random()}`}
           onPressRemove={removePlaylist}
           showDel={true}
+          addSongToPlaylist={addSongToPlaylist}
         />
       </TouchableOpacity>
     </>
@@ -87,7 +90,7 @@ const AppPlaylistModal: React.FC<MusicProps> = ({
               <TouchableOpacity onPress={() => onPressNewPlaylist()}>
                 <MaterialCommunityIcons
                   name="playlist-plus"
-                  style={[styles.secondaryControl,  styles.off]}
+                  style={[styles.secondaryControl, styles.off]}
                   size={30}
                   color={theme.colors.primary}
                 />
@@ -101,7 +104,6 @@ const AppPlaylistModal: React.FC<MusicProps> = ({
                   showsVerticalScrollIndicator={false}
                   showsHorizontalScrollIndicator={false}
                   data={playList}
-                  // keyExtractor={item => item.id}
                   renderItem={PlayListRenderItem}
 
                 />
@@ -111,13 +113,11 @@ const AppPlaylistModal: React.FC<MusicProps> = ({
                 </View>
               )}
             </View>
-            {/* <FlatList></FlatList> */}
 
           </View>
           <Button
-            // style={styles.CancelButton} 
             title="Cancel"
-            onPress={() =>onPressPlaylist()} />
+            onPress={() => onPressPlaylist()} />
         </Modal>
       </View>
     </>

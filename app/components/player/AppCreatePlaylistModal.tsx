@@ -8,6 +8,7 @@ import Modal from "react-native-modal";
 import AppHeader from '../AppHeader';
 import { updatePlayList } from '../../store/actions/playerActions';
 import { IPlayerState } from '../../models/reducers/player';
+import Toast from 'react-native-simple-toast';
 
 interface MusicProps {
   isCreateModalVisible?: boolean;
@@ -40,7 +41,7 @@ const AppCreatePlaylistModal: React.FC<MusicProps> = ({
       dispatch(updatePlayList(data));
       closeModals();
     } else {
-      console.log("name already exists.....");
+      Toast.show(`${found.name} Playlist Already exist`);
     }
 
   }

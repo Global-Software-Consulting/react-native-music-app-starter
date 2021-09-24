@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Button } from 'react-native';
-import { useTheme } from 'react-native-paper';
+import { View} from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { IAppState } from '../../models/reducers/app';
 import { IPlayerState } from '../../models/reducers/player';
-import { isPlayerPlay } from '../../store/actions/playerActions';
+import { isPlayerPlay, playerListRequest } from '../../store/actions/playerActions';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
 import BottomSheet from '@gorhom/bottom-sheet';
 import { favoriteListRequest } from '../../store/actions/appActions';
 import FullPlayer from './PlayerFullScreen';
 import PlyerBottom from './PlyerBottom';
 import useStyles from './styles';
-import Modal from "react-native-modal";
+import Toast from 'react-native-simple-toast';
 import TrackPlayer, {
   Capability,
   useProgress,
@@ -60,24 +59,41 @@ const Footer: React.FC<any> = (props, isShowFooter): JSX.Element => {
   const favoriteList = useSelector(
     (state: IState) => state.appReducer.favoriteList,
   );
-  
-  const musicList = useSelector((state: IState) => state.appReducer.musicList);
-  const [isFavorite, setIsFavorite] = useState<boolean>(false);
+
+  const musicList: any = useSelector((state: IState) => state.appReducer.musicList);
+  const [isFavorite, setIsFavorite] = useState<boolean>(true);
   const [paused, setPaused] = useState<boolean>(false);
   const [createModalVisible, setCreateModalVisible] = useState<boolean>(false);
   const [isModalVisible, setModalVisible] = useState<boolean>(false);
   const [repeatOn, setRepeatOn] = useState<boolean>(false);
-  const [selectedTrack, setSelectedTrack] = useState<any>(null);
   const sheetRef = React.useRef(null);
   const playbackState = usePlaybackState();
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const styles = useStyles();
-  const [fullPlayerView, setFullPlayerView] = useState(false);
   const isVisible = useIsFocused();
   const { position, duration } = useProgress();
-  const [index,setIndex]= useState(0)
+  const [index, setIndex] = useState(0)  
+  useEffect(() => {
+
+    TrackPlayer.reset();
+    setup();
+    // let found = favoriteList?.find((element: any) => element.id == item.id);
+    // if (found ) {
+    //   setIsFavorite(true);
+    // } else {
+    //   setIsFavorite(false);
+    // }
+  }, []);
+
+  useEffect(() => {
+
+    TrackPlayer.reset();
+    setup();
+  }, [item]);
+
   const setup = async () => {
+
     await TrackPlayer.setupPlayer({});
     await TrackPlayer.updateOptions({
       stopWithApp: true,
@@ -90,61 +106,31 @@ const Footer: React.FC<any> = (props, isShowFooter): JSX.Element => {
       ],
       compactCapabilities: [Capability.Play, Capability.Pause],
     });
-    const styles = useStyles();
-    await TrackPlayer.add({
-      url: item?.url,
-      title: '1324234',
-      artist: 'David Chavez',
-      artwork:
-        'https://i.scdn.co/image/e5c7b168be89098eb686e02152aaee9d3a24e5b6',
-      // duration: startDuration(),
-    });
-    TrackPlayer.play();
-    // TrackPlayer.setRepeatMode(RepeatMode.Track);
+    await TrackPlayer.add(musicList);
+    if (item) {
+      onTrackItemPress(item);
+    }
+
   };
-  useEffect(() => {
-    if (isVisible) {
-      TrackPlayer.reset();
-      setSelectedTrack(item)
-      setup();
-    } else {
-      TrackPlayer.stop();
-      TrackPlayer.reset();
-    }
-    return () => {
-      TrackPlayer.stop();
-      TrackPlayer.reset();
 
-    }
-  }, [isVisible]);
-
-  useEffect(() => {
-    onTrackItemPress(item);
-
-    let found = favoriteList?.find((element: any) => element.id == item.id);
-    if (found) {
-      setIsFavorite(true);
-    } else {
-      setIsFavorite(false);
-    }
-  }, []);
   const onTrackItemPress = async (track: any) => {
-    setSelectedTrack(track)
+    if (track.id != item.id) {
+      dispatch(playerListRequest(track));
+    }
     await TrackPlayer.stop();
     await TrackPlayer.reset();
     await TrackPlayer.add({
       url: track?.url,
-      title: '1324234',
-      artist: 'David Chavez',
-      artwork:
-        'https://i.scdn.co/image/e5c7b168be89098eb686e02152aaee9d3a24e5b6',
+      title: track?.title,
+      artist: track?.artist,
+      artwork: track?.artwork,
     });
     TrackPlayer.play();
 
   };
 
   const playNextPrev = async (prevOrNext: 'prev' | 'next') => {
-    const currentTrackId = await selectedTrack?.id;
+    const currentTrackId = await item?.id;
     if (!currentTrackId) return;
     const trkIndex = musicList.findIndex(
       (trk: any) => trk.id == currentTrackId,
@@ -156,6 +142,7 @@ const Footer: React.FC<any> = (props, isShowFooter): JSX.Element => {
       onTrackItemPress(musicList[trkIndex - 1]);
     }
   };
+
   const onPressPlay = async () => {
     dispatch(isPlayerPlay(true));
     TrackPlayer.play();
@@ -235,15 +222,18 @@ const Footer: React.FC<any> = (props, isShowFooter): JSX.Element => {
   };
 
   const onFavoritePress = () => {
+ 
+    Toast.show('Added in favorites');
     let data = favoriteList;
     let found = favoriteList?.find(
       (element: any) => element.id == item.id,
     );
     if (!found) {
-      data.push(item);
+      data.push(item); 
       setIsFavorite(true);
       dispatch(favoriteListRequest(data));
     }
+   
   };
 
   const onRemoveFavoritePress = () => {
@@ -282,140 +272,81 @@ const Footer: React.FC<any> = (props, isShowFooter): JSX.Element => {
       }
     },
   );
-  const renderContent = () => {
-    return fullPlayerView ? (
-      <View style={styles.Indexcontainer}>
-        {selectedTrack && (<FullPlayer
-          url={
-            selectedTrack?.artwork ||
-            `https://picsum.photos/150/200/?random=${Math.random()}`
-          }
-          title={selectedTrack?.title || 'No Title'}
-          artist={selectedTrack?.artist || selectedTrack?.album || 'unknown'}
-          isFavorite={isFavorite}
-          onFavoritePress={onFavoritePress}
-          onRemoveFavoritePress={onRemoveFavoritePress}
-          onPressRepeat={onPressRepeat}
-          onPressShuffle={onPressShuffle}
-          trackLength={Math.floor(duration)}
-          track={item}
-          onPressPlay={onPressPlay}
-          isModalVisible={isModalVisible}
-          onPressPause={onPressPause}
-          onForward={onSkipToNext}
-          onBack={onSkipToPrevious}
-          currentPosition={Math.floor(position)}
-          onSeek={slidingCompleted}
-          playbackState={playbackState}
-          togglePlayback={togglePlayback}
-          sheetRef={sheetRef}
-          repeatOn={repeatOn}
-          onPressPlaylist={onPressPlaylist}
-        />
-        )}
-      </View>
-    ) : (
-      <PlyerBottom
-        img={
-          item?.artwork ||
-          `https://picsum.photos/150/200/?random=${Math.random()}`
-        }
 
-        title={item?.title || 'No Title'}
-        artist={item?.artist || item?.album || 'unknown'}
-        trackLength={Math.floor(duration)}
-        track={item}
-        onForward={onSkipToNext}
-        onBack={onSkipToPrevious}
-        currentPosition={Math.floor(position)}
-        onSeek={slidingCompleted}
-        playbackState={playbackState}
-        togglePlayback={togglePlayback}
-        sheetRef={sheetRef}
-      />
-    );
-  };
-  
   return (
     <>
       <BottomSheet
         ref={sheetRef}
-        // initialSnap={isPlayerShown? 1:3}
         // backgroundStyle={<View style={}></View>}
-        index={isPlayerShown?index:-1}
-        snapPoints={[130 ,'100%']}
-        onAnimate={(fromIndex:number,toIndex:number)=>{
-        console.log('index',index);
-        
+        index={isPlayerShown ? index : -1}
+        snapPoints={[130, '100%']}
+        onAnimate={(fromIndex: number, toIndex: number) => {
           setIndex(toIndex)
 
         }}
-        onChange={(index)=>{
-          console.log('index',index);
+        onChange={(index) => {
           setIndex(index)
-     
-
         }}
         backgroundComponent={() =>
-          <View style={styles.contentContainer}/>
+          <View style={styles.contentContainer} />
         }
         handleComponent={() =>
           <View style={styles.closeLineContainer}>
             <View style={styles.closeLine}></View>
           </View>
         }
-      
+
       >
 
-{index==1? <View style={styles.Indexcontainer}>
-        {selectedTrack && (<FullPlayer
-          url={
-            item?.artwork ||
-            `https://picsum.photos/150/200/?random=${Math.random()}`
-          }
-          title={item?.title || 'No Title'}
-          artist={item?.artist || item?.album || 'unknown'}
-          isFavorite={isFavorite}
-          onFavoritePress={onFavoritePress}
-          onRemoveFavoritePress={onRemoveFavoritePress}
-          onPressRepeat={onPressRepeat}
-          onPressShuffle={onPressShuffle}
-          trackLength={Math.floor(duration)}
-          track={item}
-          onPressPlay={onPressPlay}
-          isModalVisible={isModalVisible}
-          onPressPause={onPressPause}
-          onForward={onSkipToNext}
-          onBack={onSkipToPrevious}
-          currentPosition={Math.floor(position)}
-          onSeek={slidingCompleted}
-          playbackState={playbackState}
-          togglePlayback={togglePlayback}
-          sheetRef={sheetRef}
-          repeatOn={repeatOn}
-          onPressPlaylist={onPressPlaylist}
-        />
-        )}
-      </View>:
-       <PlyerBottom
-       img={
-         item?.artwork ||
-         `https://picsum.photos/150/200/?random=${Math.random()}`
-       }
+        {index == 1 ? <View style={styles.Indexcontainer}>
+          {item && (<FullPlayer
+            url={
+              item?.artwork ||
+              `https://picsum.photos/150/200/?random=${Math.random()}`
+            }
+            title={item?.title || 'No Title'}
+            artist={item?.artist || item?.album || 'unknown'}
+            isFavorite={isFavorite}
+            onFavoritePress={onFavoritePress}
+            onRemoveFavoritePress={onRemoveFavoritePress}
+            onPressRepeat={onPressRepeat}
+            onPressShuffle={onPressShuffle}
+            trackLength={Math.floor(duration)}
+            track={item}
+            onPressPlay={onPressPlay}
+            isModalVisible={isModalVisible}
+            onPressPause={onPressPause}
+            onForward={onSkipToNext}
+            onBack={onSkipToPrevious}
+            currentPosition={Math.floor(position)}
+            onSeek={slidingCompleted}
+            playbackState={playbackState}
+            togglePlayback={togglePlayback}
+            sheetRef={sheetRef}
+            repeatOn={repeatOn}
+            onPressPlaylist={onPressPlaylist}
+          />
+          )}
+        </View> :
+          <PlyerBottom
+            img={
+              item?.artwork ||
+              `https://picsum.photos/150/200/?random=${Math.random()}`
+            }
 
-       title={item?.title || 'No Title'}
-       artist={item?.artist || item?.album || 'unknown'}
-       trackLength={Math.floor(duration)}
-       track={item}
-       onForward={onSkipToNext}
-       onBack={onSkipToPrevious}
-       currentPosition={Math.floor(position)}
-       onSeek={slidingCompleted}
-       playbackState={playbackState}
-       togglePlayback={togglePlayback}
-       sheetRef={sheetRef}
-     />
-      }
+            title={item?.title || 'No Title'}
+            artist={item?.artist || item?.album || 'unknown'}
+            trackLength={Math.floor(duration)}
+            track={item}
+            onForward={onSkipToNext}
+            onBack={onSkipToPrevious}
+            currentPosition={Math.floor(position)}
+            onSeek={slidingCompleted}
+            playbackState={playbackState}
+            togglePlayback={togglePlayback}
+            sheetRef={sheetRef}
+          />
+        }
       </BottomSheet>
       {createModalVisible && <AppCreatePlaylistModal
         closeModals={closeAllModals}
@@ -426,7 +357,7 @@ const Footer: React.FC<any> = (props, isShowFooter): JSX.Element => {
         onPressPlaylist={closeAllModals}
         onPressNewPlaylist={onPressCreatePlaylist}
       />}
-       
+
     </>
   );
 };

@@ -21,7 +21,7 @@ interface MusicProps {
 
 }
 
-const PlaylistsAlbumsCard: React.FC<MusicProps> = ({
+const PlaylistsTracksCard: React.FC<MusicProps> = ({
   name,
   model,
   img,
@@ -47,7 +47,7 @@ const PlaylistsAlbumsCard: React.FC<MusicProps> = ({
       <View style={styles.nameContainer}>
         <View style={styles.textWrapper}>
           <Text style={styles.label}>{name}</Text>
-          <Text style={styles.model}>{model} tracks</Text>
+          <Text style={styles.model}>{model} </Text>
         </View>
 
       </View>
@@ -67,7 +67,7 @@ const PlaylistsAlbumsCard: React.FC<MusicProps> = ({
   );
 };
 
-export default PlaylistsAlbumsCard;
+export default PlaylistsTracksCard;
 
 
 

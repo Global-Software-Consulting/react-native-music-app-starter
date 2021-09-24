@@ -48,7 +48,6 @@ const Home: React.FC<any> = (props): JSX.Element => {
      
     }
   };
-console.log("loaderrrrr:",isLoader);
 
   return (
     <>

@@ -35,11 +35,8 @@ const PlaylistAndAlbumsModal: React.FC<MusicProps> = ({
 
  
   const removePlaylist = (name: any) => {
-    console.log("Hello I am, remove");
-    
     let data = playList?.filter((element: any) => element.name != item.name)
     dispatch(deletePlayListFolder(data));
-    console.log("Hello I am, remove",data);
   };
 
 
@@ -72,7 +69,7 @@ const PlaylistAndAlbumsModal: React.FC<MusicProps> = ({
         {/* <TouchableOpacity style={styles.newListLabel} > */}
         <View style={{ width: '5%' }} />
         <TouchableOpacity onPress={() => {
-          playlistRef.current.snapTo(1)
+          playlistRef.current.snapToIndex(1)
           removePlaylist(item.name)
         }}>
           <View style={{ flexDirection: 'row' }}>

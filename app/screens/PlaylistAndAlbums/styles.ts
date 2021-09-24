@@ -137,9 +137,10 @@ export const useStyles = () => {
 
     },
     modal: {
+      marginTop:'2%',
       height: 400,
       width: "100%",
-      backgroundColor: theme.colors.background,
+      backgroundColor: theme.colors.accent,
     },
     secondaryControl: {
       height: hp('7%'), // 70% of height device screen
@@ -217,6 +218,24 @@ export const useStyles = () => {
       // justifyContent: 'center',
       // alignItems: 'center',
 
+    },
+
+    contentContainer: {
+      ...StyleSheet.absoluteFillObject,
+      borderTopLeftRadius: 10,
+      borderTopRightRadius: 10,
+      backgroundColor:theme.colors.primary
+    },
+
+    closeLineContainer: {
+      alignSelf: 'center',
+    },
+    closeLine: {
+      width: 40,
+      height: 6,
+      borderRadius: 3,
+      backgroundColor:  theme.colors.accent,
+      marginTop: 2,
     },
 
   });

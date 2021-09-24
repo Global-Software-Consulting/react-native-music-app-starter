@@ -18,8 +18,9 @@ export const useStyles = () => {
       // backgroundColor:'red'
     },
     noPlaylistContainer: {
-      flex: 1,
+      // flex: 1,
       justifyContent: 'center',
+      alignItems: 'center',
       backgroundColor: theme.colors.accent,
       // backgroundColor:'red'
     },
@@ -36,13 +37,13 @@ export const useStyles = () => {
       marginBottom: 10,
 
 
+
     },
     model: {
-      justifyContent: 'center',
-      textAlign: 'center',
+      paddingLeft: '8%',
       fontSize: hp('2%'),
       color: "darkgray",
-
+      // textAlign: 'center',
 
     },
     icon: {
@@ -71,11 +72,10 @@ export const useStyles = () => {
       alignSelf: 'center'
     },
     labelNameWrapper: {
-      marginLeft: '5%',
-      width: wp('40%'),
-      justifyContent: 'flex-end',
-      marginTop: hp('35%'),
-      shadowColor:theme.colors.accent,
+      // marginLeft: '2%',
+      width: wp('90%'),
+      marginTop: hp('2%'),
+      shadowColor: theme.colors.accent,
       shadowOffset: {
         width: 0,
         height: 2,
@@ -88,11 +88,11 @@ export const useStyles = () => {
 
     },
     labelPlaylist: {
-      paddingLeft: '10%',
+      paddingLeft: '8%',
       fontSize: hp('3%'),
       fontWeight: 'bold',
-      color: theme.colors.accent,
-      backgroundColor: theme.colors.primary,
+      color: theme.colors.primary,
+      // backgroundColor: theme.colors.primary,
 
     },
     noMusicIcon: {
@@ -106,6 +106,139 @@ export const useStyles = () => {
       flex: 1,
       justifyContent: "center"
     },
+    //bottomSheet
+    bottomlabel: {
+      marginBottom: 12,
+      fontSize: hp('2%'),
+      fontWeight: 'bold',
+      // color: theme.colors.primary,
+      // paddingLeft: '5%'
+    },
+    bottomTaskCard: {
+      borderRadius: 12,
+      margin: 15,
+      flexDirection: 'row',
+      borderBottomWidth: 0.25,
+      shadowColor: theme.colors.primary,
+      shadowOffset: {
+        width: 0,
+        height: 2,
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 3.84,
+
+      elevation: 5,
+      // justifyContent: 'center',
+      // alignItems: 'center',
+
+    },
+    modalcontainer: {
+      flex: 1,
+      // bacskgroundColor: theme.colors.accent,
+      // backgroundColor:'yellow'
+    },
+    imgcontainer: {
+      margin: 5,
+      height: hp('10%'), // 70% of height device screen
+      width: wp('20%'),
+      flexDirection: 'row',
+      borderRadius: 10,
+      shadowColor: 'blue',
+      shadowOffset: { width: 0, height: 2 },
+      shadowOpacity: .2,
+      shadowRadius: 8,
+      elevation: 20,
+    },
+    img: {
+      resizeMode: 'cover',
+      height: hp('8%'), // 70% of height device screen
+      width: wp('15%'),  // 80% of width device screen
+      borderRadius: 5,
+
+
+    },
+    nameContainer: {
+      paddingTop: 10,
+      flexDirection: 'row',
+      height: hp('7%'), // 70% of height device screen
+      width: wp('40%'),  // 80% of width device screen
+      // justifyContent: 'center',
+      // alignItems: 'center',
+      // alignSelf: 'center',
+    },
+    textWrapper: {
+      paddingLeft: 5,
+      justifyContent: 'flex-start',
+      alignItems: 'flex-start',
+      height: hp('5%'), // 70% of height device screen
+      width: wp('45%'),   // 80% of width device screen
+    },
+    bottomModalContainer: {
+
+      flexDirection: 'row',
+      paddingLeft: 5,
+
+    },
+    name: {
+      paddingTop: '1%',
+      fontSize: hp('2%'),
+      fontWeight: 'bold',
+      color: theme.colors.background,
+      // paddingLeft: '5%'
+
+    },
+    iconName: {
+      paddingTop: '1%',
+      fontSize: hp('2%'),
+      fontWeight: 'bold',
+      color: theme.colors.primary,
+      // paddingLeft: '5%'
+
+    },
+    modal: {
+      marginTop: '1.5%',
+      height: 400,
+      width: "100%",
+      backgroundColor: theme.colors.accent,
+    },
+    secondaryControl: {
+      height: hp('7%'), // 70% of height device screen
+      width: wp('10%'),
+      // color:'orange',
+    },
+    off: {
+      opacity: 0.30,
+      color: theme.colors.primary
+    },
+    on: {
+      color: 'orange'
+
+    },
+    artist: {
+      fontSize: hp('2%'),
+      color: theme.colors.background,
+      // textAlign: 'center',
+
+    },
+
+    contentContainer: {
+      ...StyleSheet.absoluteFillObject,
+      borderTopLeftRadius: 10,
+      borderTopRightRadius: 10,
+      backgroundColor: theme.colors.primary
+    },
+
+    closeLineContainer: {
+      alignSelf: 'center',
+    },
+    closeLine: {
+      width: 40,
+      height: 6,
+      borderRadius: 3,
+      backgroundColor: theme.colors.accent,
+      marginTop: 2,
+    },
+
   });
   return styles;
 }
