@@ -8,11 +8,11 @@ import { tracks } from '../../data/tracks';
 import { useSelector} from 'react-redux';
 import MusicCardShimmer from '../../components/Music/MusicCardShimmer';
 import PlaylistCardShimmer from '../../components/Playlist/PlaylistCardShimmer';
-import {ILoading} from '../../models/reducers/loading';
+import {Loading} from '../../models/reducers/loading';
 const initI18n = i18n;
 
 interface IState {
-  loadingReducer: ILoading;
+  loadingReducer: Loading;
 }
 
 interface Itrack {

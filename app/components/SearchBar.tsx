@@ -10,7 +10,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { useTheme, Text } from 'react-native-paper';
 import { useDispatch, useSelector } from 'react-redux';
-import { IPlayerState } from '../models/reducers/player';
+import { PlayerState } from '../models/reducers/player';
 import PlaylistSongsCard from '../components/Playlist/PlaylistSongs/PlaylistSongsCard'
 interface TitleProps {
   // title: string,
@@ -19,7 +19,7 @@ interface TitleProps {
   Playlist?: any;
 }
 interface IPState {
-  playerReducer: IPlayerState;
+  playerReducer: PlayerState;
 
 }
 const SearchBar: React.FC<TitleProps> = (props): JSX.Element => {

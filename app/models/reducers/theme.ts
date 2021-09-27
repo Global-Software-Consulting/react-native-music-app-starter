@@ -1,3 +1,3 @@
-export interface IThemeState {
+export interface ThemeState {
   isDark: boolean;
 }

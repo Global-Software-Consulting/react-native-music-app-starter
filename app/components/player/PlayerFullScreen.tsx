@@ -7,13 +7,13 @@ import DownArrowIcon from 'react-native-vector-icons/AntDesign';
 import useStyles from './styles';
 import Album from './Album';
 import TrackBar from './TrackBar';
-import { IAppState } from '../../models/reducers/app';
-import { IPlayerState } from '../../models/reducers/player';
+import { AppState } from '../../models/reducers/app';
+import { PlayerState } from '../../models/reducers/player';
 
 
 interface IState {
-  appReducer: IAppState;
-  playerReducer: IPlayerState;
+  appReducer: AppState;
+  playerReducer: PlayerState;
 }
 interface PlyerFullScreenProps {
   name?: string;
@@ -47,7 +47,7 @@ interface PlyerFullScreenProps {
 }
 
 interface IState {
-  playerReducer: IPlayerState;
+  playerReducer: PlayerState;
 }
 
 const PlayerFullScreen: React.FC<PlyerFullScreenProps> = ({

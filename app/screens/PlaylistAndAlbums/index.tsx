@@ -10,12 +10,12 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { DrawerParamList } from '../../navigation/DrawerNavigator';
 import PlaylistAndAlbumsShimmer from './PlaylistAndAlbumsShimmer';
 import PlaylistAndAlbumsConatiner from './PlaylistAndAlbumsConatiner';
-import { IAppState } from '../../models/reducers/app';
-import { ILoading } from '../../models/reducers/loading';
+import { AppState } from '../../models/reducers/app';
+import { Loading } from '../../models/reducers/loading';
 
 interface IState {
-  appReducer: IAppState;
-  loadingReducer: ILoading;
+  appReducer: AppState;
+  loadingReducer: Loading;
 }
 const Favorites: React.FC = () => {
   const dispatch = useDispatch();

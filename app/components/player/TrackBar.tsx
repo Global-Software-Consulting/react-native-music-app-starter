@@ -5,7 +5,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import useStyles from './styles';
 import Slider from 'react-native-slider';
 import { useSelector, useDispatch } from 'react-redux';
-import { IPlayerState } from '../../models/reducers/player';
+import { PlayerState } from '../../models/reducers/player';
 
 function pad(n: any, width: any, z: any = 0) {
   n = n + '';
@@ -35,7 +35,7 @@ interface MusicProps {
 }
 
 interface IState {
-  playerReducer: IPlayerState;
+  playerReducer: PlayerState;
 }
 
 const TrackBar: React.FC<MusicProps> = ({

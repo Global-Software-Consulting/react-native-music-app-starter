@@ -11,26 +11,18 @@ import HomeShimmer from './Shimmer';
 import HomeComponent from './Container';
 import {useDispatch, useSelector} from 'react-redux';
 import {musicListRequest} from '../../store/actions/appActions';
-import {IAppState} from '../../models/reducers/app';
-import {ILoading} from '../../models/reducers/loading';
+import {IState} from './types';
+
 const initI18n = i18n;
 
-interface IState {
-  appReducer: IAppState;
-  loadingReducer: ILoading;
-}
-
-const Home: React.FC<any> = (props): JSX.Element => {
-  const musicList = useSelector((state: IState) => state.appReducer.musicList);
-  const isLoader = useSelector((state: IState) => state.loadingReducer.isLoginLoading);
+const Home: React.FC<IState> = (props): JSX.Element => {
+  const musicList = useSelector((state: IState) => state.appReducer?.musicList);
+  const isLoader = useSelector((state: IState) => state.loadingReducer?.isLoginLoading);
 
   const dispatch = useDispatch();
   const [refreshing, setRefreshing] = useState<boolean>(false);
   const {t, i18n} = useTranslation();
   const styles = useStyles();
-  const wait = (timeout: number) => {
-    return new Promise(resolve => setTimeout(resolve, timeout));
-  };
   useEffect(() => {
     onRefresh();
   }, []);

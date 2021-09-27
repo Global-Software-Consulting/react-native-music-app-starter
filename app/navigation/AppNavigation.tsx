@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Settings from '../screens/Settings';
 import Favorites from '../screens/Favorites';
 import DrawerNavigator from './DrawerNavigator';
 import Footer from '../components/player/index';
-import { IPlayerState } from '../models/reducers/player';
+import { PlayerState } from '../models/reducers/player';
 import { useSelector } from 'react-redux';
 import { useRoute } from '@react-navigation/native';
 import Playlist from '../screens/Playlist';
@@ -18,11 +17,11 @@ export type RootStackParamList = {
   Favorites: any;
   Settings: any;
   Player: any;
-  Playlist:any;
-  PlaylistAndAlbums:any;
+  Playlist: any;
+  PlaylistAndAlbums: any;
 };
 interface IState {
-  playerReducer: IPlayerState;
+  playerReducer: PlayerState;
 }
 const AppNavigation = () => {
   const [isShowFooter, setIsShowFooter] = useState<boolean>(true);
@@ -49,34 +48,29 @@ const AppNavigation = () => {
           name="DrawerNavigator"
           component={DrawerNavigator}
           options={{ headerShown: false }}
-        
+
         />
 
         <Stack.Screen
           name="Favorites"
           component={Favorites}
           options={{ headerShown: false }}
-        
+
         />
-       
+
+
 
         <Stack.Screen
-          name="Settings"
-          component={Settings}
-          options={{ headerShown: false }}
-          initialParams={{ itemId: 44 }}
-        />
-         <Stack.Screen
           name="Playlist"
           component={Playlist}
           options={{ headerShown: false }}
-        
+
         />
-         <Stack.Screen
+        <Stack.Screen
           name="PlaylistAndAlbums"
           component={PlaylistAndAlbums}
           options={{ headerShown: false }}
-        
+
         />
       </AppStack.Navigator>
       <>

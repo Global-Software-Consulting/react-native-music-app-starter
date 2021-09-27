@@ -1,46 +1,41 @@
 import * as React from 'react';
-import {NavigationContainer, 
+import {
+  NavigationContainer,
   DefaultTheme as NavigationDefaultTheme,
-  DarkTheme as NavigationDarkTheme} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {useSelector} from 'react-redux';
+  DarkTheme as NavigationDarkTheme
+} from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { useSelector } from 'react-redux';
 import AuthNavigation from './AuthNavigation';
-import {navigationRef} from './NavigationService';
-import {IThemeState} from './models/reducers/theme';
-import {StatusBar, View} from 'react-native';
-import {ILoginState} from 'models/reducers/login';
+import { navigationRef } from './NavigationService';
+import { ThemeState } from './models/reducers/theme';
+import { StatusBar, View } from 'react-native';
 import AppNavigation from './AppNavigation';
 
 const Stack = createNativeStackNavigator();
 
 interface IState {
-  themeReducer: IThemeState;
+  themeReducer: ThemeState;
 
 }
-interface IState {
-  loginReducer: ILoginState;
-}
 
-interface IProps {}
+
+interface IProps { }
 const NavigationStack: React.FC<IProps> = (props: IProps) => {
-  const isLoggedIn = useSelector(
-    (state: IState) => state.loginReducer.isLoggedIn,
-  );
   const isDark = useSelector((state: IState) => state.themeReducer.isDark);
 
   return (
-    <NavigationContainer ref={navigationRef} theme={isDark ? NavigationDarkTheme:NavigationDefaultTheme}>
+    <NavigationContainer ref={navigationRef} theme={isDark ? NavigationDarkTheme : NavigationDefaultTheme}>
       <StatusBar barStyle={'light-content'} />
 
       <Stack.Navigator headerMode="none">
-        {isLoggedIn ? (
-          <Stack.Screen
-            name="AppNavigation"
-            component={AppNavigation}
-            // options={homeOptions}
-            options={{headerShown: false}} 
-          />
-        ) : (
+        {/* {isLoggedIn ? ( */}
+        <Stack.Screen
+          name="AppNavigation"
+          component={AppNavigation}
+          options={{ headerShown: false }}
+        />
+        {/* ) : (
           <Stack.Screen
             name="Login"
             component={AuthNavigation}
@@ -52,7 +47,7 @@ const NavigationStack: React.FC<IProps> = (props: IProps) => {
             //   // headerRight: () => <ThemeController />,
             // }}
           />
-        )}
+        )} */}
       </Stack.Navigator>
     </NavigationContainer>
   );

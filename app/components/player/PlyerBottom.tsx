@@ -6,7 +6,7 @@ import {
 } from 'react-native-responsive-screen';
 import { useTheme, Text } from 'react-native-paper';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { IPlayerState } from '../../models/reducers/player';
+import { PlayerState } from '../../models/reducers/player';
 import Slider from 'react-native-slider';
 import { ThemeProvider } from '@react-navigation/native';
 
@@ -39,7 +39,7 @@ interface MusicProps {
 }
 
 interface IState {
-  playerReducer: IPlayerState;
+  playerReducer: PlayerState;
 }
 
 const PlyerBottom: React.FC<MusicProps> = ({
@@ -184,8 +184,6 @@ export const useStyles = () => {
       },
       shadowOpacity: 0.41,
       shadowRadius: 9.11,
-
-      elevation: 14,
     },
     text: {
       fontSize: 12,
@@ -286,7 +284,7 @@ export const useStyles = () => {
       height: hp('2.5%'), // 70% of height device screen
       width: wp('4.5%'),
       borderRadius: 10,
-      color: theme.colors.accent
+      // color: theme.colors.accent
     },
     activityIndicator: {
       flexDirection: 'row',

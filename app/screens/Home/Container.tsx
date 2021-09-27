@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, FlatList, TouchableOpacity, ScrollView,RefreshControl } from 'react-native';
+import { View, FlatList, TouchableOpacity,ListRenderItemInfo, ScrollView, RefreshControl } from 'react-native';
 import { Text } from 'react-native-paper';
 import useStyles from './styles';
 import { useTranslation } from 'react-i18next';
@@ -8,40 +8,21 @@ import i18n from '../../config/Languages/i18n';
 import MusicCard from '../../components/Music/MusicCard';
 import PlaylistCard from '../../components/Playlist/PlaylistCard';
 import { useDispatch, useSelector } from 'react-redux';
-import { favoriteListRequest } from '../../store/actions/appActions';
-import { IAppState } from '../../models/reducers/app';
-import { ILoading } from '../../models/reducers/loading';
-import { IPlayerState } from '../../models/reducers/player';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
 import HomeShimmer from './Shimmer';
+import { IState, IPState ,Itrack,IPlaylist} from "./types";
 import {
   isPlayerShow,
   playerListRequest,
 } from '../../store/actions/playerActions';
-import {musicListRequest} from '../../store/actions/appActions';
+import { AppState } from '../../models/reducers/app';
+import { musicListRequest } from '../../store/actions/appActions';
 
 const initI18n = i18n;
-
-interface IState {
-  appReducer: IAppState;
-  loadingReducer: ILoading;
-}
-interface IPState {
-  playerReducer: IPlayerState;
-
-}
-interface Itrack {
-  id: string;
-  url: string;
-  title: string;
-  artwork: string;
-  artist: string;
-  duration: number;
-}
-const HomeComponent: React.FC<any> = (props): JSX.Element => {
-  const musicList = useSelector((state: IState) => state.appReducer.musicList);
-  const playList = useSelector((state: IPState) => state.playerReducer.playList);
-  const isLoader = useSelector((state: IState) => state.loadingReducer.isLoginLoading);
+const HomeComponent: React.FC<IState> = (props): JSX.Element => {
+  const musicList = useSelector((state:IState) => state.appReducer?.musicList);
+  const playList = useSelector((state: IPState) => state.playerReducer?.playList);
+  const isLoader = useSelector((state: IState) => state.loadingReducer?.isLoginLoading);
   const isVisible = useIsFocused();
   // type homeScreenProp = StackNavigationProp<RootStackParamList, 'Player'>;
   const navigation = useNavigation();
@@ -49,30 +30,30 @@ const HomeComponent: React.FC<any> = (props): JSX.Element => {
   const [userPlaylist, setUserPlaylist] = useState<any>([]);
   const { t, i18n } = useTranslation();
   const styles = useStyles();
-   useEffect(()=> {
-    if(isVisible){
+  useEffect(() => {
+    if (isVisible) {
       setUserPlaylist(playList);
     }
-    else{
+    else {
       // console.log("Nothing");
-      
+
     }
-  }, [playList.length,isVisible])
+  }, [playList.length, isVisible])
   const getMusicList = async () => {
     dispatch(musicListRequest());
   };
 
   const onRefresh = () => {
-  
+
     getMusicList();
     if (isLoader) {
       <HomeShimmer />;
     } else {
-     
+
     }
   };
-  
-  const RecommendedRenderItem = ({ item }: any) => (
+
+  const RecommendedRenderItem = ({ item }:{item: Itrack} ) => (
     <MusicCard
       name={item.title}
       model={item.artist}
@@ -83,20 +64,20 @@ const HomeComponent: React.FC<any> = (props): JSX.Element => {
       }}
     />
   );
-  const PlayListRenderItem = ({ item }: any) => (
+  const PlayListRenderItem = ( { item }:{item: IPlaylist}) => (
     <>
 
-    
-    <TouchableOpacity key={item} onPress={()=>navigation.navigate('Playlist',{ item: item })}>
-      <PlaylistCard
-        name={item.name}
-        img={item.songs.length>0? item.songs[0].artwork :`https://picsum.photos/150/200/?random=${Math.random()}`}
-        onPress={() => {
-          // dispatch(playerListRequest(item));
-          navigation.navigate('Playlist',{ item: item })
-        }}
-      />
-    </TouchableOpacity>
+
+      <TouchableOpacity onPress={() => navigation.navigate('Playlist', { item: item })}>
+        <PlaylistCard
+          name={item.name}
+          img={item.songs.length > 0 ? item.songs[0].artwork : `https://picsum.photos/150/200/?random=${Math.random()}`}
+          onPress={() => {
+            // dispatch(playerListRequest(item));
+            navigation.navigate('Playlist', { item: item })
+          }}
+        />
+      </TouchableOpacity>
     </>
   );
 
@@ -105,12 +86,12 @@ const HomeComponent: React.FC<any> = (props): JSX.Element => {
     <>
       <View style={styles.container}>
         <ScrollView nestedScrollEnabled={true}
-         refreshControl={
-          <RefreshControl
-            refreshing={isLoader}
-            onRefresh={onRefresh}
-          />
-        }
+          refreshControl={
+            <RefreshControl
+              refreshing={isLoader}
+              onRefresh={onRefresh}
+            />
+          }
         >
           <Header title="Recommended for you" />
           {musicList?.length > 0 ? (
@@ -121,7 +102,6 @@ const HomeComponent: React.FC<any> = (props): JSX.Element => {
               showsHorizontalScrollIndicator={false}
               data={musicList}
               scrollEventThrottle={2}
-              keyExtractor={item => item.id}
               renderItem={RecommendedRenderItem}
             />
           ) : (
@@ -138,9 +118,8 @@ const HomeComponent: React.FC<any> = (props): JSX.Element => {
               showsVerticalScrollIndicator={false}
               showsHorizontalScrollIndicator={false}
               data={userPlaylist}
-              // keyExtractor={item => item.id}
               renderItem={PlayListRenderItem}
-              
+
             />
           ) : (
             <View style={styles.container}>

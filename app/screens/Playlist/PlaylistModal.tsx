@@ -4,8 +4,8 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useTheme, Text } from 'react-native-paper';
 import useStyles from './styles';
-import { IPlayerState } from '../../models/reducers/player';
-import { IAppState } from '../../models/reducers/app';
+import { PlayerState } from '../../models/reducers/player';
+import { AppState } from '../../models/reducers/app';
 import { useDispatch, useSelector } from 'react-redux';
 import { deletePlayListSong } from '../../store/actions/playerActions';
 import { favoriteListRequest } from '../../store/actions/appActions';
@@ -23,11 +23,11 @@ interface MusicProps {
   selectedPlaylist?: any;
 }
 interface IPState {
-  playerReducer: IPlayerState;
+  playerReducer: PlayerState;
 
 }
 interface IState {
-  appReducer: IAppState;
+  appReducer: AppState;
 }
 const PlaylistModal: React.FC<MusicProps> = ({
   addPlaylist,

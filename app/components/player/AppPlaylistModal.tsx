@@ -8,7 +8,7 @@ import useStyles from './styles';
 import Modal from "react-native-modal";
 import AppHeader from '../AppHeader';
 import PlaylistSongsCard from '../Playlist/PlaylistSongs/PlaylistSongsCard';
-import { IPlayerState } from '../../models/reducers/player';
+import { PlayerState } from '../../models/reducers/index';
 import { useDispatch, useSelector } from 'react-redux';
 import { updatePlayList, deletePlayListFolder } from '../../store/actions/playerActions';
 import Toast from 'react-native-simple-toast';
@@ -23,7 +23,7 @@ interface MusicProps {
 
 }
 interface IPState {
-  playerReducer: IPlayerState;
+  playerReducer: PlayerState;
 
 }
 const AppPlaylistModal: React.FC<MusicProps> = ({

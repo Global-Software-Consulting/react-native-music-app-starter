@@ -7,7 +7,7 @@ import useStyles from './styles';
 import Modal from "react-native-modal";
 import AppHeader from '../../components/AppHeader';
 import PlaylistsAlbumsCard from '../../components/Playlist/PlaylistSongs/PlaylistsAlbumsCard';
-import { IPlayerState } from '../../models/reducers/player';
+import { PlayerState } from '../../models/reducers/player';
 import { useDispatch, useSelector } from 'react-redux';
 import { updatePlayList, deletePlayListFolder } from '../../store/actions/playerActions';
 import SearchBar from '../../components/SearchBar';
@@ -16,13 +16,8 @@ import { useEffect } from 'react';
 import AppCreatePlaylistModal from '../../components/player/AppCreatePlaylistModal'
 import { useNavigation, useIsFocused } from '@react-navigation/native';
 
-// interface IState {
-//   appReducer: IAppState;
-//   loadingReducer: ILoading;
-// }
-
 interface IPState {
-  playerReducer: IPlayerState;
+  playerReducer: PlayerState;
 
 }
 

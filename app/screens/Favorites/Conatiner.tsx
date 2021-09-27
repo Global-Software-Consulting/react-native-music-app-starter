@@ -7,13 +7,11 @@ import MusicCard from '../../components/Music/MusicCard';
 import Header from '../../components/Header';
 import { useNavigation } from '@react-navigation/native';
 import { favoriteListRequest } from '../../store/actions/appActions';
-import { IAppState } from '../../models/reducers/app';
-import { ILoading } from '../../models/reducers/loading';
+import { AppState } from '../../models/reducers/app';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 interface IState {
-  appReducer: IAppState;
-  loadingReducer: ILoading;
+  appReducer: AppState;
 }
 interface Itrack {
 

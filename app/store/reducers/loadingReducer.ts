@@ -4,17 +4,17 @@
  */
 import createReducer from 'lib/createReducer';
 import * as types from 'store/actions/types';
-import { ILoading } from 'models/reducers/loading';
+import { Loading } from 'models/reducers/loading';
 
-const initialState: ILoading = {
+const initialState: Loading = {
   isLoginLoading: false,
 };
 
 export const loadingReducer = createReducer(initialState, {
-  [types.MUSIC_ENABLE_LOADER](state: ILoading) {
+  [types.MUSIC_ENABLE_LOADER](state: Loading) {
     return { ...state, isLoginLoading: true };
   },
-  [types.MUSIC_DISABLE_LOADER](state: ILoading) {
+  [types.MUSIC_DISABLE_LOADER](state: Loading) {
     return { ...state, isLoginLoading: false };
   },
 });

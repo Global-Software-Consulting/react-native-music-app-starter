@@ -3,9 +3,9 @@
  */
 import createReducer from 'lib/createReducer';
 import * as types from 'store/actions/types';
-import { IPlayerState } from '../../models/reducers/player';
+import { PlayerState } from '../../models/reducers/player';
 
-const initialState: IPlayerState = {
+const initialState: PlayerState = {
   playerList: null,
   isPlayer: false,
   isPlayerPlay: false,
@@ -16,7 +16,7 @@ const initialState: IPlayerState = {
 export const playerReducer = createReducer(initialState, {
 
   //list of selected item that is playing
-  [types.PLAYER_LIST_REQUEST](state: IPlayerState, action: any) {
+  [types.PLAYER_LIST_REQUEST](state: PlayerState, action: any) {
     return {
       ...state,
       playerList: action.payload,
@@ -24,7 +24,7 @@ export const playerReducer = createReducer(initialState, {
   },
 
   //Flag for showing bottom player
-  [types.ISPLAYER_SHOWN](state: IPlayerState, action: any) {
+  [types.ISPLAYER_SHOWN](state: PlayerState, action: any) {
     return {
       ...state,
       isPlayer: action.payload,
@@ -33,7 +33,7 @@ export const playerReducer = createReducer(initialState, {
   },
 
   //Flag for showing playing state in bottom and full screen
-  [types.MUSIC_PLAYER_PLAY](state: IPlayerState, action: any) {
+  [types.MUSIC_PLAYER_PLAY](state: PlayerState, action: any) {
 
     return {
       ...state,
@@ -44,19 +44,19 @@ export const playerReducer = createReducer(initialState, {
 
   //Playlist
 
-  [types.UPDATE_PLAY_LIST](state: IPlayerState, action: any) {
+  [types.UPDATE_PLAY_LIST](state: PlayerState, action: any) {
     return {
       ...state,
       playList: action.payload,
     };
   },
-  [types.DELETE_PLAY_LIST](state: IPlayerState, action: any) {
+  [types.DELETE_PLAY_LIST](state: PlayerState, action: any) {
     return {
       ...state,
       playList: action.payload,
     }
   },
-  [types.DELETE_SONG_IN_PLAYLIST](state: IPlayerState, action: any) {
+  [types.DELETE_SONG_IN_PLAYLIST](state: PlayerState, action: any) {
     return {
       ...state,
       playList: action.payload,

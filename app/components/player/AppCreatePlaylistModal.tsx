@@ -7,7 +7,7 @@ import useStyles from './styles';
 import Modal from "react-native-modal";
 import AppHeader from '../AppHeader';
 import { updatePlayList } from '../../store/actions/playerActions';
-import { IPlayerState } from '../../models/reducers/player';
+import { PlayerState } from '../../models/reducers/player';
 import Toast from 'react-native-simple-toast';
 
 interface MusicProps {
@@ -16,7 +16,7 @@ interface MusicProps {
 
 }
 interface IState {
-  playerReducer: IPlayerState;
+  playerReducer: PlayerState;
 
 }
 const AppCreatePlaylistModal: React.FC<MusicProps> = ({

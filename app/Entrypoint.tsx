@@ -11,13 +11,13 @@ import SplashScreen from 'react-native-splash-screen';
 import {defaultTheme, darkTheme,} from './config/theme';
 import Navigator from './navigation';
 import configureStore from './store';
-import {IThemeState} from './models/reducers/theme';
+import {ThemeState} from './models/reducers/theme';
 import CodePush from 'react-native-code-push';
 
 const {persistor, store} = configureStore();
 
 interface IState {
-  themeReducer: IThemeState;
+  themeReducer: ThemeState;
 }
 
 const RootNavigation: React.FC = () => {

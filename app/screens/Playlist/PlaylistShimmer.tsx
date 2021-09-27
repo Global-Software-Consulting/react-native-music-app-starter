@@ -4,15 +4,15 @@ import { Text } from 'react-native-paper';
 import { useDispatch, useSelector } from 'react-redux';
 import useStyles from './styles';
 import { useRoute, useNavigation } from '@react-navigation/native';
-import { IAppState } from '../../models/reducers/app';
-import { ILoading } from '../../models/reducers/loading';
+import { AppState } from '../../models/reducers/app';
+import { Loading } from '../../models/reducers/loading';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { IPlayerState } from '../../models/reducers/player';
+import { PlayerState } from '../../models/reducers/player';
 import PlaylistsTracksCarShimmer from '../../components/Playlist/Tracks/PlaylistsTracksCarShimmer';
 
 interface IState {
-  appReducer: IAppState;
-  loadingReducer: ILoading;
+  appReducer: AppState;
+  loadingReducer: Loading;
 }
 interface Itrack {
 
@@ -25,7 +25,7 @@ interface Itrack {
   duration: number,
 }
 interface IPState {
-  playerReducer: IPlayerState;
+  playerReducer: PlayerState;
 
 }
 const PlaylistShimmer: React.FC<any> = (props) => {

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { View} from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-import { IAppState } from '../../models/reducers/app';
-import { IPlayerState } from '../../models/reducers/player';
+import { AppState } from '../../models/reducers/app';
+import { PlayerState } from '../../models/reducers/player';
 import { isPlayerPlay, playerListRequest } from '../../store/actions/playerActions';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
 import BottomSheet from '@gorhom/bottom-sheet';
@@ -34,8 +34,8 @@ interface FooterProps {
   artist?: any;
 }
 interface IState {
-  appReducer: IAppState;
-  playerReducer: IPlayerState;
+  appReducer: AppState;
+  playerReducer: PlayerState;
 }
 function pad(n: any, width: any, z: any = 0) {
   n = n + '';

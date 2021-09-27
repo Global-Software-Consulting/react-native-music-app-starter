@@ -4,8 +4,8 @@
 import createReducer from 'lib/createReducer';
 import * as types from 'store/actions/types';
 
-import { IAppState } from 'models/reducers/app';
-const initialState: IAppState = {
+import { AppState } from 'models/reducers/app';
+const initialState: AppState = {
   isLoading:true,
   musicList:[],
   favoriteList:[],
@@ -13,14 +13,14 @@ const initialState: IAppState = {
 
 export const appReducer = createReducer(initialState, {
  
-  [types.MUSIC_LIST_RESPONSE](state: IAppState, action:any) {
+  [types.MUSIC_LIST_RESPONSE](state: AppState, action:any) {
     return {
       ...state,
       musicList: action.response,
       
     };
   },
-  [types.FAVORITE_LIST_REQUEST](state: IAppState, action:any) {
+  [types.FAVORITE_LIST_REQUEST](state: AppState, action:any) {
     
     return {
       ...state,

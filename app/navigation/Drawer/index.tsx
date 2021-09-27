@@ -5,10 +5,6 @@ import {
   DrawerContentScrollView,
 } from '@react-navigation/drawer';
 import {
-  Avatar,
-  Title,
-  Caption,
-  Paragraph,
   Text,
   List,
   RadioButton,
@@ -19,7 +15,6 @@ import LeftArrowIcon from 'react-native-vector-icons/Entypo';
 import AppHeader from "../../components/AppHeader";
 import ThemeController from '../../components/ThemeController';
 import {useDispatch} from 'react-redux';
-import * as loginActions from 'store/actions/loginActions';
 import styles from './styles';
 import {useNavigation} from '@react-navigation/native';
 import {useTranslation} from 'react-i18next';
@@ -35,7 +30,6 @@ const Drawer: React.FC = (props) => {
   const navigation = useNavigation();
   const {t, i18n} = useTranslation();
   const dispatch = useDispatch();
-  const onLogout = () => dispatch(loginActions.logOut());
 
 
   return (
@@ -79,7 +73,7 @@ const Drawer: React.FC = (props) => {
               </View>
             </View>
           </View> */}
-          <DrawerItem
+          {/* <DrawerItem
             icon={({ color, size }) => (
               <MaterialCommunityIcons
                 name="account-outline"
@@ -89,7 +83,7 @@ const Drawer: React.FC = (props) => {
             )}
             label={t("Profile")}
             onPress={() => {}}
-          />
+          /> */}
           <DrawerItem
             icon={({ color, size }) => (
               <MaterialCommunityIcons name="heart-outline" color={color} size={size} />
