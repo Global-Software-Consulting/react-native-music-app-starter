@@ -65,11 +65,11 @@ const HomeComponent: React.FC<any> = (props): JSX.Element => {
   const onRefresh = () => {
   
     getMusicList();
-    // if (isLoader) {
-    //   <HomeShimmer />;
-    // } else {
+    if (isLoader) {
+      <HomeShimmer />;
+    } else {
      
-    // }
+    }
   };
   
   const RecommendedRenderItem = ({ item }: any) => (

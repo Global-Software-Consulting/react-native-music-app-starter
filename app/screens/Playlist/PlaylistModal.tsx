@@ -20,6 +20,7 @@ interface MusicProps {
   addPlaylist?: any;
   playlistRef?: any;
   item?: any;
+  selectedPlaylist?: any;
 }
 interface IPState {
   playerReducer: IPlayerState;
@@ -32,6 +33,7 @@ const PlaylistModal: React.FC<MusicProps> = ({
   addPlaylist,
   playlistRef,
   item,
+  selectedPlaylist,
 
 }) => {
   const styles = useStyles();
@@ -45,25 +47,22 @@ const PlaylistModal: React.FC<MusicProps> = ({
     (state: IState) => state.appReducer.favoriteList,
   );
 
-  const deleteSongOfPlaylist = (name: any) => {
-    console.log("hello ia m remove",Playlist.name);
-    
-        let data = playList?.filter((element: any) => element.name != name);
-    
-        console.log("dataaa",data);
-        let updatedList = { name: item.name, songs: data }
-        // console.log("updatedList:",updatedList);
-        // let updatedPlayList = playList.map((element: any) => {
-        //   if (element.name == item.name) {
-        //     return updatedList;
-        //   } else {
-        //     return element;
-        //   }
-        // });
-        // console.log("updatedPlayList:",updatedPlayList);
-    
-        // dispatch(deletePlayListSong(updatedPlayList));
-      };
+  const deleteSongOfPlaylist = (song: any) => {
+    let data = selectedPlaylist.songs?.filter((element: any) => element.id != song.id);
+
+    let updatedList = { name: selectedPlaylist.name, songs: data }
+    // console.log("updatedList:",updatedList);
+    let updatedPlayLists = playList.map((element: any) => {
+      if (element.name == selectedPlaylist.name) {
+        return updatedList;
+      } else {
+        return element;
+      }
+    });
+    // console.log("updatedPlayList:",updatedPlayList);
+
+    dispatch(deletePlayListSong(updatedPlayLists));
+  };
 
   const onFavoritePress = () => {
     Toast.show(`${item.title} Added in favorites`);
@@ -78,8 +77,6 @@ const PlaylistModal: React.FC<MusicProps> = ({
     }
   };
   const onPressPlaylist = () => {
-    console.log("hellooooooooooo");
-    
     setModalVisible(true);
     setCreateModalVisible(false);
   };
@@ -124,7 +121,7 @@ const PlaylistModal: React.FC<MusicProps> = ({
           <View style={{ width: '5%' }} />
           <TouchableOpacity onPress={() => {
             playlistRef.current.snapToIndex(1)
-            deleteSongOfPlaylist(item?.id)
+            deleteSongOfPlaylist(item)
           }}>
             <View style={{ flexDirection: 'row' }}>
               <MaterialCommunityIcons

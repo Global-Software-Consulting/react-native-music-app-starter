@@ -14,6 +14,7 @@ import SearchBar from '../../components/SearchBar';
 import PlaylistAndAlbumsModal from './PlaylistAndAlbumsModal';
 import { useEffect } from 'react';
 import AppCreatePlaylistModal from '../../components/player/AppCreatePlaylistModal'
+import { useNavigation, useIsFocused } from '@react-navigation/native';
 
 // interface IState {
 //   appReducer: IAppState;
@@ -36,6 +37,7 @@ const PlaylistAndAlbumsConatiner: React.FC<any> = (props): JSX.Element => {
   const [updatedPlaylist, setUpdatedPlaylist] = useState<any>([]);
   const [selectPlaylist, setSelectPlaylist] = useState(null);
   const [isCreateModalVisible, setIsCreateModalVisible] = useState(false);
+  const navigation = useNavigation();
 
   const addSongToPlaylist = (item: any) => {
     let found = item.songs.find((el: any) => el.id == selectedTrack.id);
@@ -72,10 +74,10 @@ const PlaylistAndAlbumsConatiner: React.FC<any> = (props): JSX.Element => {
           playlistRef={playlistRef}
           item={item}
           setThePlaylist={setThePlaylist}
-        // onPress={() => {
-        //   // dispatch(playerListRequest(item));
-        //   navigation.navigate('Playlist',{ item: item })
-        // }}
+        onPress={() => {
+          // dispatch(playerListRequest(item));
+          navigation.navigate('Playlist',{ item: item })
+        }}
         />
       </TouchableOpacity>
     </>
@@ -140,7 +142,6 @@ const PlaylistAndAlbumsConatiner: React.FC<any> = (props): JSX.Element => {
 
         </View>
 
-        {/* </Modal> */}
       </View>
       <BottomSheet
         ref={playlistRef}

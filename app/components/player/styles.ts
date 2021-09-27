@@ -258,12 +258,22 @@ export const useStyles = () => {
 
     },
     activityIndicator: {
-
-      // flex: 1,
-      padding: 55,
       justifyContent: 'center',
-      alignItems: 'center',
-      height: 70
+      backgroundColor: 'lightgray',
+      alignSelf: 'center',
+      height: hp('10%'), // 70% of height device screen
+      width: wp('20%'),
+      borderRadius: hp('15%') / 2,
+      paddingLeft: 5,
+      shadowColor: theme.colors.primary,
+      shadowOffset: {
+        width: 0,
+        height: 7,
+      },
+      shadowOpacity: 0.41,
+      shadowRadius: 9.11,
+
+      elevation: 14,
     },
 
     Musiccontainer: {

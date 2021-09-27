@@ -11,10 +11,21 @@ export const useStyles = () => {
       backgroundColor: theme.colors.accent,
       // backgroundColor:'red'
     },
+    shimmerContainer: {
+      flex: 1,
+      backgroundColor: theme.colors.background,
+    },
     playlistContainer: {
       flex: 1,
-      padding: "5%",
+      margin: "5%",
+      justifyContent:'center',
       backgroundColor: theme.colors.accent,
+      // backgroundColor:'red'
+    },
+    shimmerPlaylistContainer: {
+      flex: 1,
+      padding: "5%",
+      backgroundColor: theme.colors.background,
       // backgroundColor:'red'
     },
     noPlaylistContainer: {
@@ -26,6 +37,10 @@ export const useStyles = () => {
     },
     Musiccontainer: {
       backgroundColor: theme.colors.accent,
+
+    },
+    shimmerMusiccontainer: {
+      backgroundColor: theme.colors.background,
 
     },
     noPlaylistText: {
@@ -43,6 +58,14 @@ export const useStyles = () => {
       paddingLeft: '8%',
       fontSize: hp('2%'),
       color: "darkgray",
+      // textAlign: 'center',
+
+    },
+    shimmerModel: {
+      paddingLeft: '8%',
+      fontSize: hp('2%'),
+      color: "darkgray",
+      backgroundColor: theme.colors.background,
       // textAlign: 'center',
 
     },
@@ -87,11 +110,37 @@ export const useStyles = () => {
 
 
     },
+    shimmerLabelNameWrapper: {
+      // marginLeft: '2%',
+      width: wp('90%'),
+      marginTop: hp('2%'),
+      shadowColor: theme.colors.accent,
+      shadowOffset: {
+        width: 0,
+        height: 2,
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 3.84,
+
+      elevation: 5,
+      backgroundColor: theme.colors.background,
+
+
+    },
     labelPlaylist: {
       paddingLeft: '8%',
       fontSize: hp('3%'),
       fontWeight: 'bold',
       color: theme.colors.primary,
+      // backgroundColor: theme.colors.primary,
+
+    },
+    shimmerLabelPlaylist: {
+      paddingLeft: '8%',
+      fontSize: hp('3%'),
+      fontWeight: 'bold',
+      color: theme.colors.primary,
+      backgroundColor: theme.colors.background,
       // backgroundColor: theme.colors.primary,
 
     },
@@ -102,9 +151,16 @@ export const useStyles = () => {
       alignItems: 'center',
       color: theme.colors.background,
     },
-    image: {
+    backgroundImage: {
       flex: 1,
-      justifyContent: "center"
+      resizeMode:'cover',
+      
+    },
+    shimmerBackgroundImage: {
+      flex: 1,
+      resizeMode:'cover',
+      backgroundColor: theme.colors.background,
+
     },
     //bottomSheet
     bottomlabel: {

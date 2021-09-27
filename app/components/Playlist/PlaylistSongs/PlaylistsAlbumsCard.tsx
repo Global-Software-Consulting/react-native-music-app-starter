@@ -18,6 +18,7 @@ interface MusicProps {
   item?: any,
   setThePlaylist?: any,
   playlistRef?: any,
+  onPress?: any,
 
 }
 
@@ -30,7 +31,8 @@ const PlaylistsAlbumsCard: React.FC<MusicProps> = ({
   onPressModal,
   setThePlaylist,
   item,
-  playlistRef
+  playlistRef,
+  onPress
 }) => {
   const styles = useStyles();
   
@@ -38,7 +40,7 @@ const PlaylistsAlbumsCard: React.FC<MusicProps> = ({
   return (
     <View style={styles.container}>
 
-      <TouchableOpacity style={styles.taskCard} >
+      <TouchableOpacity style={styles.taskCard} onPress={onPress}>
         <View style={styles.imgcontainer}>
           <Image style={styles.img} source={{ uri: img }}></Image>
         </View>

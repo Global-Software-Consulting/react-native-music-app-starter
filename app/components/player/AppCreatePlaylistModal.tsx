@@ -21,7 +21,7 @@ interface IState {
 }
 const AppCreatePlaylistModal: React.FC<MusicProps> = ({
   isCreateModalVisible,
-  closeModals
+  closeModals,
 }) => {
   
   const styles = useStyles();

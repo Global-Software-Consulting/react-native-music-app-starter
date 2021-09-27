@@ -5,19 +5,17 @@ import {
   Image
 } from 'react-native';
 import { Text } from 'react-native-paper';
-import useStyles from './styles';
+import useStyles from '../PlaylistSongs/styles';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 interface MusicProps {
   name?: string,
   model?: string,
   img?: string,
-  onPressRemove?: any,
-  showDel?: any,
-  onPressModal?: any,
   item?: any,
-  setThePlaylist?: any,
+  setSong?: any,
   playlistRef?: any,
+  onPress?: any,
 
 }
 
@@ -25,19 +23,16 @@ const PlaylistsTracksCard: React.FC<MusicProps> = ({
   name,
   model,
   img,
-  showDel,
-  onPressRemove,
-  onPressModal,
-  setThePlaylist,
+  setSong,
   item,
-  playlistRef
+  playlistRef,
+  onPress
+
 }) => {
   const styles = useStyles();
-  
-  // const styles = useStyles();
   return (
+<TouchableOpacity onPress={onPress} style={{flexDirection:'row'}}>
     <View style={styles.container}>
-
       <TouchableOpacity style={styles.taskCard} >
         <View style={styles.imgcontainer}>
           <Image style={styles.img} source={{ uri: img }}></Image>
@@ -51,19 +46,19 @@ const PlaylistsTracksCard: React.FC<MusicProps> = ({
         </View>
 
       </View>
-      <View style={{width:'15%'}}/>
-      {/* {showDel && <TouchableOpacity onPress={()=> onPressRemove(name) }> */}
-      <TouchableOpacity onPress={()=> {
-        setThePlaylist(item)
-        playlistRef.current.snapToIndex(0) 
+      <View style={{ width: '15%' }} />
+      <TouchableOpacity onPress={() => {
+        setSong(item)
+        playlistRef.current.snapToIndex(0)
       }}>
         <MaterialCommunityIcons
           name="dots-vertical"
           size={25}
-
+          color={'gray'}
         />
       </TouchableOpacity>
     </View>
+      </TouchableOpacity>
   );
 };
 

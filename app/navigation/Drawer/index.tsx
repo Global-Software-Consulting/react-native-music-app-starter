@@ -54,7 +54,7 @@ const Drawer: React.FC = (props) => {
           style={
             styles.drawerContent}
         >
-          <View style={styles.userInfoSection}>
+          {/* <View style={styles.userInfoSection}>
             <Avatar.Image
               source={{
                 uri:
@@ -78,7 +78,7 @@ const Drawer: React.FC = (props) => {
                 <Caption style={styles.caption}>Followers</Caption>
               </View>
             </View>
-          </View>
+          </View> */}
           <DrawerItem
             icon={({ color, size }) => (
               <MaterialCommunityIcons
@@ -87,34 +87,24 @@ const Drawer: React.FC = (props) => {
                 size={size}
               />
             )}
-            label="Profile"
+            label={t("Profile")}
             onPress={() => {}}
           />
           <DrawerItem
             icon={({ color, size }) => (
               <MaterialCommunityIcons name="heart-outline" color={color} size={size} />
             )}
-            label="Liked Songs"
+            label={t("Liked Songs")}
             onPress={() => {NavigationService.navigate("Favorites");}}
           />
           <DrawerItem
             icon={({ color, size }) => (
               <MaterialCommunityIcons name="file-multiple-outline" color={color} size={size} />
             )}
-            label="Playlist & Albums"
+            label={t("Playlist & Albums")}
             onPress={() => {NavigationService.navigate("PlaylistAndAlbums");}}
           />
-          <DrawerItem
-            icon={({ color, size }) => (
-              <MaterialCommunityIcons
-                name="tune"
-                color={color}
-                size={size}
-              />
-            )}
-            label="Settings"
-            onPress={() =>{NavigationService.navigate("Settings");}}
-          />
+         
         
 
           <View style={styles.preference}>
@@ -145,7 +135,7 @@ const Drawer: React.FC = (props) => {
           i18n.changeLanguage('en')}}
         color="gray"
       />
-          <Text style={styles.chekboxtext}>English</Text>
+          <Text style={styles.chekboxtext}>{t("English")}</Text>
         </TouchableOpacity>
         <TouchableOpacity
            onPress={() =>{setChecked('second'), 
@@ -158,7 +148,7 @@ const Drawer: React.FC = (props) => {
          i18n.changeLanguage('es')}}
         color="gray"
       />
-          <Text style={styles.chekboxtext}>Spanish</Text>
+          <Text style={styles.chekboxtext}>{t("Spanish")}</Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {setChecked('third'),
@@ -178,7 +168,7 @@ const Drawer: React.FC = (props) => {
     
       </List.Accordion>
          
-      <DrawerItem
+      {/* <DrawerItem
             icon={({ color, size }) => (
               <MaterialCommunityIcons
                 name="logout"
@@ -189,7 +179,7 @@ const Drawer: React.FC = (props) => {
             label={t('Logout')}
             
             onPress={() => {onLogout}}
-          />
+          /> */}
    
           </View>
         

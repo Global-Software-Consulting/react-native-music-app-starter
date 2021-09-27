@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import LeftArrowIcon from 'react-native-vector-icons/MaterialIcons';
 import AppHeader from '../../components/AppHeader';
-import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import useStyles from './styles';
 import { useTranslation } from 'react-i18next';
@@ -12,12 +11,14 @@ import PlaylistShimmer from './PlaylistShimmer';
 import PlaylistConatiner from './PlaylistConatiner';
 import { IAppState } from '../../models/reducers/app';
 import { ILoading } from '../../models/reducers/loading';
+import {playerListRequest, updatePlayList} from '../../store/actions/playerActions';
+import { useRoute, useNavigation } from '@react-navigation/native';
 
 interface IState {
   appReducer: IAppState;
   loadingReducer: ILoading;
 }
-const Favorites: React.FC = () => {
+const Playlist: React.FC = () => {
   const dispatch = useDispatch();
   const isLoading = useSelector((state: IState) => state.loadingReducer.isLoginLoading);
 
@@ -26,22 +27,27 @@ const Favorites: React.FC = () => {
   type homeScreenProp = StackNavigationProp<DrawerParamList, 'Home'>;
   const navigation = useNavigation<homeScreenProp>();
   const styles = useStyles();
-  const wait = (timeout: number) => {
-    return new Promise(resolve => setTimeout(resolve, timeout));
-  };
+  const route: any = useRoute();
+  const item = route.params.item;
   useEffect(() => {
-    onRefresh();
-  }, []);
-
-  const onRefresh = () => {
-    // getFavoriteList();
+    // onRefresh();
     if (isLoading) {
       <PlaylistShimmer />;
     } else {
-
+     <PlaylistConatiner/>
     }
-  };
+  }, []);
 
+
+  // const onRefresh = () => {
+  
+
+  //   if (isLoading) {
+  //     <PlaylistShimmer />;
+  //   } else {
+  //    <PlaylistConatiner/>
+  //   }
+  // };
   return (
 
 
@@ -81,4 +87,4 @@ const Favorites: React.FC = () => {
   );
 };
 
-export default Favorites;
+export default Playlist;

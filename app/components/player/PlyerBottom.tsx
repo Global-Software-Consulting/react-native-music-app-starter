@@ -8,6 +8,7 @@ import { useTheme, Text } from 'react-native-paper';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { IPlayerState } from '../../models/reducers/player';
 import Slider from 'react-native-slider';
+import { ThemeProvider } from '@react-navigation/native';
 
 
 function pad(n: any, width: any, z: any = 0) {
@@ -114,7 +115,7 @@ const PlyerBottom: React.FC<MusicProps> = ({
                 </TouchableOpacity>
                 <View style={{ width: 5 }} />
                 {playbackState == 'loading' ? (
-                  <ActivityIndicator size="large" color="black" style={styles.activityIndicator} />
+                  <ActivityIndicator size="small" color={theme.colors.accent} style={styles.activityIndicator} />
                 ) : (
                   playbackState == 'paused' ? (
                     <TouchableOpacity onPress={() => togglePlayback(playbackState)} style={styles.playButton}>
@@ -285,21 +286,18 @@ export const useStyles = () => {
       height: hp('2.5%'), // 70% of height device screen
       width: wp('4.5%'),
       borderRadius: 10,
-      color:theme.colors.accent
+      color: theme.colors.accent
     },
     activityIndicator: {
+      flexDirection: 'row',
+      padding: 10,
 
-      // flex: 1,
-      padding: 55,
-      justifyContent: 'center',
-      alignItems: 'center',
-      height: 70
     },
     line: {
       maxWidth: wp('25%'),
       justifyContent: 'center',
       margin: 10,
-      marginLeft:"32%",
+      marginLeft: "32%",
       borderBottomColor: 'white',
       borderBottomWidth: 1,
     }

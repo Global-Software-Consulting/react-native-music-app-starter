@@ -26,9 +26,7 @@ const PlaylistSongsCard: React.FC<MusicProps> = ({
   addSongToPlaylist
 }) => {
   const styles = useStyles();
-  
-  // const styles = useStyles();
-  return (
+    return (
     <View style={styles.container}>
 
       <TouchableOpacity style={styles.taskCard} onPress={() => addSongToPlaylist}>
@@ -44,7 +42,6 @@ const PlaylistSongsCard: React.FC<MusicProps> = ({
         </View>
 
       </View>
-      {/* {showDel && <TouchableOpacity onPress={()=> onPressRemove(name) }> */}
       <TouchableOpacity onPress={()=> onPressRemove(name) }>
         <MaterialCommunityIcons
           name="delete-outline"
