@@ -1,3 +1,3 @@
 export interface Loading {
-  isLoginLoading: boolean;
+    isLoginLoading: boolean;
 }

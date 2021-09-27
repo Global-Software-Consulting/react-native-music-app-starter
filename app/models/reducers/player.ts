@@ -1,17 +1,17 @@
 export interface PlayerState {
-  isPlayer:Boolean;
-  isPlayerPlay:Boolean;
-  playerList: any;
-  playList: playlist[];
+    isPlayer: boolean;
+    isPlayerPlay: boolean;
+    playerList: any;
+    playList: Playlist[];
 }
-type playlist={
-  name:string;
-  songs:songs[];
-}
-type songs={
-  id?: string;
+type Playlist = {
+    name: string;
+    songs: Songs[];
+};
+type Songs = {
+    id?: string;
     title?: string;
     url?: string;
     artwork?: string;
     artist?: string;
-}
+};

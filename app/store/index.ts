@@ -8,9 +8,9 @@ import rootReducers from 'store/reducers'; // where reducers is a object of redu
 import sagas from 'store/sagas';
 
 const config = {
-  key: 'root',
-  storage: AsyncStorage,
-  blacklist: ['loadingReducer','playerReducer'],
+    key: 'root',
+    storage: AsyncStorage,
+    blacklist: ['loadingReducer', 'playerReducer'],
 };
 
 const middleware = [];
@@ -19,7 +19,7 @@ const sagaMiddleware = createSagaMiddleware();
 middleware.push(sagaMiddleware);
 
 if (__DEV__) {
-  middleware.push(createLogger());
+    middleware.push(createLogger());
 }
 
 const reducers = persistCombineReducers(config, rootReducers);
@@ -29,7 +29,7 @@ const persistConfig: any = { enhancers };
 const store = createStore(reducers, undefined, compose(...enhancers));
 const persistor = persistStore(store, persistConfig, () => {});
 const configureStore = () => {
-  return { persistor, store };
+    return { persistor, store };
 };
 
 sagaMiddleware.run(sagas);

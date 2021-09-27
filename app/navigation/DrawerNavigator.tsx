@@ -3,33 +3,32 @@ import Drawer from './Drawer';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { useTheme } from 'react-native-paper';
 import Home from '../screens/Home';
-import { useRoute } from '@react-navigation/native';
 
 const AppDrawer = createDrawerNavigator<DrawerParamList>();
 
 export type DrawerParamList = {
-
-  Home: undefined,
-
+    Home: undefined;
 };
 const DrawerNavigator = () => {
-  const theme = useTheme();
+    const theme = useTheme();
 
-
-  return (
-    <AppDrawer.Navigator drawerContent={() => <Drawer />}>
-      <AppDrawer.Screen name="Home" component={Home}
-        options={{
-          drawerLabel: 'My Music App', headerStyle: {
-            backgroundColor: theme.colors.accent, //Set Header color
-          },
-          headerTintColor: theme.colors.primary,  //Set Header text color
-          headerTitleStyle: {
-            fontWeight: 'bold', //Set Header text style
-          },
-        }}
-      />
-    </AppDrawer.Navigator>
-  );
+    return (
+        <AppDrawer.Navigator drawerContent={() => <Drawer />}>
+            <AppDrawer.Screen
+                name="Home"
+                component={Home}
+                options={{
+                    drawerLabel: 'My Music App',
+                    headerStyle: {
+                        backgroundColor: theme.colors.accent, //Set Header color
+                    },
+                    headerTintColor: theme.colors.primary, //Set Header text color
+                    headerTitleStyle: {
+                        fontWeight: 'bold', //Set Header text style
+                    },
+                }}
+            />
+        </AppDrawer.Navigator>
+    );
 };
 export default DrawerNavigator;

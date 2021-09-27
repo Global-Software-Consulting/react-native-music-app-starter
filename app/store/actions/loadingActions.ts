@@ -4,13 +4,13 @@
 import * as types from './types';
 
 export function enableLoader() {
-  return {
-    type: types.MUSIC_ENABLE_LOADER,
-  };
+    return {
+        type: types.MUSIC_ENABLE_LOADER,
+    };
 }
 
 export function disableLoader() {
-  return {
-    type: types.MUSIC_DISABLE_LOADER,
-  };
+    return {
+        type: types.MUSIC_DISABLE_LOADER,
+    };
 }

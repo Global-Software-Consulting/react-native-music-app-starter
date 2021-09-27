@@ -7,11 +7,11 @@ import * as themeActions from './themeActions';
 import * as loadingActions from './loadingActions';
 
 export const ActionCreators = Object.assign(
-  {},
-  playerActions,
-  loginActions,
-  navigationActions,
-  themeActions,
-  appActions,
-  loadingActions
+    {},
+    playerActions,
+    loginActions,
+    navigationActions,
+    themeActions,
+    appActions,
+    loadingActions,
 );

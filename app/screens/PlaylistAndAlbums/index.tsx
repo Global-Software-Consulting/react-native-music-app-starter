@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import LeftArrowIcon from 'react-native-vector-icons/MaterialIcons';
 import AppHeader from '../../components/AppHeader';
 import { useNavigation } from '@react-navigation/native';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import useStyles from './styles';
-import { useTranslation } from 'react-i18next';
+// import { useTranslation } from 'react-i18next';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { DrawerParamList } from '../../navigation/DrawerNavigator';
 import PlaylistAndAlbumsShimmer from './PlaylistAndAlbumsShimmer';
@@ -14,71 +14,54 @@ import { AppState } from '../../models/reducers/app';
 import { Loading } from '../../models/reducers/loading';
 
 interface IState {
-  appReducer: AppState;
-  loadingReducer: Loading;
+    appReducer: AppState;
+    loadingReducer: Loading;
 }
 const Favorites: React.FC = () => {
-  const dispatch = useDispatch();
-  const isLoading = useSelector((state: IState) => state.loadingReducer.isLoginLoading);
+    const isLoading = useSelector((state: IState) => state.loadingReducer.isLoginLoading);
 
-  const [refreshing, setRefreshing] = useState<boolean>(false);
-  const { t, i18n } = useTranslation();
-  type homeScreenProp = StackNavigationProp<DrawerParamList, 'Home'>;
-  const navigation = useNavigation<homeScreenProp>();
-  const styles = useStyles();
-  const wait = (timeout: number) => {
-    return new Promise(resolve => setTimeout(resolve, timeout));
-  };
-  useEffect(() => {
-    onRefresh();
-  }, []);
+    // const { t, i18n } = useTranslation();
+    type HomeScreenProp = StackNavigationProp<DrawerParamList, 'Home'>;
+    const navigation = useNavigation<HomeScreenProp>();
+    const styles = useStyles();
+    useEffect(() => {
+        onRefresh();
+    });
 
-  const onRefresh = () => {
-    // getFavoriteList();
-    if (isLoading) {
-      <PlaylistAndAlbumsShimmer />;
-    } else {
+    const onRefresh = () => {
+        // getFavoriteList();
+        if (isLoading) {
+            <PlaylistAndAlbumsShimmer />;
+        } else {
+            <PlaylistAndAlbumsConatiner />;
+        }
+    };
 
-    }
-  };
+    return (
+        <View style={styles.container}>
+            <AppHeader
+                renderLeft={
+                    <View style={{ flexDirection: 'row', paddingTop: '10%' }}>
+                        <TouchableOpacity
+                            style={{ paddingHorizontal: 20 }}
+                            onPress={() => {
+                                navigation.navigate('Home');
+                            }}>
+                            <LeftArrowIcon
+                                name="keyboard-arrow-left"
+                                style={styles.icon}
+                                size={30}
+                            />
+                        </TouchableOpacity>
+                        <View style={styles.labelWrapper} />
 
-  return (
-
-
-
-    <View style={styles.container}>
-      <AppHeader
-        renderLeft={
-          <View style={{flexDirection:'row',paddingTop:"10%",}}>
-          <TouchableOpacity
-            style={{ paddingHorizontal: 20 }}
-            onPress={() => {
-              navigation.navigate('Home');
-            }}>
-            <LeftArrowIcon
-              name="keyboard-arrow-left"
-              style={styles.icon}
-              size={30}
-
+                        <Text style={styles.label}>Playlists</Text>
+                    </View>
+                }
             />
-          </ TouchableOpacity>
-          <View style={styles.labelWrapper}/>
-         
-          <Text style={styles.label}>Playlists</Text>
-         
-          </View>
-          }
-
-      />
-      {isLoading ? (
-        <PlaylistAndAlbumsShimmer />
-      ) : (
-        <PlaylistAndAlbumsConatiner />
-      )}
-    </View>
-
-
-  );
+            {isLoading ? <PlaylistAndAlbumsShimmer /> : <PlaylistAndAlbumsConatiner />}
+        </View>
+    );
 };
 
 export default Favorites;

@@ -1,113 +1,65 @@
-import React, { useState, useEffect } from 'react';
-import { View, FlatList, TouchableHighlight, TouchableOpacity, ImageBackground } from 'react-native';
+import React, { useState } from 'react';
+import { View, FlatList, TouchableHighlight, ImageBackground } from 'react-native';
 import { Text } from 'react-native-paper';
-import { useDispatch, useSelector } from 'react-redux';
 import useStyles from './styles';
-import { useRoute, useNavigation } from '@react-navigation/native';
-import { AppState } from '../../models/reducers/app';
-import { Loading } from '../../models/reducers/loading';
+import { useRoute } from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { PlayerState } from '../../models/reducers/player';
 import PlaylistsTracksCarShimmer from '../../components/Playlist/Tracks/PlaylistsTracksCarShimmer';
 
-interface IState {
-  appReducer: AppState;
-  loadingReducer: Loading;
-}
-interface Itrack {
+const PlaylistShimmer: React.FC<any> = () => {
+    const styles = useStyles();
+    const playlistSongsRef = React.useRef(null);
+    const [selectedSong, setSelectedSong] = useState(null);
 
-  id: string,
-  url: string,
-  title: string,
-  artist: string,
-  artwork: string,
-  album: string,
-  duration: number,
-}
-interface IPState {
-  playerReducer: PlayerState;
+    const route: any = useRoute();
+    const item = route.params.item;
+    const setSong = (song: any) => {
+        setSelectedSong(song);
+    };
+    const PlaylistRenderItem = ({ item }: any) => (
+        <TouchableHighlight key={item} underlayColor="gray">
+            <View style={styles.shimmerMusiccontainer}>
+                <PlaylistsTracksCarShimmer
+                    name={item?.title}
+                    img={item?.artwork}
+                    model={item?.artist}
+                    playlistRef={playlistSongsRef}
+                    showDel={true}
+                    item={item}
+                    setSong={setSong}
+                />
+            </View>
+        </TouchableHighlight>
+    );
 
-}
-const PlaylistShimmer: React.FC<any> = (props) => {
-  const styles = useStyles();
-  const navigation = useNavigation();
-  const dispatch = useDispatch();
-  const playlistSongsRef = React.useRef(null);
-  const playList = useSelector((state: any) => state.playerReducer.playList);
-  const [selectedSong, setSelectedSong] = useState(null);
+    return (
+        <View style={styles.shimmerContainer}>
+            <ImageBackground source={{}} resizeMode="cover" style={styles.shimmerBackgroundImage} />
 
-  const route: any = useRoute();
-  const item = route.params.item;
-  const setSong = (song: any) => {
-    setSelectedSong(song);
-  }
-  const PlaylistRenderItem = ({ item }: any) => (
-    <TouchableHighlight
-      key={item}
-      underlayColor='gray'
-    >
+            <View style={styles.shimmerLabelNameWrapper}>
+                <Text style={styles.shimmerLabelPlaylist} />
+                <Text style={styles.shimmerModel} />
+            </View>
 
-      <View style={styles.shimmerMusiccontainer}>
-        <PlaylistsTracksCarShimmer
-          name={item?.title}
-          img={item?.artwork}
-          model={item?.artist}
-          playlistRef={playlistSongsRef}
-          showDel={true}
-          item={item}
-          setSong={setSong}
-        />
-
-
-      </View>
-
-    </TouchableHighlight>
-  );
-
-
-  return (
-
-    <View style={styles.shimmerContainer}>
-      <ImageBackground source={{}}
-        resizeMode="cover"
-        style={styles.shimmerBackgroundImage}>
-
-      </ImageBackground>
-
-      <View style={styles.shimmerLabelNameWrapper}>
-        <Text style={styles.shimmerLabelPlaylist}></Text>
-        <Text style={styles.shimmerModel}></Text>
-      </View>
-
-      <View style={styles.shimmerPlaylistContainer}>
-        {item.songs?.length > 0 ? (
-
-          <FlatList
-            contentContainerStyle={{ alignSelf: 'flex-start' }}
-            showsVerticalScrollIndicator={false}
-            showsHorizontalScrollIndicator={false}
-            data={item.songs}
-            keyExtractor={(item) => item.id}
-            renderItem={PlaylistRenderItem}
-
-          />
-        ) : (
-          <View style={styles.noPlaylistContainer}>
-            <Ionicons
-              name="musical-notes"
-              style={styles.noMusicIcon}
-              size={80}
-
-            />
-            <Text style={styles.noPlaylistText}>No Playlist Available </Text>
-          </View>
-
-        )}
-      </View>
-     
-    </View>
-
-  );
+            <View style={styles.shimmerPlaylistContainer}>
+                {item.songs?.length > 0 ? (
+                    <FlatList
+                        contentContainerStyle={{ alignSelf: 'flex-start' }}
+                        showsVerticalScrollIndicator={false}
+                        showsHorizontalScrollIndicator={false}
+                        data={item.songs}
+                        keyExtractor={(item) => item.id}
+                        renderItem={PlaylistRenderItem}
+                    />
+                ) : (
+                    <View style={styles.noPlaylistContainer}>
+                        <Ionicons name="musical-notes" style={styles.noMusicIcon} size={80} />
+                        <Text style={styles.noPlaylistText}>No Playlist Available </Text>
+                    </View>
+                )}
+            </View>
+        </View>
+    );
 };
 
 export default PlaylistShimmer;

@@ -1,54 +1,36 @@
 import React from 'react';
-import {View,TouchableOpacity} from 'react-native';
-import {
-  DrawerItem,
-  DrawerContentScrollView,
-} from '@react-navigation/drawer';
-import {
-  Text,
-  List,
-  RadioButton,
-  useTheme
-} from 'react-native-paper';
+import { View, TouchableOpacity } from 'react-native';
+import { DrawerItem, DrawerContentScrollView } from '@react-navigation/drawer';
+import { Text, List, RadioButton, useTheme } from 'react-native-paper';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import LeftArrowIcon from 'react-native-vector-icons/Entypo';
-import AppHeader from "../../components/AppHeader";
+import AppHeader from '../../components/AppHeader';
 import ThemeController from '../../components/ThemeController';
-import {useDispatch} from 'react-redux';
 import styles from './styles';
-import {useNavigation} from '@react-navigation/native';
-import {useTranslation} from 'react-i18next';
+import { useNavigation } from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
 import NavigationService from '../NavigationService';
-import i18n from "../../config/Languages/i18n";
-const initI18n = i18n;
-interface IProps {
-  props: IProps;
-}
 const Drawer: React.FC = (props) => {
-  const theme= useTheme();
-  const [checked, setChecked] = React.useState('first');
-  const navigation = useNavigation();
-  const {t, i18n} = useTranslation();
-  const dispatch = useDispatch();
+    const theme = useTheme();
+    const [checked, setChecked] = React.useState('first');
+    const navigation = useNavigation();
+    const { t, i18n } = useTranslation();
 
-
-  return (
-<>
-<AppHeader 
-    renderLeft={ <LeftArrowIcon
-      name="cross"
-      style={styles.icon}
-      size={30}
-      onPress={() => navigation.navigate('Home')}
-    />}
-    />
-      <DrawerContentScrollView {...props}>
-    
-        <View
-          style={
-            styles.drawerContent}
-        >
-          {/* <View style={styles.userInfoSection}>
+    return (
+        <>
+            <AppHeader
+                renderLeft={
+                    <LeftArrowIcon
+                        name="cross"
+                        style={styles.icon}
+                        size={30}
+                        onPress={() => navigation.navigate('Home')}
+                    />
+                }
+            />
+            <DrawerContentScrollView {...props}>
+                <View style={styles.drawerContent}>
+                    {/* <View style={styles.userInfoSection}>
             <Avatar.Image
               source={{
                 uri:
@@ -73,7 +55,7 @@ const Drawer: React.FC = (props) => {
               </View>
             </View>
           </View> */}
-          {/* <DrawerItem
+                    {/* <DrawerItem
             icon={({ color, size }) => (
               <MaterialCommunityIcons
                 name="account-outline"
@@ -84,85 +66,100 @@ const Drawer: React.FC = (props) => {
             label={t("Profile")}
             onPress={() => {}}
           /> */}
-          <DrawerItem
-            icon={({ color, size }) => (
-              <MaterialCommunityIcons name="heart-outline" color={color} size={size} />
-            )}
-            label={t("Liked Songs")}
-            onPress={() => {NavigationService.navigate("Favorites");}}
-          />
-          <DrawerItem
-            icon={({ color, size }) => (
-              <MaterialCommunityIcons name="file-multiple-outline" color={color} size={size} />
-            )}
-            label={t("Playlist & Albums")}
-            onPress={() => {NavigationService.navigate("PlaylistAndAlbums");}}
-          />
-         
-        
+                    <DrawerItem
+                        icon={({ color, size }) => (
+                            <MaterialCommunityIcons
+                                name="heart-outline"
+                                color={color}
+                                size={size}
+                            />
+                        )}
+                        label={t('Liked Songs')}
+                        onPress={() => {
+                            NavigationService.navigate('Favorites');
+                        }}
+                    />
+                    <DrawerItem
+                        icon={({ color, size }) => (
+                            <MaterialCommunityIcons
+                                name="file-multiple-outline"
+                                color={color}
+                                size={size}
+                            />
+                        )}
+                        label={t('Playlist & Albums')}
+                        onPress={() => {
+                            NavigationService.navigate('PlaylistAndAlbums');
+                        }}
+                    />
 
-          <View style={styles.preference}>
-            
-            <Text style={styles.text}>{t('Theme')} </Text>
-            <ThemeController />
-            
-          </View>
+                    <View style={styles.preference}>
+                        <Text style={styles.text}>{t('Theme')} </Text>
+                        <ThemeController />
+                    </View>
 
-              <List.Accordion
-        title= {<Text style={styles.text}>{t('Languages')} </Text>}
-        theme={{
-          colors: {
-            // text: theme.colors.background,
-            background:theme.colors.accent,
-          }
-        }}
-        >
-         
-           <TouchableOpacity
-         onPress={() => {setChecked('first'),
-         i18n.changeLanguage('en')}} //Here I change the language to "en" English
-          style={styles.listbutton}>
-<RadioButton
-        value="first"
-        status={ checked === 'first' ? 'checked' : 'unchecked' }
-        onPress={() => {setChecked('first'),
-          i18n.changeLanguage('en')}}
-        color="gray"
-      />
-          <Text style={styles.chekboxtext}>{t("English")}</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-           onPress={() =>{setChecked('second'), 
-           i18n.changeLanguage('es')}}//Here I change the language to "es" Spanish
-          style={styles.listbutton}>
-        <RadioButton
-        value="second"
-        status={ checked === 'second' ? 'checked' : 'unchecked' }
-        onPress={() =>{setChecked('second'), 
-         i18n.changeLanguage('es')}}
-        color="gray"
-      />
-          <Text style={styles.chekboxtext}>{t("Spanish")}</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => {setChecked('third'),
-          i18n.changeLanguage('de')
-        }} //Here I change the language to "de" German
-          style={styles.listbutton}>
-            <RadioButton
-        value="third"
-        status={ checked === 'third' ? 'checked' : 'unchecked' }
-        onPress={() => {setChecked('third'),
-        i18n.changeLanguage('de')
-      }}
-        color="gray"
-      />
-          <Text style={styles.chekboxtext} >German</Text>
-        </TouchableOpacity>
-    
-      </List.Accordion>
-         
-      {/* <DrawerItem
+                    <List.Accordion
+                        title={<Text style={styles.text}>{t('Languages')} </Text>}
+                        theme={{
+                            colors: {
+                                // text: theme.colors.background,
+                                background: theme.colors.accent,
+                            },
+                        }}>
+                        <TouchableOpacity
+                            onPress={() => {
+                                setChecked('first');
+                                i18n.changeLanguage('en');
+                            }} //Here I change the language to "en" English
+                            style={styles.listbutton}>
+                            <RadioButton
+                                value="first"
+                                status={checked === 'first' ? 'checked' : 'unchecked'}
+                                onPress={() => {
+                                    setChecked('first');
+                                    i18n.changeLanguage('en');
+                                }}
+                                color="gray"
+                            />
+                            <Text style={styles.chekboxtext}>{t('English')}</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            onPress={() => {
+                                setChecked('second');
+                                i18n.changeLanguage('es');
+                            }} //Here I change the language to "es" Spanish
+                            style={styles.listbutton}>
+                            <RadioButton
+                                value="second"
+                                status={checked === 'second' ? 'checked' : 'unchecked'}
+                                onPress={() => {
+                                    setChecked('second');
+                                    i18n.changeLanguage('es');
+                                }}
+                                color="gray"
+                            />
+                            <Text style={styles.chekboxtext}>{t('Spanish')}</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            onPress={() => {
+                                setChecked('third');
+                                i18n.changeLanguage('de');
+                            }} //Here I change the language to "de" German
+                            style={styles.listbutton}>
+                            <RadioButton
+                                value="third"
+                                status={checked === 'third' ? 'checked' : 'unchecked'}
+                                onPress={() => {
+                                    setChecked('third');
+                                    i18n.changeLanguage('de');
+                                }}
+                                color="gray"
+                            />
+                            <Text style={styles.chekboxtext}>German</Text>
+                        </TouchableOpacity>
+                    </List.Accordion>
+
+                    {/* <DrawerItem
             icon={({ color, size }) => (
               <MaterialCommunityIcons
                 name="logout"
@@ -174,12 +171,10 @@ const Drawer: React.FC = (props) => {
             
             onPress={() => {onLogout}}
           /> */}
-   
-          </View>
-        
-      </DrawerContentScrollView>
-      </>
+                </View>
+            </DrawerContentScrollView>
+        </>
     );
-  }
+};
 
 export default Drawer;

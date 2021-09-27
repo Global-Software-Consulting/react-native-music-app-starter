@@ -5,14 +5,14 @@ import { NavigationContainerRef } from '@react-navigation/native';
 export const navigationRef = React.createRef<NavigationContainerRef>();
 
 function navigate(name: string, params?: any) {
-  navigationRef.current?.navigate(name, params);
+    navigationRef.current?.navigate(name, params);
 }
 
 function goBack() {
-  navigationRef.current?.goBack();
+    navigationRef.current?.goBack();
 }
 
 export default {
-  navigate,
-  goBack,
+    navigate,
+    goBack,
 };
