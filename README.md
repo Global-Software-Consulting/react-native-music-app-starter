@@ -56,7 +56,7 @@
 ## ▶ How to Run App
 
 ```
-cd music-app-training-rn
+cd react-native-music-app-starter
 yarn or npm install
 Run Build for either OS
 for iOS
