@@ -1,23 +1,22 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, FlatList, TouchableHighlight, ImageBackground } from 'react-native';
 import { Text } from 'react-native-paper';
 import useStyles from './styles';
 import { useRoute } from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import PlaylistsTracksCarShimmer from '../../components/Playlist/Tracks/PlaylistsTracksCarShimmer';
+import { PlaylistProps } from './types';
+import { useTranslation } from 'react-i18next';
 
-const PlaylistShimmer: React.FC<any> = () => {
+const PlaylistShimmer: React.FC<PlaylistProps> = () => {
     const styles = useStyles();
     const playlistSongsRef = React.useRef(null);
-    const [selectedSong, setSelectedSong] = useState(null);
-
     const route: any = useRoute();
     const item = route.params.item;
-    const setSong = (song: any) => {
-        setSelectedSong(song);
-    };
-    const PlaylistRenderItem = ({ item }: any) => (
-        <TouchableHighlight key={item} underlayColor="gray">
+    const { t } = useTranslation();
+
+    const PlaylistRenderItem = ({ item }: {item:PlaylistProps}) => (
+        <TouchableHighlight  underlayColor="gray">
             <View style={styles.shimmerMusiccontainer}>
                 <PlaylistsTracksCarShimmer
                     name={item?.title}
@@ -26,7 +25,6 @@ const PlaylistShimmer: React.FC<any> = () => {
                     playlistRef={playlistSongsRef}
                     showDel={true}
                     item={item}
-                    setSong={setSong}
                 />
             </View>
         </TouchableHighlight>
@@ -48,13 +46,12 @@ const PlaylistShimmer: React.FC<any> = () => {
                         showsVerticalScrollIndicator={false}
                         showsHorizontalScrollIndicator={false}
                         data={item.songs}
-                        keyExtractor={(item) => item.id}
                         renderItem={PlaylistRenderItem}
                     />
                 ) : (
                     <View style={styles.noPlaylistContainer}>
                         <Ionicons name="musical-notes" style={styles.noMusicIcon} size={80} />
-                        <Text style={styles.noPlaylistText}>No Playlist Available </Text>
+                        <Text style={styles.noPlaylistText}>{t("No Playlist Available")} </Text>
                     </View>
                 )}
             </View>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, TouchableOpacity, FlatList } from 'react-native';
+import { View, TouchableOpacity, FlatList, RefreshControl } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import BottomSheet from '@gorhom/bottom-sheet';
 import { useTheme, Text } from 'react-native-paper';
@@ -13,26 +13,29 @@ import PlaylistAndAlbumsModal from './PlaylistAndAlbumsModal';
 import { useEffect } from 'react';
 import AppCreatePlaylistModal from '../../components/player/AppCreatePlaylistModal';
 import { useNavigation } from '@react-navigation/native';
+import PlaylistAndAlbumsShimmer from './PlaylistAndAlbumsShimmer';
+import { useTranslation } from 'react-i18next';
+import { ReducerState } from '../../models/reducers';
+import { PlaylistProps, Track } from './types';
 
-interface IPState {
-    playerReducer: PlayerState;
-}
 
-const PlaylistAndAlbumsConatiner: React.FC<any> = (): JSX.Element => {
-    const selectedTrack: any = useSelector((state: IPState) => state.playerReducer.playerList);
+const PlaylistAndAlbumsConatiner: React.FC<Track> = (): JSX.Element => {
+    const selectedTrack: PlaylistProps = useSelector((state: ReducerState) => state.playerReducer.playerList);
     const styles = useStyles();
     const theme = useTheme();
     const dispatch = useDispatch();
     const playlistRef = React.useRef(null);
-    const playList = useSelector((state: IPState) => state.playerReducer.playList);
-    const [addPlaylist, setAddPlaylist] = useState<boolean>(false);
-    const [updatedPlaylist, setUpdatedPlaylist] = useState<any>([]);
+    const playList = useSelector((state: ReducerState) => state.playerReducer.playList);
+    let addPlaylist = false;
+    const [updatedPlaylist, setUpdatedPlaylist] = useState<Array<PlaylistProps>>([]);
     const [selectPlaylist, setSelectPlaylist] = useState(null);
     const [isCreateModalVisible, setIsCreateModalVisible] = useState(false);
+    const isLoader = useSelector((state: ReducerState) => state.loadingReducer?.isLoginLoading);
     const navigation = useNavigation();
+    const { t } = useTranslation();
 
-    const addSongToPlaylist = (item: any) => {
-        const found = item.songs.find((el: any) => el.id === selectedTrack.id);
+    const addSongToPlaylist = (item: PlaylistProps) => {
+        const found = item?.songs.find((el: any) => el.id === selectedTrack.id);
         const data = item;
         if (!found) data.songs.push(selectedTrack);
 
@@ -51,20 +54,20 @@ const PlaylistAndAlbumsConatiner: React.FC<any> = (): JSX.Element => {
         setIsCreateModalVisible(!isCreateModalVisible);
     };
 
-    const setThePlaylist = (item: any) => {
+    const setThePlaylist = (item: PlaylistProps) => {
         setSelectPlaylist(item);
     };
-    const PlayListRenderItem = ({ item }: any) => (
+    const PlayListRenderItem = ({ item }: { item: PlaylistProps }) => (
         <>
-            <TouchableOpacity key={item} onPress={() => addSongToPlaylist(item)}>
+            <TouchableOpacity onPress={() => addSongToPlaylist(item)}>
                 <PlaylistsAlbumsCard
                     name={item.name}
                     img={
-                        item.songs.length > 0
-                            ? item.songs[0].artwork
+                        item?.songs.length > 0
+                            ? item?.songs[0]?.artwork
                             : `https://picsum.photos/150/200/?random=${Math.random()}`
                     }
-                    model={item.songs.length}
+                    model={item?.songs?.length}
                     playlistRef={playlistRef}
                     item={item}
                     setThePlaylist={setThePlaylist}
@@ -77,11 +80,21 @@ const PlaylistAndAlbumsConatiner: React.FC<any> = (): JSX.Element => {
         </>
     );
 
+    const onRefresh = () => {
+        // getMusicList();
+        if (isLoader) {
+            <PlaylistAndAlbumsShimmer />;
+        } else {
+            <PlaylistAndAlbumsConatiner />;
+        }
+    };
     useEffect(() => {
         if (playList?.length > 0) {
             setUpdatedPlaylist(playList);
         }
     }, [playList.length]);
+
+    console.log('updatedPlaylist', updatedPlaylist);
 
     return (
         <>
@@ -100,7 +113,7 @@ const PlaylistAndAlbumsConatiner: React.FC<any> = (): JSX.Element => {
                             size={30}
                             color={theme.colors.primary}
                         />
-                        <Text style={styles.name}>Create new playlist</Text>
+                        <Text style={styles.name}>{t("Create new playlist")}</Text>
                     </TouchableOpacity>
 
                     <View style={{ paddingLeft: 10 }}>
@@ -111,6 +124,9 @@ const PlaylistAndAlbumsConatiner: React.FC<any> = (): JSX.Element => {
                                 showsHorizontalScrollIndicator={false}
                                 data={updatedPlaylist}
                                 renderItem={PlayListRenderItem}
+                                refreshControl={
+                                    <RefreshControl refreshing={isLoader} onRefresh={onRefresh} />
+                                }
                             />
                         ) : (
                             <View style={styles.errorContainer}>
@@ -120,7 +136,7 @@ const PlaylistAndAlbumsConatiner: React.FC<any> = (): JSX.Element => {
                                     size={80}
                                 />
                                 <Text style={styles.noPlaylistText}>
-                                    No Playlist or Albums yet{' '}
+                                   {t("No Playlist or Albums yet")}
                                 </Text>
                                 <Text style={styles.model}>
                                     Playlist or album you have created will show up here.{' '}

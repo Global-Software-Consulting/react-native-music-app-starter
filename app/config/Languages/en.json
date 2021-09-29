@@ -1,13 +1,23 @@
 {
-
     "Theme": "Theme",
     "Languages": "Languages",
-    "Liked Songs":"Liked Songs",
-    "Playlist & Albums":"Playlist & Albums",
-    "English":"English",
-    "Spanish":"Spanish",
-
-
+    "Liked Songs": "Liked Songs",
+    "Playlist & Albums": "Playlist & Albums",
+    "English": "English",
+    "Spanish": "Spanish",
+    "Recommended for you": "Recommended for you",
+    "My Playlist": "My Playlist",
+    "Playlist Empty": "Playlist Empty",
+    "Playlist": "Playlist",
+    "Playlists": "Playlists",
+    "No Reommendations Available": "My Playlist",
+    "No Favorities Available": "No Favorities Available",
+    "No Playlist Available": "No Playlist Available",
+    "Tracks": "Tracks",
+    "Create new playlist": "Create new playlist",
+    "Remove playlist":"Remove playlist",
+" No Playlist or Albums yet":" No Playlist or Albums yet",
+    
     "Home Sreen": "Home Sreen",
     "Login": "Login",
     "Login Status": "Login Status",
@@ -16,7 +26,7 @@
     "Favorite": "Favorite",
     "User Details": "User Details",
     "Log out": "Log out",
-    "Profile":"Profile",
+    "Profile": "Profile",
     "Hi": "Hi",
     "Search Here": "Search Here",
     "Lets find something new": "Lets find something new",
@@ -48,9 +58,9 @@
     "Do not have an account?": "Do not have an account?",
     "Sign up": "Sign up",
     "Change Language": "Change Language",
-    "Email is required":"Email is required",
+    "Email is required": "Email is required",
     "Password is required": "Password is required",
-    
+
     "Fill in the sign up form": "Fill in the sign up form",
     "Enter your first name": "Enter your first name",
     "Enter your last name": "Enter your last name",
@@ -62,9 +72,6 @@
     "Male": "Male",
     "Female": "Female",
 
-    "Submit":"Submit",
-    "Operation failed, please try again":"Operation failed, please try again"
-
-
-    
+    "Submit": "Submit",
+    "Operation failed, please try again": "Operation failed, please try again"
 }

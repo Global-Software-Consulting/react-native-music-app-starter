@@ -3,11 +3,16 @@ import Drawer from './Drawer';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { useTheme } from 'react-native-paper';
 import Home from '../screens/Home';
+import { PlaylistProps } from '../screens/Home/types';
 
 const AppDrawer = createDrawerNavigator<DrawerParamList>();
 
 export type DrawerParamList = {
-    Home: undefined;
+    Home: {
+        item: {
+            item: PlaylistProps;
+        };
+    };
 };
 const DrawerNavigator = () => {
     const theme = useTheme();

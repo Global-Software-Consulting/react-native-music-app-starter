@@ -5,7 +5,7 @@ import AppHeader from '../../components/AppHeader';
 import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 import useStyles from './styles';
-// import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { DrawerParamList } from '../../navigation/DrawerNavigator';
 import PlaylistAndAlbumsShimmer from './PlaylistAndAlbumsShimmer';
@@ -20,7 +20,7 @@ interface IState {
 const Favorites: React.FC = () => {
     const isLoading = useSelector((state: IState) => state.loadingReducer.isLoginLoading);
 
-    // const { t, i18n } = useTranslation();
+    const { t } = useTranslation();
     type HomeScreenProp = StackNavigationProp<DrawerParamList, 'Home'>;
     const navigation = useNavigation<HomeScreenProp>();
     const styles = useStyles();
@@ -41,9 +41,9 @@ const Favorites: React.FC = () => {
         <View style={styles.container}>
             <AppHeader
                 renderLeft={
-                    <View style={{ flexDirection: 'row', paddingTop: '10%' }}>
+                    <View style={{ flexDirection: 'row', padding: '5%' }}>
                         <TouchableOpacity
-                            style={{ paddingHorizontal: 20 }}
+                            style={{ marginHorizontal: 10 }}
                             onPress={() => {
                                 navigation.navigate('Home');
                             }}>
@@ -55,7 +55,7 @@ const Favorites: React.FC = () => {
                         </TouchableOpacity>
                         <View style={styles.labelWrapper} />
 
-                        <Text style={styles.label}>Playlists</Text>
+                        <Text style={styles.label}>{t("Playlists")}</Text>
                     </View>
                 }
             />

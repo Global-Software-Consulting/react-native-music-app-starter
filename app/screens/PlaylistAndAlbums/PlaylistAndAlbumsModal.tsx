@@ -5,6 +5,7 @@ import { useTheme, Text } from 'react-native-paper';
 import useStyles from './styles';
 import { PlayerState } from '../../models/reducers/player';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { deletePlayListFolder } from '../../store/actions/playerActions';
 interface MusicProps {
     addPlaylist?: any;
@@ -17,6 +18,7 @@ interface IPState {
 const PlaylistAndAlbumsModal: React.FC<MusicProps> = ({ addPlaylist, playlistRef, item }) => {
     const styles = useStyles();
     const theme = useTheme();
+    const { t } = useTranslation();
     const dispatch = useDispatch();
     const playList = useSelector((state: IPState) => state.playerReducer.playList);
     const removePlaylist = () => {
@@ -34,7 +36,7 @@ const PlaylistAndAlbumsModal: React.FC<MusicProps> = ({ addPlaylist, playlistRef
                 <View style={styles.nameContainer}>
                     <View style={styles.textWrapper}>
                         <Text style={styles.bottomlabel}>{item?.name}</Text>
-                        <Text style={styles.model}>{item?.songs?.length} tracks </Text>
+                        <Text style={styles.model}>{item?.songs?.length} {t("Tracks")} </Text>
                     </View>
                 </View>
             </View>
@@ -47,7 +49,7 @@ const PlaylistAndAlbumsModal: React.FC<MusicProps> = ({ addPlaylist, playlistRef
                 <TouchableOpacity
                     onPress={() => {
                         playlistRef.current.snapToIndex(1);
-                        removePlaylist(item.name);
+                        removePlaylist();
                     }}>
                     <View style={{ flexDirection: 'row' }}>
                         <MaterialCommunityIcons
@@ -56,7 +58,7 @@ const PlaylistAndAlbumsModal: React.FC<MusicProps> = ({ addPlaylist, playlistRef
                             size={30}
                             color={theme.colors.primary}
                         />
-                        <Text style={styles.iconName}>Remove playlist</Text>
+                        <Text style={styles.iconName}>{t("Remove playlist")}</Text>
                     </View>
                 </TouchableOpacity>
                 {/* </TouchableOpacity> */}

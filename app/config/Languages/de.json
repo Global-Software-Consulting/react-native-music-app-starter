@@ -1,14 +1,23 @@
 {
     "Theme": "Tema",
     "Languages": "Idiomas",
-    "Liked Songs":"Beliebte Lieder",
-    "Profile":"Profil",
-    "Playlist & Albums":"Playlist & Alben",
-    "English":"Englisch",
-    "Spanish":"Española",
-
-
-
+    "Liked Songs": "Beliebte Lieder",
+    "Profile": "Profil",
+    "Playlist & Albums": "Playlist & Alben",
+    "English": "Englisch",
+    "Spanish": "Española",
+    "Recommended for you": "für dich empfohlen",
+    "My Playlist": "Meine Playlist",
+    "Playlist Empty": "Playlist leer",
+    "Playlist": "Wiedergabeliste",
+    "Playlists": "Wiedergabelisten",
+    "No Reommendations Available": "Keine Empfehlungen verfügbar",
+    "No Favorities Available": "Beliebte Lieder",
+    "No Playlist Available": "Keine Wiedergabeliste verfügbar",
+    "Tracks": "Spuren",
+    "Create new playlist": "Mache eine neue Abspielliste",
+    "Remove playlist": "Wiedergabeliste entfernen",
+    " No Playlist or Albums yet": "Noch keine Playlist oder Alben",
 
     "Home Sreen": "Pantalla de inicio",
     "Login": "Acceso",
@@ -49,9 +58,9 @@
     "Do not have an account?": "Heb je geen account?",
     "Sign up": "Inschrijven",
     "Change Language": "Taal wijzigen",
-    "Email is required":"E-mail is vereist",
+    "Email is required": "E-mail is vereist",
     "Password is required": "Password is vereist",
-    
+
     "Fill in the sign up form": "Vul het aanmeldformulier in",
     "Enter your first name": "Vul uw voornaam in",
     "Enter your last name": "Vul je achternaam in",
@@ -62,8 +71,7 @@
     "Last name is required": "Achternaam is verplicht",
     "Male": "Mannelijk",
     "Female": "Vrouwelijk",
-    
-    "Submit":"Indienen",
-    "Operation failed, please try again":"Bewerking mislukt, probeer het opnieuw"
-    
+
+    "Submit": "Indienen",
+    "Operation failed, please try again": "Bewerking mislukt, probeer het opnieuw"
 }

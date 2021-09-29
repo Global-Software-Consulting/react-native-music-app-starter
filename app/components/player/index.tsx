@@ -30,7 +30,7 @@ const Footer: React.FC<any> = (): JSX.Element => {
     const isPlayerShown = useSelector((state: IState) => state.playerReducer.isPlayer);
     const favoriteList = useSelector((state: IState) => state.appReducer.favoriteList);
     const musicList: any = useSelector((state: IState) => state.appReducer.musicList);
-    const [isFavorite, setIsFavorite] = useState<boolean>(true);
+    const [isFavorite, setIsFavorite] = useState<boolean>(false);
     const [createModalVisible, setCreateModalVisible] = useState<boolean>(false);
     const [isModalVisible, setModalVisible] = useState<boolean>(false);
     const [repeatOn, setRepeatOn] = useState<boolean>(false);
@@ -204,9 +204,6 @@ const Footer: React.FC<any> = (): JSX.Element => {
                 // backgroundStyle={<View style={}></View>}
                 index={isPlayerShown ? index : -1}
                 snapPoints={[130, '100%']}
-                onAnimate={(fromIndex: number, toIndex: number) => {
-                    setIndex(toIndex);
-                }}
                 onChange={(index) => {
                     setIndex(index);
                 }}

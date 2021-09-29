@@ -1,11 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { View, TouchableOpacity } from 'react-native';
 import LeftArrowIcon from 'react-native-vector-icons/MaterialIcons';
 import AppHeader from '../../components/AppHeader';
 import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 import useStyles from './styles';
-// import { useTranslation } from 'react-i18next';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { DrawerParamList } from '../../navigation/DrawerNavigator';
 import FavoriteShimmer from './Shimmer';
@@ -19,29 +18,9 @@ interface IState {
 }
 const Favorites: React.FC = () => {
     const isLoading = useSelector((state: IState) => state.loadingReducer.isLoginLoading);
-    // const { t, i18n } = useTranslation();
     type HomeScreenProp = StackNavigationProp<DrawerParamList, 'Home'>;
     const navigation = useNavigation<HomeScreenProp>();
     const styles = useStyles();
-
-    useEffect(() => {
-        const onRefresh = () => {
-            // getFavoriteList();
-            if (isLoading) {
-                <FavoriteShimmer />;
-            } else {
-            }
-        };
-        onRefresh();
-    });
-
-    // const onRefresh = () => {
-    //     // getFavoriteList();
-    //     if (isLoading) {
-    //         <FavoriteShimmer />;
-    //     } else {
-    //     }
-    // };
 
     return (
         <View style={styles.container}>

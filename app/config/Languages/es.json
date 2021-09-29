@@ -1,10 +1,22 @@
 {
     "Theme": "Thema",
-    "Profile":"Perfiles",
+    "Profile": "Perfiles",
     "Languages": "Sprachen",
     "Liked Songs": "Canciones que le gustaron",
     "Playlist & Albums": "Lista de reproducción y álbumes",
     "English": "Inglesa",
+    "Recommended for you": "Recomendado para ti",
+    "My Playlist": "Mi lista de reproducción",
+    "Playlist Empty": "Lista de reproducción vacía",
+    "Playlist": "Lista de reproducción",
+    "Playlists": "Listas de reproducción",
+    "No Reommendations Available": "No hay recomendaciones disponibles",
+    "No Favorities Available": "Canciones que le gustaron",
+    "No Playlist Available": "No hay lista de reproducción disponible",
+    "Tracks": "Tracksc",
+    "Create new playlist": "Crear nueva lista de reproducción",
+    "Remove playlist": "Quitar lista de reproducción",
+    "No Playlist or Albums yet": " Aún no hay listas de reproducción ni álbumes",
 
     "Home Sreen": "Startbildschirm",
     "Login": "Anmeldung",
@@ -46,7 +58,7 @@
     "Do not have an account?": "¿No tiene una cuenta?",
     "Sign up": "Inscribirse",
     "Change Language": "Cambiar idioma",
-    "Email is required":"correo electronico es requerido",
+    "Email is required": "correo electronico es requerido",
     "Password is required": "se requiere contraseña",
 
     "Fill in the sign up form": "Complete el formulario de registro",
@@ -59,7 +71,7 @@
     "Last name is required": "Se requiere apellido",
     "Male": "Masculino",
     "Female": "Mujer",
-    
-    "Submit":"Enviar",
-    "Operation failed, please try again":"Error en la operación, inténtelo de nuevo"
+
+    "Submit": "Enviar",
+    "Operation failed, please try again": "Error en la operación, inténtelo de nuevo"
 }

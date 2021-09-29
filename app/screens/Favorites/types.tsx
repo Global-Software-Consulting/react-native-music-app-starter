@@ -1,4 +1,4 @@
-export interface Music {
+export interface FavoriteProps {
     id?: string;
     url?: string;
     title?: string;

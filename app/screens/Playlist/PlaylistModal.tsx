@@ -3,8 +3,6 @@ import { View, TouchableOpacity, Image } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useTheme, Text } from 'react-native-paper';
 import useStyles from './styles';
-import { PlayerState } from '../../models/reducers/player';
-import { AppState } from '../../models/reducers/app';
 import { useDispatch, useSelector } from 'react-redux';
 import { deletePlayListSong } from '../../store/actions/playerActions';
 import { favoriteListRequest } from '../../store/actions/appActions';
@@ -12,19 +10,9 @@ import { ScrollView } from 'react-native-gesture-handler';
 import Toast from 'react-native-simple-toast';
 import AppCreatePlaylistModal from '../../components/player/AppCreatePlaylistModal';
 import AppPlaylistModal from '../../components/player/AppPlaylistModal';
+import { ReducerState } from '../../models/reducers';
+import {MusicProps,PlaylistProps,Track} from './types';
 
-interface MusicProps {
-    addPlaylist?: any;
-    playlistRef?: any;
-    item?: any;
-    selectedPlaylist?: any;
-}
-interface IPState {
-    playerReducer: PlayerState;
-}
-interface IState {
-    appReducer: AppState;
-}
 const PlaylistModal: React.FC<MusicProps> = ({
     addPlaylist,
     playlistRef,
@@ -34,32 +22,29 @@ const PlaylistModal: React.FC<MusicProps> = ({
     const styles = useStyles();
     const theme = useTheme();
     const dispatch = useDispatch();
-    const playList = useSelector((state: IPState) => state.playerReducer.playList);
+    const playList = useSelector((state: ReducerState) => state.playerReducer.playList);
     const [createModalVisible, setCreateModalVisible] = useState<boolean>(false);
     const [isModalVisible, setModalVisible] = useState<boolean>(false);
-    const favoriteList = useSelector((state: IState) => state.appReducer.favoriteList);
+    const favoriteList = useSelector((state: ReducerState) => state.appReducer.favoriteList);
 
-    const deleteSongOfPlaylist = (song: any) => {
-        const data = selectedPlaylist.songs?.filter((element: any) => element.id !== song.id);
+    const deleteSongOfPlaylist = (song: PlaylistProps) => {
+        const data = selectedPlaylist.songs?.filter((element: PlaylistProps ) => element.id !== song.id);
 
         const updatedList = { name: selectedPlaylist.name, songs: data };
-        // console.log("updatedList:",updatedList);
-        const updatedPlayLists = playList.map((element: any) => {
+        const updatedPlayLists = playList.map((element: PlaylistProps) => {
             if (element.name === selectedPlaylist.name) {
                 return updatedList;
             } else {
                 return element;
             }
         });
-        // console.log("updatedPlayList:",updatedPlayList);
-
         dispatch(deletePlayListSong(updatedPlayLists));
     };
 
     const onFavoritePress = () => {
         Toast.show(`${item.title} Added in favorites`);
         const data = favoriteList;
-        const found = favoriteList?.find((element: any) => element.id === item.id);
+        const found = favoriteList?.find((element: PlaylistProps) => element.id === item.id);
         if (!found) {
             data.push(item);
             dispatch(favoriteListRequest(data));

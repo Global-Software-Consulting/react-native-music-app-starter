@@ -81,12 +81,13 @@ export const useStyles = () => {
             position: 'absolute',
         },
         label: {
-            // paddingTop:'5%',
+            flex: 1,
+            paddingTop: '1%',
             fontSize: hp('2%'),
+            textAlign: 'center',
             fontWeight: 'bold',
         },
         labelWrapper: {
-            width: '45%',
             justifyContent: 'center',
             alignSelf: 'center',
         },

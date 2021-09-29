@@ -10,11 +10,13 @@ import styles from './styles';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import NavigationService from '../NavigationService';
+import i18n from '../../config/Languages/i18n';
+
 const Drawer: React.FC = (props) => {
     const theme = useTheme();
     const [checked, setChecked] = React.useState('first');
     const navigation = useNavigation();
-    const { t, i18n } = useTranslation();
+    const { t } = useTranslation();
 
     return (
         <>

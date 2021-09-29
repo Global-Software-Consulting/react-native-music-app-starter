@@ -20,9 +20,7 @@ const PlaylistAndAlbumsShimmer: React.FC<any> = (): JSX.Element => {
     const dispatch = useDispatch();
     const playlistRef = React.useRef(null);
     const playList = useSelector((state: IPState) => state.playerReducer.playList);
-    const [addPlaylist, setAddPlaylist] = useState<boolean>(false);
     const [updatedPlaylist, setUpdatedPlaylist] = useState<any>([]);
-    const [selectPlaylist, setSelectPlaylist] = useState(null);
     const [isCreateModalVisible, setIsCreateModalVisible] = useState(false);
 
     const addSongToPlaylist = (item: any) => {
@@ -45,27 +43,19 @@ const PlaylistAndAlbumsShimmer: React.FC<any> = (): JSX.Element => {
         setIsCreateModalVisible(!isCreateModalVisible);
     };
 
-    const setThePlaylist = (item: any) => {
-        setSelectPlaylist(item);
-    };
     const PlayListRenderItem = ({ item }: any) => (
         <>
             <TouchableOpacity key={item} onPress={() => addSongToPlaylist(item)}>
                 <PlaylistsAlbumsCard
                     name={item.name}
                     img={
-                        item.songs.length > 0
-                            ? item.songs[0].artwork
+                        item?.songs?.length > 0
+                            ? item?.songs[0]?.artwork
                             : `https://picsum.photos/150/200/?random=${Math.random()}`
                     }
                     model={item.songs.length}
                     playlistRef={playlistRef}
                     item={item}
-                    setThePlaylist={setThePlaylist}
-                    // onPress={() => {
-                    //   // dispatch(playerListRequest(item));
-                    //   navigation.navigate('Playlist',{ item: item })
-                    // }}
                 />
             </TouchableOpacity>
         </>
@@ -90,7 +80,6 @@ const PlaylistAndAlbumsShimmer: React.FC<any> = (): JSX.Element => {
                         <View style={{ width: '3%' }} />
                         <Ionicons
                             name="add-circle-outline"
-                            style={[styles.secondaryControl, addPlaylist ? styles.on : styles.off]}
                             size={30}
                             color={theme.colors.primary}
                         />

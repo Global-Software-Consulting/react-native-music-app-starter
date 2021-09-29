@@ -21,7 +21,7 @@ const AppCreatePlaylistModal: React.FC<MusicProps> = ({ isCreateModalVisible, cl
     const styles = useStyles();
     const theme = useTheme();
     const [name, onChangeName] = React.useState('');
-    const item = useSelector((state: IState) => state.playerReducer.playerList);
+    const song = useSelector((state: IState) => state.playerReducer.playerList);
     const playlist = useSelector((state: IState) => state.playerReducer.playList);
     const dispatch = useDispatch();
 
@@ -29,7 +29,12 @@ const AppCreatePlaylistModal: React.FC<MusicProps> = ({ isCreateModalVisible, cl
         const data = playlist;
         const found = playlist?.find((element: any) => element.name === name);
         if (!found) {
-            const obj = { name: name, songs: [item] };
+            let obj;
+            if (song) {
+                obj = { name: name, songs: [song] };
+            } else {
+                obj = { name: name, songs: [] };
+            }
             data.push(obj);
             dispatch(updatePlayList(data));
             closeModals();

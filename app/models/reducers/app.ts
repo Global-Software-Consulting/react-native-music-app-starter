@@ -1,12 +1,13 @@
 export interface AppState {
-    musicList: Music[];
+    musicList: musicList[];
     favoriteList: Favorites[];
     addFavoriteList: AddFavorites[];
     removeFavoriteList: RemoveFavorites[];
 }
-type Music = {
+type musicList = {
     id?: string;
     name?: string;
+    title?: string;
     url?: string;
     artwork?: string;
     artist?: string;

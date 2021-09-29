@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, FlatList, TouchableHighlight } from 'react-native';
+import React, { useEffect } from 'react';
+import { View, FlatList, TouchableHighlight, RefreshControl } from 'react-native';
 import { Text } from 'react-native-paper';
 import { useDispatch, useSelector } from 'react-redux';
 import useStyles from './styles';
@@ -8,28 +8,38 @@ import Header from '../../components/Header';
 import { favoriteListRequest } from '../../store/actions/appActions';
 import { AppState } from '../../models/reducers/app';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { isPlayerShow, playerListRequest } from '../../store/actions/playerActions';
+import FavoriteShimmer from './Shimmer';
+import { useTranslation } from 'react-i18next';
+import { ReducerState } from '../../models/reducers';
+import { FavoriteProps } from './types';
 
-interface IState {
-    appReducer: AppState;
-}
-
-const Favorite: React.FC<any> = (): JSX.Element => {
+const Favorite: React.FC<FavoriteProps> = (): JSX.Element => {
     const styles = useStyles();
     const dispatch = useDispatch();
-    const favoriteList = useSelector((state: IState) => state.appReducer.favoriteList);
-    const removeFavorites = (id: any) => {
-        const data = favoriteList?.filter((element: any) => element.id !== id);
+    const { t } = useTranslation();
+    const isLoader = useSelector((state: ReducerState) => state.loadingReducer?.isLoginLoading);
+    const favoriteList = useSelector((state: ReducerState) => state.appReducer.favoriteList);
+    const removeFavorites = (id: string | undefined) => {
+        const data = favoriteList?.filter((element: FavoriteProps) => element.id !== id);
         dispatch(favoriteListRequest(data));
     };
-    const favoriteRenderItem = ({ item }: any) => (
+    const favoriteRenderItem = ({ item }: { item: FavoriteProps }) => (
         <TouchableHighlight
-            key={item}
             underlayColor="gray"
             onPress={() => {
                 removeFavorites(item.id);
             }}>
             <View style={styles.Musiccontainer}>
-                <MusicCard name={item.title} model={item.artist} img={item.artwork} />
+                <MusicCard
+                    name={item.title}
+                    model={item.artist}
+                    img={item.artwork}
+                    onPress={() => {
+                        dispatch(isPlayerShow(true));
+                        dispatch(playerListRequest(item));
+                    }}
+                />
                 <Ionicons
                     name="heart"
                     style={styles.favIcon}
@@ -41,10 +51,19 @@ const Favorite: React.FC<any> = (): JSX.Element => {
             </View>
         </TouchableHighlight>
     );
-
+    useEffect(() => {
+        onRefresh();
+    });
+    const onRefresh = () => {
+        if (isLoader) {
+            <FavoriteShimmer />;
+        } else {
+            <Favorite />;
+        }
+    };
     return (
         <View style={styles.container}>
-            <Header title="Liked Songs" />
+            <Header title={t('Liked Songs')} />
             {favoriteList?.length > 0 ? (
                 <FlatList
                     contentContainerStyle={{ alignSelf: 'flex-start' }}
@@ -53,10 +72,11 @@ const Favorite: React.FC<any> = (): JSX.Element => {
                     numColumns={2}
                     data={favoriteList}
                     renderItem={favoriteRenderItem}
+                    refreshControl={<RefreshControl refreshing={isLoader} onRefresh={onRefresh} />}
                 />
             ) : (
                 <View style={styles.container}>
-                    <Text style={styles.model}>No Favorities Available</Text>
+                    <Text style={styles.model}>{t('No Favorities Available')}</Text>
                 </View>
             )}
         </View>

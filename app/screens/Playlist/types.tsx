@@ -1,12 +1,4 @@
-import { AppState } from '../../models/reducers/app';
-import { Loading } from '../../models/reducers/loading';
-import { PlayerState } from '../../models/reducers/player';
-
-export interface IState {
-    appReducer?: AppState;
-    loadingReducer?: Loading;
-}
-export interface Itrack {
+export interface Track {
     id?: string;
     url?: string;
     title?: string;
@@ -15,12 +7,10 @@ export interface Itrack {
     album?: string;
     duration?: number;
 }
-export interface IPState {
-    playerReducer: PlayerState;
-}
-export interface IPlaylist {
+export interface PlaylistProps {
     id?: string;
     name?: string;
+    title?: string;
     songs?: Song[];
     artwork?: string;
     artist?: string;
@@ -28,5 +18,13 @@ export interface IPlaylist {
 }
 
 type Song = {
+    title?: string;
+    artist?: string;
     artwork?: string;
 };
+export interface MusicProps {
+    addPlaylist?: any;
+    playlistRef?: any;
+    item?: any;
+    selectedPlaylist?: any;
+}

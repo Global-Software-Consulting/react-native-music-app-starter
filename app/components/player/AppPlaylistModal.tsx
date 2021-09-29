@@ -58,8 +58,8 @@ const AppPlaylistModal: React.FC<MusicProps> = ({
                     name={item.name}
                     model={item?.songs?.length}
                     img={
-                        item.songs.length > 0
-                            ? item.songs[0].artwork
+                        item?.songs?.length > 0
+                            ? item?.songs[0]?.artwork
                             : `https://picsum.photos/150/200/?random=${Math.random()}`
                     }
                     onPressRemove={removePlaylist}

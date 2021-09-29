@@ -8,7 +8,7 @@ export interface Music {
     duration?: number;
 }
 
-export interface Itrack {
+export interface Track {
     id?: string;
     name?: string;
     url?: string;
@@ -31,3 +31,13 @@ type Song = {
     artist?: string;
     title?: string;
 };
+export interface Track {
+    id?: string;
+    name?: string;
+    url?: string;
+    title?: string;
+    artwork?: string;
+    artist?: string;
+    duration?: number;
+}
+

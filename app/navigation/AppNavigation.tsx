@@ -5,15 +5,29 @@ import DrawerNavigator from './DrawerNavigator';
 import Footer from '../components/player/index';
 import Playlist from '../screens/Playlist';
 import PlaylistAndAlbums from '../screens/PlaylistAndAlbums';
+import { CompositeScreenProps } from '@react-navigation/native';
+import { PlaylistProps } from '../screens/Home/types';
+import { DrawerScreenProps } from '@react-navigation/drawer';
+import { StackScreenProps } from '@react-navigation/stack';
+import { DrawerParamList } from './DrawerNavigator';
 
-const AppStack = createNativeStackNavigator();
+const AppStack = createNativeStackNavigator<AppScreenNavigationProp>();
 const Stack = createNativeStackNavigator<RootStackParamList>();
+
+export type AppScreenNavigationProp = CompositeScreenProps<
+    DrawerScreenProps<DrawerParamList>,
+    StackScreenProps<RootStackParamList>
+>;
 export type RootStackParamList = {
     DrawerNavigator: any;
     Favorites: any;
     Settings: any;
     Player: any;
-    Playlist: any;
+    Playlist: {
+        item: {
+            item?: PlaylistProps;
+        };
+    };
     PlaylistAndAlbums: any;
 };
 

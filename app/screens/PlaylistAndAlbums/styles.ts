@@ -12,15 +12,12 @@ export const useStyles = () => {
         container: {
             flex: 1,
             backgroundColor: theme.colors.accent,
-            // backgroundColor:'yellow'
         },
         modalcontainer: {
             flex: 1,
-            // bacskgroundColor: theme.colors.accent,
-            // backgroundColor:'yellow'
         },
         icon: {
-            paddingLeft: 15,
+            // paddingLeft: 20,
             alignSelf: 'center',
             justifyContent: 'center',
             alignItems: 'center',
@@ -28,7 +25,6 @@ export const useStyles = () => {
             position: 'absolute',
         },
         labelWrapper: {
-            width: '10%',
             justifyContent: 'center',
             alignSelf: 'center',
         },
@@ -42,26 +38,14 @@ export const useStyles = () => {
             shadowRadius: 3.84,
 
             elevation: 5,
-            // paddingLeft: 20,
-            // paddingRight: 20,
-
-            // position:'absolute',
-            // width: "50%",
-            // height: "30%",
-            // marginLeft:"40%",
-            // marginVertical:"50%",
-
-            // alignSelf:'flex-end',
-            // backgroundColor: theme.colors.accent,
-            // backgroundColor: 'blue',
 
             borderRadius: 10,
         },
         label: {
-            marginBottom: 12,
-            fontSize: hp('3%'),
+            flex: 1,
+            textAlign: 'center',
+            fontSize: hp('2.5%'),
             fontWeight: 'bold',
-            paddingLeft: '5%',
         },
         newListLabel: {
             flexDirection: 'row',
@@ -71,8 +55,6 @@ export const useStyles = () => {
             borderRadius: 12,
             padding: 15,
             flexDirection: 'row',
-            // justifyContent: 'center',
-            // alignItems: 'center',
         },
 
         //noMusic
@@ -88,7 +70,6 @@ export const useStyles = () => {
             marginBottom: 10,
         },
         noMusicIcon: {
-            // paddingLeft:15,
             alignSelf: 'center',
             justifyContent: 'center',
             alignItems: 'center',
@@ -102,8 +83,7 @@ export const useStyles = () => {
             marginTop: -7,
         },
         folderContainer: {
-            // justifyContent: 'center',
-            // alignItems: 'center',
+        
             backgroundColor: theme.colors.accent,
             marginBottom: 2,
             paddingLeft: 5,
@@ -112,21 +92,18 @@ export const useStyles = () => {
         bottomModalContainer: {
             flexDirection: 'row',
             paddingLeft: 5,
-            // paddingTop: '5%',
         },
         name: {
             paddingTop: '1%',
             fontSize: hp('2%'),
             fontWeight: 'bold',
             color: theme.colors.background,
-            // paddingLeft: '5%'
         },
         iconName: {
             paddingTop: '1%',
             fontSize: hp('2%'),
             fontWeight: 'bold',
             color: theme.colors.primary,
-            // paddingLeft: '5%'
         },
         modal: {
             marginTop: '2%',
@@ -137,7 +114,7 @@ export const useStyles = () => {
         secondaryControl: {
             height: hp('7%'), // 70% of height device screen
             width: wp('10%'),
-            // color:'orange',
+            // margin:'5%',
         },
         off: {
             opacity: 0.3,
@@ -185,7 +162,6 @@ export const useStyles = () => {
             marginBottom: 12,
             fontSize: hp('2%'),
             fontWeight: 'bold',
-            // paddingLeft: '5%'
         },
         bottomTaskCard: {
             borderRadius: 12,
@@ -201,8 +177,7 @@ export const useStyles = () => {
             shadowRadius: 3.84,
 
             elevation: 5,
-            // justifyContent: 'center',
-            // alignItems: 'center',
+
         },
 
         contentContainer: {

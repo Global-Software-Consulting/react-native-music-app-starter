@@ -4,14 +4,14 @@ import LeftArrowIcon from 'react-native-vector-icons/MaterialIcons';
 import AppHeader from '../../components/AppHeader';
 import { useSelector } from 'react-redux';
 import useStyles from './styles';
-// import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { DrawerParamList } from '../../navigation/DrawerNavigator';
 import PlaylistShimmer from './PlaylistShimmer';
 import PlaylistConatiner from './PlaylistConatiner';
 import { AppState } from '../../models/reducers/app';
 import { Loading } from '../../models/reducers/loading';
-import { useRoute, useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
 interface IState {
     appReducer: AppState;
@@ -20,14 +20,11 @@ interface IState {
 const Playlist: React.FC = () => {
     const isLoading = useSelector((state: IState) => state.loadingReducer.isLoginLoading);
 
-    // const { t, i18n } = useTranslation();
-    type homeScreenProp = StackNavigationProp<DrawerParamList, 'Home'>;
-    const navigation = useNavigation<homeScreenProp>();
+    const { t } = useTranslation();
+    type HomeScreenProp = StackNavigationProp<DrawerParamList, 'Home'>;
+    const navigation = useNavigation<HomeScreenProp>();
     const styles = useStyles();
-    const route: any = useRoute();
-    const item = route.params.item;
     useEffect(() => {
-        // onRefresh();
         if (isLoading) {
             <PlaylistShimmer />;
         } else {
@@ -35,21 +32,13 @@ const Playlist: React.FC = () => {
         }
     });
 
-    // const onRefresh = () => {
-
-    //   if (isLoading) {
-    //     <PlaylistShimmer />;
-    //   } else {
-    //    <PlaylistConatiner/>
-    //   }
-    // };
     return (
         <View style={styles.container}>
             <AppHeader
                 renderLeft={
                     <View style={{ flexDirection: 'row' }}>
                         <TouchableOpacity
-                            style={{ paddingHorizontal: 20 }}
+                            style={{ paddingHorizontal: 10 }}
                             onPress={() => {
                                 navigation.navigate('Home');
                             }}>
@@ -61,7 +50,7 @@ const Playlist: React.FC = () => {
                         </TouchableOpacity>
                         <View style={styles.labelWrapper} />
 
-                        <Text style={styles.label}>Playlist</Text>
+                        <Text style={styles.label}>{t('Playlist')}</Text>
                     </View>
                 }
             />

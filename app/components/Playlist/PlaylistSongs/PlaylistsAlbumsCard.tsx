@@ -3,10 +3,12 @@ import { View, TouchableOpacity, Image } from 'react-native';
 import { Text } from 'react-native-paper';
 import useStyles from './styles';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { useTranslation } from 'react-i18next';
+
 
 interface MusicProps {
     name?: string;
-    model?: string;
+    model?: number;
     img?: string;
     onPressRemove?: any;
     showDel?: any;
@@ -28,7 +30,7 @@ const PlaylistsAlbumsCard: React.FC<MusicProps> = ({
 }) => {
     const styles = useStyles();
 
-    // const styles = useStyles();
+    const { t } = useTranslation();
     return (
         <TouchableOpacity onPress={onPress}>
             <View style={styles.container}>
@@ -40,7 +42,7 @@ const PlaylistsAlbumsCard: React.FC<MusicProps> = ({
                 <View style={styles.nameContainer}>
                     <View style={styles.textWrapper}>
                         <Text style={styles.label}>{name}</Text>
-                        <Text style={styles.model}>{model} tracks</Text>
+                        <Text style={styles.model}>{model} {t("Tracks")}</Text>
                     </View>
                 </View>
                 <View style={{ width: '15%' }} />

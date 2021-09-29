@@ -32,7 +32,6 @@ interface PlyerFullScreenProps {
     repeatOn: any;
     isModalVisible: any;
     onPressPlaylist: any;
-    onPressNewPlaylist?: any;
 }
 
 const PlayerFullScreen: React.FC<PlyerFullScreenProps> = ({
@@ -58,7 +57,6 @@ const PlayerFullScreen: React.FC<PlyerFullScreenProps> = ({
     repeatOn,
     isModalVisible,
     onPressPlaylist,
-    onPressNewPlaylist,
 }) => {
     const styles = useStyles();
 
@@ -98,7 +96,6 @@ const PlayerFullScreen: React.FC<PlyerFullScreenProps> = ({
                 repeatOn={repeatOn}
                 isModalVisible={isModalVisible}
                 onPressPlaylist={onPressPlaylist}
-                onPressNewPlaylist={onPressNewPlaylist}
             />
             <TrackBar
                 trackLength={trackLength}

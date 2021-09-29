@@ -1,37 +1,24 @@
 import React from 'react';
 import { View, ScrollView, FlatList, RefreshControl } from 'react-native';
 import useStyles from './styles';
-// import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import Header from '../../components/Header';
-import { tracks } from '../../data/tracks';
 import { useSelector } from 'react-redux';
 import MusicCardShimmer from '../../components/Music/MusicCardShimmer';
 import PlaylistCardShimmer from '../../components/Playlist/PlaylistCardShimmer';
-import { Loading } from '../../models/reducers/loading';
+import { ReducerState } from '../../models/reducers';
+import { Music } from './types';
 
-interface IState {
-    loadingReducer: Loading;
-}
-
-interface Itrack {
-    id: string;
-    url: string;
-    title: string;
-    artist: string;
-    artwork: string;
-    album: string;
-    duration: number;
-}
-
-const Home: React.FC<any> = (): JSX.Element => {
-    const isLoading = useSelector((state: IState) => state.loadingReducer.isLoginLoading);
-    const Track: Itrack[] = tracks;
+const Home: React.FC<Music> = (): JSX.Element => {
+    const musicList = useSelector((state: ReducerState) => state.appReducer?.musicList);
+    const isLoading = useSelector((state: ReducerState) => state.loadingReducer.isLoginLoading);
     const styles = useStyles();
+    const { t } = useTranslation();
 
-    const PlayListRenderItem = ({ item }: any) => (
+    const PlayListRenderItem = ({ item }: { item: Music }) => (
         <MusicCardShimmer name={item.title} model={item.album} img={item.artwork} />
     );
-    const RecommendedRenderItem = ({ item }: any) => (
+    const RecommendedRenderItem = ({ item }: { item: Music }) => (
         <PlaylistCardShimmer name={item.title} img={item.artwork} />
     );
 
@@ -39,26 +26,24 @@ const Home: React.FC<any> = (): JSX.Element => {
         <>
             <View style={styles.container}>
                 <ScrollView refreshControl={<RefreshControl refreshing={isLoading} />}>
-                    <Header title="Recommended for you" />
+                    <Header title={t('Recommended for you')} />
                     <FlatList
                         contentContainerStyle={{ alignSelf: 'flex-start' }}
                         horizontal={true}
                         showsVerticalScrollIndicator={false}
                         showsHorizontalScrollIndicator={false}
-                        data={Track}
+                        data={musicList}
                         scrollEventThrottle={2}
-                        keyExtractor={(item) => item.id}
                         renderItem={RecommendedRenderItem}
                     />
-                    <Header title="My Playlist" />
+                    <Header title={t('My Playlist')} />
 
                     <FlatList
                         contentContainerStyle={{ alignSelf: 'flex-start' }}
                         horizontal={true}
                         showsVerticalScrollIndicator={false}
                         showsHorizontalScrollIndicator={false}
-                        data={Track}
-                        keyExtractor={(item) => item.id}
+                        data={musicList}
                         // renderItem={renderItemsss}
                         renderItem={PlayListRenderItem}
                     />

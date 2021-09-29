@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import { View, FlatList, RefreshControl, ScrollView } from 'react-native';
-import { tracks } from '../../data/tracks';
 import useStyles from './styles';
 import MusicCardShimmer from '../../components/Music/MusicCardShimmer';
 import Header from '../../components/Header';
+import { FavoriteProps } from './types';
+import { ReducerState } from '../../models/reducers';
+import { useSelector } from 'react-redux';
+
 interface Itrack {
     id: string;
     url: string;
@@ -13,8 +16,8 @@ interface Itrack {
     album: string;
     duration: number;
 }
-const FavoriteShimmer: React.FC<any> = () => {
-    const Track: Itrack[] = tracks;
+const FavoriteShimmer: React.FC<FavoriteProps> = () => {
+    const favoriteList = useSelector((state: ReducerState) => state.appReducer.favoriteList);
     const styles = useStyles();
     const [refreshing, setRefreshing] = useState<boolean>(false);
     const wait = (timeout: number) => {
@@ -24,7 +27,7 @@ const FavoriteShimmer: React.FC<any> = () => {
         setRefreshing(true);
         wait(2000).then(() => setRefreshing(false));
     }, []);
-    const shimmerRenderItem = ({ item }: any) => (
+    const shimmerRenderItem = ({ item }: { item: FavoriteProps }) => (
         <View style={styles.Musiccontainer}>
             <MusicCardShimmer name={item.title} model={item.album} img={item.artwork} />
         </View>
@@ -43,8 +46,7 @@ const FavoriteShimmer: React.FC<any> = () => {
                         showsVerticalScrollIndicator={false}
                         showsHorizontalScrollIndicator={false}
                         numColumns={2}
-                        data={Track}
-                        keyExtractor={(item) => item.id}
+                        data={favoriteList}
                         renderItem={shimmerRenderItem}
                     />
                 </ScrollView>
