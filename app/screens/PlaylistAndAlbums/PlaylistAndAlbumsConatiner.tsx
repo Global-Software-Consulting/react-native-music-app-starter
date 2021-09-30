@@ -106,11 +106,11 @@ const PlaylistAndAlbumsConatiner: React.FC<Track> = (): JSX.Element => {
                     />
 
                     <TouchableOpacity style={styles.newListLabel} onPress={() => closeAllModals()}>
-                        <View style={{ width: '3%' }} />
+                        <View style={{ width: '4%' }} />
                         <Ionicons
                             name="add-circle-outline"
                             style={[styles.secondaryControl, addPlaylist ? styles.on : styles.off]}
-                            size={30}
+                            size={25}
                             color={theme.colors.primary}
                         />
                         <Text style={styles.name}>{t("Create new playlist")}</Text>

@@ -41,9 +41,8 @@ const Favorites: React.FC = () => {
         <View style={styles.container}>
             <AppHeader
                 renderLeft={
-                    <View style={{ flexDirection: 'row', padding: '5%' }}>
+                    <View style={{ flexDirection: 'row'}}>
                         <TouchableOpacity
-                            style={{ marginHorizontal: 10 }}
                             onPress={() => {
                                 navigation.navigate('Home');
                             }}>
@@ -51,6 +50,7 @@ const Favorites: React.FC = () => {
                                 name="keyboard-arrow-left"
                                 style={styles.icon}
                                 size={30}
+                               
                             />
                         </TouchableOpacity>
                         <View style={styles.labelWrapper} />

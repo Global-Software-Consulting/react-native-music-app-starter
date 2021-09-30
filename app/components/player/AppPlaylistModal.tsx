@@ -81,7 +81,7 @@ const AppPlaylistModal: React.FC<MusicProps> = ({
                             style={styles.newListLabel}
                             onPress={() => onPressNewPlaylist()}>
                             <Text style={styles.name}>Create new playlist</Text>
-                            <View style={{ width: '30%' }} />
+                            <View style={{ width: '42%',justifyContent:'flex-end' }} />
                             <TouchableOpacity onPress={() => onPressNewPlaylist()}>
                                 <MaterialCommunityIcons
                                     name="playlist-plus"

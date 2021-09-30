@@ -36,9 +36,8 @@ const Playlist: React.FC = () => {
         <View style={styles.container}>
             <AppHeader
                 renderLeft={
-                    <View style={{ flexDirection: 'row' }}>
+                    <View style={{ flexDirection: 'row', padding: '5%'}}>
                         <TouchableOpacity
-                            style={{ paddingHorizontal: 10 }}
                             onPress={() => {
                                 navigation.navigate('Home');
                             }}>
@@ -46,11 +45,12 @@ const Playlist: React.FC = () => {
                                 name="keyboard-arrow-left"
                                 style={styles.icon}
                                 size={30}
+                               
                             />
                         </TouchableOpacity>
                         <View style={styles.labelWrapper} />
 
-                        <Text style={styles.label}>{t('Playlist')}</Text>
+                        <Text style={styles.label}>{t("Playlist")}</Text>
                     </View>
                 }
             />

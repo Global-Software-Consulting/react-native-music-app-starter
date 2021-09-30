@@ -17,12 +17,8 @@ export const useStyles = () => {
             flex: 1,
         },
         icon: {
-            // paddingLeft: 20,
-            alignSelf: 'center',
-            justifyContent: 'center',
-            alignItems: 'center',
             color: theme.colors.primary,
-            position: 'absolute',
+            
         },
         labelWrapper: {
             justifyContent: 'center',
@@ -46,10 +42,12 @@ export const useStyles = () => {
             textAlign: 'center',
             fontSize: hp('2.5%'),
             fontWeight: 'bold',
+            paddingRight:'5%'
+
         },
         newListLabel: {
             flexDirection: 'row',
-            paddingTop: '5%',
+            paddingTop: '2%',
         },
         taskCard: {
             borderRadius: 12,

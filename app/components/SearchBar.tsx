@@ -33,7 +33,7 @@ const SearchBar: React.FC<TitleProps> = (props): JSX.Element => {
     return (
         <View style={styles.container}>
             <View style={styles.container2}>
-                <Icon name={'search'} size={20} color={theme.colors.primary} />
+                <Icon name={'search'} size={15} color={theme.colors.primary} />
             </View>
 
             {props.onFocus ? (
@@ -62,6 +62,7 @@ export const useStyles = () => {
     const theme = useTheme();
     const styles = StyleSheet.create({
         container: {
+            marginTop:10,
             height: hp('5%'),
             width: wp('85%'),
             flexDirection: 'row',
@@ -86,10 +87,11 @@ export const useStyles = () => {
         },
 
         container2: {
+            // marginTop:10,
             backgroundColor: theme.colors.background,
             borderRadius: 10,
             justifyContent: 'center',
-            padding: 10,
+            paddingLeft: 10,
         },
         txt: {
             padding: 5,

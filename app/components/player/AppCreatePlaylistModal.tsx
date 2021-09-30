@@ -58,7 +58,7 @@ const AppCreatePlaylistModal: React.FC<MusicProps> = ({ isCreateModalVisible, cl
                                 </TouchableOpacity>
 
                                 <Text style={styles.label}>Create Playlist</Text>
-                                <View style={{ width: '10%' }} />
+                                <View style={{ width: '20%' }} />
                                 <TouchableOpacity
                                     onPress={saveNewPlayList}
                                     style={styles.saveButton}>

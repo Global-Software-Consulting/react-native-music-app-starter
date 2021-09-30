@@ -56,7 +56,7 @@ const Footer: React.FC<any> = (): JSX.Element => {
                     Capability.SkipToNext,
                     Capability.SkipToPrevious,
                 ],
-                compactCapabilities: [Capability.Play, Capability.Pause,Capability.SkipToNext,Capability.SkipToPrevious,]
+                compactCapabilities: [Capability.Play, Capability.Pause,Capability.SkipToNext,Capability.SkipToPrevious,],
             });
             await TrackPlayer.add(musicList);
             if (item) {
@@ -64,7 +64,7 @@ const Footer: React.FC<any> = (): JSX.Element => {
             }
         };
 
-      //  TrackPlayer.reset();
+       TrackPlayer.reset();
         setup();
     }, [item]);
     const setup = async () => {
@@ -77,7 +77,7 @@ const Footer: React.FC<any> = (): JSX.Element => {
                 Capability.SkipToNext,
                 Capability.SkipToPrevious,
             ],
-            compactCapabilities: [Capability.Play, Capability.Pause,Capability.SkipToNext,     Capability.SkipToPrevious,
+            compactCapabilities: [Capability.Play, Capability.Pause,Capability.SkipToNext,Capability.SkipToPrevious
             ],
         });
         await TrackPlayer.add(musicList);
@@ -90,8 +90,8 @@ const Footer: React.FC<any> = (): JSX.Element => {
         if (track.id !== item.id) {
             dispatch(playerListRequest(track));
         }
-       await TrackPlayer.stop();
-       // await TrackPlayer.reset();
+        await TrackPlayer.stop();
+        await TrackPlayer.reset();
         await TrackPlayer.add({
             url: track?.url,
             title: track?.title,
@@ -169,7 +169,6 @@ const Footer: React.FC<any> = (): JSX.Element => {
     };
     const onSkipToNext = () => {
         playNextPrev('next');
-        
     };
     const onSkipToPrevious = () => {
         playNextPrev('prev');
@@ -196,6 +195,7 @@ const Footer: React.FC<any> = (): JSX.Element => {
         const data = favoriteList?.filter((element: any) => element.id !== item.id);
         dispatch(favoriteListRequest(data));
     };
+
     return (
         <>
             <BottomSheet

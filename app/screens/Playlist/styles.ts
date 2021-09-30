@@ -66,12 +66,7 @@ export const useStyles = () => {
             // textAlign: 'center',
         },
         icon: {
-            paddingLeft: 15,
-            alignSelf: 'center',
-            justifyContent: 'center',
-            alignItems: 'center',
             color: theme.colors.primary,
-            position: 'absolute',
         },
         favIcon: {
             paddingLeft: wp('5%'),
@@ -82,10 +77,10 @@ export const useStyles = () => {
         },
         label: {
             flex: 1,
-            paddingTop: '1%',
-            fontSize: hp('2%'),
             textAlign: 'center',
+            fontSize: hp('2.5%'),
             fontWeight: 'bold',
+            paddingRight:'5%'
         },
         labelWrapper: {
             justifyContent: 'center',

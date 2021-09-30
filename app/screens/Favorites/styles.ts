@@ -25,12 +25,12 @@ export const useStyles = () => {
             color: 'darkgray',
         },
         icon: {
-            paddingLeft: 15,
-            alignSelf: 'center',
-            justifyContent: 'center',
-            alignItems: 'center',
+            // paddingLeft: 10,
+            // alignSelf: 'center',
+            // justifyContent: 'center',
+            // alignItems: 'center',
             color: theme.colors.primary,
-            position: 'absolute',
+            // position: 'absolute',
         },
         favIcon: {
             paddingLeft: wp('5%'),

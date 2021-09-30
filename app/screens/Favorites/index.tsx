@@ -27,7 +27,7 @@ const Favorites: React.FC = () => {
             <AppHeader
                 renderLeft={
                     <TouchableOpacity
-                        style={{ paddingHorizontal: 20 }}
+                        style={{ paddingHorizontal: 10 }}
                         onPress={() => {
                             navigation.navigate('Home');
                         }}>

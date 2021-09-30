@@ -302,22 +302,22 @@ export const useStyles = () => {
             marginBottom: 30,
         },
         saveButtonText: {
-            height: hp('2%'),
+            paddingTop:'5%',
+            height: hp('3%'),
             fontWeight: 'bold',
             color: theme.colors.accent,
-            borderBottomWidth: 1,
-            // padding: 5,
+        
         },
         saveButton: {
-            padding: 3,
+            padding:5,
             backgroundColor: theme.colors.primary,
             justifyContent: 'center',
+            alignItems:'center',
             flexDirection: 'row',
             width: wp('12%'),
             height: hp('3%'),
             borderRadius: 5,
             borderStartColor: 'red',
-            // marginBottom: 30
         },
         inputWrapper: {
             padding: 12,
