@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View } from 'react-native';
+import {  View } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { AppState } from '../../models/reducers/app';
 import { PlayerState } from '../../models/reducers/player';
@@ -55,9 +55,8 @@ const Footer: React.FC<any> = (): JSX.Element => {
                     Capability.Pause,
                     Capability.SkipToNext,
                     Capability.SkipToPrevious,
-                    Capability.Stop,
                 ],
-                compactCapabilities: [Capability.Play, Capability.Pause],
+                compactCapabilities: [Capability.Play, Capability.Pause,Capability.SkipToNext,Capability.SkipToPrevious,]
             });
             await TrackPlayer.add(musicList);
             if (item) {
@@ -65,7 +64,7 @@ const Footer: React.FC<any> = (): JSX.Element => {
             }
         };
 
-        TrackPlayer.reset();
+      //  TrackPlayer.reset();
         setup();
     }, [item]);
     const setup = async () => {
@@ -77,9 +76,9 @@ const Footer: React.FC<any> = (): JSX.Element => {
                 Capability.Pause,
                 Capability.SkipToNext,
                 Capability.SkipToPrevious,
-                Capability.Stop,
             ],
-            compactCapabilities: [Capability.Play, Capability.Pause],
+            compactCapabilities: [Capability.Play, Capability.Pause,Capability.SkipToNext,     Capability.SkipToPrevious,
+            ],
         });
         await TrackPlayer.add(musicList);
         if (item) {
@@ -91,8 +90,8 @@ const Footer: React.FC<any> = (): JSX.Element => {
         if (track.id !== item.id) {
             dispatch(playerListRequest(track));
         }
-        await TrackPlayer.stop();
-        await TrackPlayer.reset();
+       await TrackPlayer.stop();
+       // await TrackPlayer.reset();
         await TrackPlayer.add({
             url: track?.url,
             title: track?.title,
@@ -124,7 +123,7 @@ const Footer: React.FC<any> = (): JSX.Element => {
         if (currentTrack === null) {
             // TODO: Perhaps present an error or restart the playlist?
         } else {
-            if (playbackState === 'paused') {
+            if (playbackState === 'paused' || playbackState===2) {
                 await TrackPlayer.play();
             } else {
                 await TrackPlayer.pause();
@@ -170,6 +169,7 @@ const Footer: React.FC<any> = (): JSX.Element => {
     };
     const onSkipToNext = () => {
         playNextPrev('next');
+        
     };
     const onSkipToPrevious = () => {
         playNextPrev('prev');
@@ -196,7 +196,6 @@ const Footer: React.FC<any> = (): JSX.Element => {
         const data = favoriteList?.filter((element: any) => element.id !== item.id);
         dispatch(favoriteListRequest(data));
     };
-
     return (
         <>
             <BottomSheet

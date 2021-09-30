@@ -47,6 +47,9 @@ const TrackBar: React.FC<MusicProps> = ({
     const elapsed = minutesAndSeconds(currentPosition);
     const remaining = minutesAndSeconds(trackLength - currentPosition);
 
+
+    console.log('PlaybackState',playbackState);
+    
     return (
         <>
             <View style={styles.Trackcontainer}>
@@ -84,7 +87,7 @@ const TrackBar: React.FC<MusicProps> = ({
                             color="black"
                             style={styles.activityIndicator}
                         />
-                    ) : playbackState === 'paused' ? (
+                    ) : playbackState === 'paused' ||  playbackState === 2 ? (
                         <TouchableOpacity
                             onPress={() => togglePlayback(playbackState)}
                             style={styles.playButton}>

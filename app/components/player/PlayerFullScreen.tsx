@@ -67,7 +67,7 @@ const PlayerFullScreen: React.FC<PlyerFullScreenProps> = ({
                     justifyContent: 'center',
                     flexDirection: 'row',
                     width: '100%',
-                    marginBottom: 30,
+                    marginBottom: "5%",
                 }}>
                 <TouchableOpacity style={styles.line} />
 

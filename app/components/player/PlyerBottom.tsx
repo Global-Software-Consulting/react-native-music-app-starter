@@ -95,7 +95,7 @@ const PlyerBottom: React.FC<MusicProps> = ({
                                         color={theme.colors.accent}
                                         style={styles.activityIndicator}
                                     />
-                                ) : playbackState === 'paused' ? (
+                                ) : playbackState === 'paused' ||  playbackState === 2 ? (
                                     <TouchableOpacity
                                         onPress={() => togglePlayback(playbackState)}
                                         style={styles.playButton}>

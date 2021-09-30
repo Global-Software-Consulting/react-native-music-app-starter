@@ -39,7 +39,7 @@ export const useStyles = () => {
             alignItems: 'center',
 
             backgroundColor: theme.colors.accent,
-            marginBottom: 2,
+            // marginBottom: 20,
             paddingLeft: 24,
             paddingRight: 24,
         },
@@ -169,7 +169,10 @@ export const useStyles = () => {
         Trackcontainer: {
             paddingLeft: 16,
             paddingRight: 16,
-            paddingTop: 16,
+            marginBottom: "15%",
+
+            // marginBottom:30,
+            // paddingTop: 5,
             // backgroundColor:'red'
         },
         track: {

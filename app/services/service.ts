@@ -36,4 +36,15 @@ module.exports = async function () {
         }
         TrackPlayer.seekTo(newPosition);
     });
+    TrackPlayer.addEventListener('remote-next', () => {
+      
+       TrackPlayer.skipToNext();
+    });
+    TrackPlayer.addEventListener('remote-previous', () => {
+       
+        TrackPlayer.skipToPrevious();
+    });
+    
+
 };
+
