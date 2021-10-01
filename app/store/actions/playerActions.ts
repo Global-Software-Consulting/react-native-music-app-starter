@@ -2,8 +2,9 @@
  * Reducer actions related with login
  */
 import * as types from './types';
+import { PlayerList } from '../../models/actions/player';
 
-export function playerListRequest(item: any) {
+export function playerListRequest(item: PlayerList) {
     return {
         type: types.PLAYER_LIST_REQUEST,
         payload: item,
@@ -22,19 +23,19 @@ export function isPlayerShow(value: boolean) {
     };
 }
 
-export function updatePlayList(item: any) {
+export function updatePlayList(item: Array<PlayerList>) {
     return {
         type: types.UPDATE_PLAY_LIST,
         payload: item,
     };
 }
-export function deletePlayListFolder(item: any) {
+export function deletePlayListFolder(item: Array<PlayerList>) {
     return {
         type: types.DELETE_PLAY_LIST,
         payload: item,
     };
 }
-export function deletePlayListSong(playlist: any) {
+export function deletePlayListSong(playlist: Array<PlayerList>) {
     return {
         type: types.DELETE_SONG_IN_PLAYLIST,
         payload: playlist,

@@ -19,7 +19,7 @@ export interface Track {
 }
 export interface PlaylistProps {
     id?: string;
-    name: string;
+    name?: string;
     songs: Song[];
     artwork?: string;
     artist?: string;
@@ -31,13 +31,16 @@ type Song = {
     artist?: string;
     title?: string;
 };
-export interface Track {
+export interface MusicProps {
+    addPlaylist?: Item[];
+    playlistRef?: Item[] | undefined | null | any;
+    item?: Item | undefined | null;
+}
+type Item = {
     id?: string;
     name?: string;
-    url?: string;
-    title?: string;
+    songs: Song[];
     artwork?: string;
     artist?: string;
     duration?: number;
-}
-
+};

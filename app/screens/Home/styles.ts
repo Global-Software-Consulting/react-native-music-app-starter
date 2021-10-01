@@ -8,7 +8,7 @@ export const useStyles = () => {
         container: {
             flex: 1,
             backgroundColor: theme.colors.accent,
-            paddingBottom: "15%",
+            paddingBottom: '15%',
         },
         label: {
             marginBottom: 12,

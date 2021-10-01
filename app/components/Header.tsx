@@ -2,10 +2,7 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { useTheme, Text } from 'react-native-paper';
-
-interface TitleProps {
-    title: string;
-}
+import { TitleProps } from './player/types';
 
 const Header: React.FC<TitleProps> = (props): JSX.Element => {
     const styles = useStyles();

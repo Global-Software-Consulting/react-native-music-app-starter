@@ -7,15 +7,6 @@ import { FavoriteProps } from './types';
 import { ReducerState } from '../../models/reducers';
 import { useSelector } from 'react-redux';
 
-interface Itrack {
-    id: string;
-    url: string;
-    title: string;
-    artist: string;
-    artwork: string;
-    album: string;
-    duration: number;
-}
 const FavoriteShimmer: React.FC<FavoriteProps> = () => {
     const favoriteList = useSelector((state: ReducerState) => state.appReducer.favoriteList);
     const styles = useStyles();

@@ -1,8 +1,14 @@
 /* Login Reducer
  * handles login states in the app
  */
-import createReducer from 'lib/createReducer';
-import * as types from 'store/actions/types';
+import createReducer from '../../lib/createReducer';
+import * as types from '../../store/actions/types';
+import {
+    PlayerListAction,
+    PlayerShow,
+    PlayerPlay,
+    PlayListAction,
+} from '../../models/actions/player';
 import { PlayerState } from '../../models/reducers/player';
 
 const initialState: PlayerState = {
@@ -14,7 +20,7 @@ const initialState: PlayerState = {
 
 export const playerReducer = createReducer(initialState, {
     //list of selected item that is playing
-    [types.PLAYER_LIST_REQUEST](state: PlayerState, action: any) {
+    [types.PLAYER_LIST_REQUEST](state: PlayerState, action: PlayerListAction) {
         return {
             ...state,
             playerList: action.payload,
@@ -22,7 +28,7 @@ export const playerReducer = createReducer(initialState, {
     },
 
     //Flag for showing bottom player
-    [types.ISPLAYER_SHOWN](state: PlayerState, action: any) {
+    [types.ISPLAYER_SHOWN](state: PlayerState, action: PlayerShow) {
         return {
             ...state,
             isPlayer: action.payload,
@@ -30,7 +36,7 @@ export const playerReducer = createReducer(initialState, {
     },
 
     //Flag for showing playing state in bottom and full screen
-    [types.MUSIC_PLAYER_PLAY](state: PlayerState, action: any) {
+    [types.MUSIC_PLAYER_PLAY](state: PlayerState, action: PlayerPlay) {
         return {
             ...state,
             isPlayerPlay: action.payload,
@@ -39,19 +45,19 @@ export const playerReducer = createReducer(initialState, {
 
     //Playlist
 
-    [types.UPDATE_PLAY_LIST](state: PlayerState, action: any) {
+    [types.UPDATE_PLAY_LIST](state: PlayerState, action: PlayListAction) {
         return {
             ...state,
             playList: action.payload,
         };
     },
-    [types.DELETE_PLAY_LIST](state: PlayerState, action: any) {
+    [types.DELETE_PLAY_LIST](state: PlayerState, action: PlayListAction) {
         return {
             ...state,
             playList: action.payload,
         };
     },
-    [types.DELETE_SONG_IN_PLAYLIST](state: PlayerState, action: any) {
+    [types.DELETE_SONG_IN_PLAYLIST](state: PlayerState, action: PlayListAction) {
         return {
             ...state,
             playList: action.payload,

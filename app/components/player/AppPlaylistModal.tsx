@@ -6,19 +6,12 @@ import useStyles from './styles';
 import Modal from 'react-native-modal';
 import AppHeader from '../AppHeader';
 import PlaylistSongsCard from '../Playlist/PlaylistSongs/PlaylistSongsCard';
-import { PlayerState } from '../../models/reducers/index';
 import { useDispatch, useSelector } from 'react-redux';
 import { updatePlayList, deletePlayListFolder } from '../../store/actions/playerActions';
 import Toast from 'react-native-simple-toast';
+import { MusicProps, PlaylistProps, Track } from './types';
+import { ReducerState } from '../../models/reducers';
 
-interface MusicProps {
-    isModalVisible?: any;
-    onPressPlaylist?: any;
-    onPressNewPlaylist?: any;
-}
-interface IPState {
-    playerReducer: PlayerState;
-}
 const AppPlaylistModal: React.FC<MusicProps> = ({
     isModalVisible,
     onPressPlaylist,
@@ -27,15 +20,17 @@ const AppPlaylistModal: React.FC<MusicProps> = ({
     const styles = useStyles();
     const theme = useTheme();
     const dispatch = useDispatch();
-    const playList = useSelector((state: IPState) => state.playerReducer.playList);
-    const selectedTrack: any = useSelector((state: IPState) => state.playerReducer.playerList);
+    const playList = useSelector((state: ReducerState) => state.playerReducer.playList);
+    const selectedTrack: any = useSelector((state: ReducerState) => state.playerReducer.playerList);
 
-    const addSongToPlaylist = (item: any) => {
+    const addSongToPlaylist = (item: PlaylistProps) => {
         Toast.show(`Added in ${item.name} Playlist`);
-        const found = item.songs.find((el: any) => el.id === selectedTrack.id);
+        const found = item?.songs?.find(
+            (el: PlaylistProps | undefined | any) => el.id === selectedTrack.id,
+        );
         const data = item;
-        if (!found) data.songs.push(selectedTrack);
-        const list = playList.map((item: any) => {
+        if (!found) data?.songs?.push(selectedTrack);
+        const list: Array<PlaylistProps> = playList.map((item: PlaylistProps) => {
             if (item.name === data.name) {
                 return data;
             } else {
@@ -46,16 +41,18 @@ const AppPlaylistModal: React.FC<MusicProps> = ({
         dispatch(updatePlayList(list));
     };
 
-    const removePlaylist = (name: any) => {
-        const data = playList?.filter((element: any) => element.name !== name);
+    const removePlaylist = (name: PlaylistProps) => {
+        const data: Array<PlaylistProps> = playList?.filter(
+            (element: PlaylistProps) => element.name !== name,
+        );
         dispatch(deletePlayListFolder(data));
     };
 
-    const PlayListRenderItem = ({ item }: any) => (
+    const PlayListRenderItem = ({ item }: { item: PlaylistProps }) => (
         <>
-            <TouchableOpacity key={item} onPress={() => addSongToPlaylist(item)}>
+            <TouchableOpacity onPress={() => addSongToPlaylist(item)}>
                 <PlaylistSongsCard
-                    name={item.name}
+                    name={item?.name}
                     model={item?.songs?.length}
                     img={
                         item?.songs?.length > 0
@@ -81,7 +78,7 @@ const AppPlaylistModal: React.FC<MusicProps> = ({
                             style={styles.newListLabel}
                             onPress={() => onPressNewPlaylist()}>
                             <Text style={styles.name}>Create new playlist</Text>
-                            <View style={{ width: '42%',justifyContent:'flex-end' }} />
+                            <View style={{ width: '42%', justifyContent: 'flex-end' }} />
                             <TouchableOpacity onPress={() => onPressNewPlaylist()}>
                                 <MaterialCommunityIcons
                                     name="playlist-plus"

@@ -2,12 +2,7 @@ import React from 'react';
 import { View, TouchableOpacity, Image } from 'react-native';
 import { Text } from 'react-native-paper';
 import useStyles from './styles';
-
-interface MusicProps {
-    name?: string;
-    model?: string;
-    img?: string;
-}
+import { MusicProps } from '../../player/types';
 
 const PlaylistSongsCardShimmer: React.FC<MusicProps> = () => {
     const styles = useStyles();

@@ -4,27 +4,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useTheme, Text } from 'react-native-paper';
 import useStyles from './styles';
-
-interface MusicProps {
-    name?: string;
-    model?: string;
-    image?: string;
-    url?: any;
-    onPress?: any;
-    isFavorite?: any;
-    title?: string;
-    artist?: string;
-    onRemoveFavoritePress?: any;
-    onFavoritePress?: any;
-    onTitlePress?: any;
-    onArtistPress?: any;
-    onPressShuffle?: any;
-    shuffleOn?: any;
-    onPressRepeat?: any;
-    repeatOn?: any;
-    onPressPlaylist?: any;
-    isModalVisible?: any;
-}
+import { MusicProps } from './types';
 
 const Album: React.FC<MusicProps> = ({
     url,

@@ -7,6 +7,15 @@ export interface Track {
     album?: string;
     duration?: number;
 }
+export interface Favorite {
+    id?: string;
+    url?: string;
+    title?: string;
+    artist?: string;
+    artwork?: string;
+    album?: string;
+    duration?: number;
+}
 export interface PlaylistProps {
     id?: string;
     name?: string;

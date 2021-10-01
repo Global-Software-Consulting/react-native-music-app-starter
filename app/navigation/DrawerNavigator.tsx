@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Drawer from './Drawer';
-import { createDrawerNavigator, } from '@react-navigation/drawer';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import { useTheme } from 'react-native-paper';
 import Home from '../screens/Home';
 import { PlaylistProps } from '../screens/Home/types';

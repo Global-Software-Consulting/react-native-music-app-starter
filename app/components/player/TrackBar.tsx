@@ -4,6 +4,7 @@ import { useTheme, Text } from 'react-native-paper';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import useStyles from './styles';
 import Slider from 'react-native-slider';
+import { TrackMusicProps } from './types';
 
 function pad(n: any, width: any, z: any = 0) {
     n = n + '';
@@ -15,24 +16,7 @@ const minutesAndSeconds = (position: any) => [
     pad(position % 60, 2),
 ];
 
-interface MusicProps {
-    name?: string;
-    model?: string;
-    img?: string;
-    trackLength?: any;
-    currentPosition?: any;
-    onSeek?: any;
-    track?: any;
-    onPressPlay?: any;
-    onBack?: any;
-    onPressPause?: any;
-    onForward?: any;
-    forwardDisabled?: any;
-    playbackState: any;
-    togglePlayback: any;
-}
-
-const TrackBar: React.FC<MusicProps> = ({
+const TrackBar: React.FC<TrackMusicProps> = ({
     trackLength,
     currentPosition,
     onSeek,
@@ -47,9 +31,8 @@ const TrackBar: React.FC<MusicProps> = ({
     const elapsed = minutesAndSeconds(currentPosition);
     const remaining = minutesAndSeconds(trackLength - currentPosition);
 
+    console.log('PlaybackState', playbackState);
 
-    console.log('PlaybackState',playbackState);
-    
     return (
         <>
             <View style={styles.Trackcontainer}>
@@ -87,7 +70,7 @@ const TrackBar: React.FC<MusicProps> = ({
                             color="black"
                             style={styles.activityIndicator}
                         />
-                    ) : playbackState === 'paused' ||  playbackState === 2 ? (
+                    ) : playbackState === 'paused' || playbackState === 2 ? (
                         <TouchableOpacity
                             onPress={() => togglePlayback(playbackState)}
                             style={styles.playButton}>

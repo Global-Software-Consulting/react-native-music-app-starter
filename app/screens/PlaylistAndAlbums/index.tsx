@@ -41,7 +41,7 @@ const Favorites: React.FC = () => {
         <View style={styles.container}>
             <AppHeader
                 renderLeft={
-                    <View style={{ flexDirection: 'row'}}>
+                    <View style={{ flexDirection: 'row' }}>
                         <TouchableOpacity
                             onPress={() => {
                                 navigation.navigate('Home');
@@ -50,12 +50,11 @@ const Favorites: React.FC = () => {
                                 name="keyboard-arrow-left"
                                 style={styles.icon}
                                 size={30}
-                               
                             />
                         </TouchableOpacity>
                         <View style={styles.labelWrapper} />
 
-                        <Text style={styles.label}>{t("Playlists")}</Text>
+                        <Text style={styles.label}>{t('Playlists')}</Text>
                     </View>
                 }
             />

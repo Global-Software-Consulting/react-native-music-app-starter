@@ -4,48 +4,27 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useTheme, Text } from 'react-native-paper';
 import useStyles from './styles';
 import PlaylistsAlbumsCard from '../../components/Playlist/PlaylistSongs/PlaylistsAlbumsCard';
-import { PlayerState } from '../../models/reducers/player';
-import { useDispatch, useSelector } from 'react-redux';
-import { updatePlayList } from '../../store/actions/playerActions';
+import { useSelector } from 'react-redux';
 import SearchBar from '../../components/SearchBar';
 import { useEffect } from 'react';
-interface IPState {
-    playerReducer: PlayerState;
-}
+import { ReducerState } from '../../models/reducers';
+import { MusicProps, PlaylistProps } from './types';
 
-const PlaylistAndAlbumsShimmer: React.FC<any> = (): JSX.Element => {
-    const selectedTrack: any = useSelector((state: IPState) => state.playerReducer.playerList);
+const PlaylistAndAlbumsShimmer: React.FC<MusicProps> = (): JSX.Element => {
     const styles = useStyles();
     const theme = useTheme();
-    const dispatch = useDispatch();
-    const playlistRef = React.useRef(null);
-    const playList = useSelector((state: IPState) => state.playerReducer.playList);
-    const [updatedPlaylist, setUpdatedPlaylist] = useState<any>([]);
+    const playlistRef: any = React.useRef(null);
+    const playList = useSelector((state: ReducerState) => state.playerReducer.playList);
+    const [updatedPlaylist, setUpdatedPlaylist] = useState<Array<PlaylistProps>>([]);
     const [isCreateModalVisible, setIsCreateModalVisible] = useState(false);
-
-    const addSongToPlaylist = (item: any) => {
-        const found = item.songs.find((el: any) => el.id === selectedTrack.id);
-        const data = item;
-        if (!found) data.songs.push(selectedTrack);
-
-        const list = playList.map((item: any) => {
-            if (item.name === data.name) {
-                return data;
-            } else {
-                return item;
-            }
-        });
-
-        dispatch(updatePlayList(list));
-    };
 
     const closeAllModals = () => {
         setIsCreateModalVisible(!isCreateModalVisible);
     };
 
-    const PlayListRenderItem = ({ item }: any) => (
+    const PlayListRenderItem = ({ item }: { item: PlaylistProps }) => (
         <>
-            <TouchableOpacity key={item} onPress={() => addSongToPlaylist(item)}>
+            <TouchableOpacity>
                 <PlaylistsAlbumsCard
                     name={item.name}
                     img={

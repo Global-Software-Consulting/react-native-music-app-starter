@@ -7,27 +7,21 @@ import useStyles from './styles';
 import Modal from 'react-native-modal';
 import AppHeader from '../AppHeader';
 import { updatePlayList } from '../../store/actions/playerActions';
-import { PlayerState } from '../../models/reducers/player';
 import Toast from 'react-native-simple-toast';
+import { ReducerState } from '../../models/reducers';
+import { MusicProps, PlaylistProps } from './types';
 
-interface MusicProps {
-    isCreateModalVisible?: boolean;
-    closeModals?: any;
-}
-interface IState {
-    playerReducer: PlayerState;
-}
 const AppCreatePlaylistModal: React.FC<MusicProps> = ({ isCreateModalVisible, closeModals }) => {
     const styles = useStyles();
     const theme = useTheme();
     const [name, onChangeName] = React.useState('');
-    const song = useSelector((state: IState) => state.playerReducer.playerList);
-    const playlist = useSelector((state: IState) => state.playerReducer.playList);
+    const song = useSelector((state: ReducerState) => state.playerReducer.playerList);
+    const playlist = useSelector((state: ReducerState) => state.playerReducer.playList);
     const dispatch = useDispatch();
 
     const saveNewPlayList = () => {
-        const data = playlist;
-        const found = playlist?.find((element: any) => element.name === name);
+        const data: Array<PlaylistProps> | undefined = playlist;
+        const found = playlist?.find((element: PlaylistProps) => element.name === name);
         if (!found) {
             let obj;
             if (song) {

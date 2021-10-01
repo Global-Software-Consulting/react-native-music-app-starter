@@ -80,7 +80,7 @@ export const useStyles = () => {
             textAlign: 'center',
             fontSize: hp('2.5%'),
             fontWeight: 'bold',
-            paddingRight:'5%'
+            paddingRight: '5%',
         },
         labelWrapper: {
             justifyContent: 'center',
@@ -159,17 +159,6 @@ export const useStyles = () => {
             margin: 15,
             flexDirection: 'row',
             borderBottomWidth: 0.25,
-            shadowColor: theme.colors.primary,
-            shadowOffset: {
-                width: 0,
-                height: 2,
-            },
-            shadowOpacity: 0.25,
-            shadowRadius: 3.84,
-
-            elevation: 5,
-            // justifyContent: 'center',
-            // alignItems: 'center',
         },
         modalcontainer: {
             flex: 1,
@@ -177,16 +166,22 @@ export const useStyles = () => {
             // backgroundColor:'yellow'
         },
         imgcontainer: {
+            justifyContent: 'center',
+            padding: 5,
             margin: 5,
             height: hp('10%'), // 70% of height device screen
             width: wp('20%'),
             flexDirection: 'row',
             borderRadius: 10,
-            shadowColor: 'blue',
-            shadowOffset: { width: 0, height: 2 },
-            shadowOpacity: 0.2,
-            shadowRadius: 8,
-            elevation: 20,
+            shadowColor: theme.colors.primary,
+            shadowOffset: {
+                width: 0,
+                height: 1,
+            },
+            shadowOpacity: 0.1,
+            shadowRadius: 1.41,
+
+            elevation: 2,
         },
         img: {
             resizeMode: 'cover',

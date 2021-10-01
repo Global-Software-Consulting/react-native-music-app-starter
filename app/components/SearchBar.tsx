@@ -7,21 +7,14 @@ import {
 } from 'react-native-responsive-screen';
 import { useTheme, Text } from 'react-native-paper';
 import { useSelector } from 'react-redux';
-import { PlayerState } from '../models/reducers/player';
-interface TitleProps {
-    // title: string,
-    setUpdatedPlaylist?: any;
-    placeholder?: any;
-    Playlist?: any;
-}
-interface IPState {
-    playerReducer: PlayerState;
-}
+import { ReducerState } from '../models/reducers';
+import { TitleProps } from './player/types';
+
 const SearchBar: React.FC<TitleProps> = (props): JSX.Element => {
     const styles = useStyles();
     const [query, setQuery] = useState('');
     const theme = useTheme();
-    const playList = useSelector((state: IPState) => state.playerReducer.playList);
+    const playList = useSelector((state: ReducerState) => state.playerReducer.playList);
 
     const onChangeText = (text: string) => {
         setQuery(text);
@@ -62,7 +55,7 @@ export const useStyles = () => {
     const theme = useTheme();
     const styles = StyleSheet.create({
         container: {
-            marginTop:10,
+            marginTop: 10,
             height: hp('5%'),
             width: wp('85%'),
             flexDirection: 'row',

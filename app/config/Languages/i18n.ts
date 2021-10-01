@@ -11,7 +11,7 @@ const LOCALE_PERSISTENCE_KEY = 'language';
 const languageDetector: LanguageDetectorModule = {
     type: 'languageDetector',
     async: true,
-    detect: async (language) => {
+    detect: async (language: string | readonly string[] | undefined | any) => {
         const persistedLocale = await AsyncStorage.getItem(LOCALE_PERSISTENCE_KEY);
         if (!persistedLocale) {
             // Find best available language from the resource ones

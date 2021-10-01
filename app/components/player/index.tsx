@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import {  View } from 'react-native';
+import { View } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-import { AppState } from '../../models/reducers/app';
-import { PlayerState } from '../../models/reducers/player';
 import { isPlayerPlay, playerListRequest } from '../../store/actions/playerActions';
 import BottomSheet from '@gorhom/bottom-sheet';
 import { favoriteListRequest } from '../../store/actions/appActions';
@@ -19,23 +17,22 @@ import TrackPlayer, {
 } from 'react-native-track-player';
 import AppPlaylistModal from './AppPlaylistModal';
 import AppCreatePlaylistModal from './AppCreatePlaylistModal';
+import { ReducerState } from '../../models/reducers';
+import { PlyerFullScreenProps, Track, Favorites } from './types';
 
-interface IState {
-    appReducer: AppState;
-    playerReducer: PlayerState;
-}
-
-const Footer: React.FC<any> = (): JSX.Element => {
-    const item: any = useSelector((state: IState) => state.playerReducer.playerList);
-    const isPlayerShown = useSelector((state: IState) => state.playerReducer.isPlayer);
-    const favoriteList = useSelector((state: IState) => state.appReducer.favoriteList);
-    const musicList: any = useSelector((state: IState) => state.appReducer.musicList);
+const Footer: React.FC<PlyerFullScreenProps> = (): JSX.Element => {
+    const item = useSelector((state: ReducerState) => state.playerReducer.playerList);
+    const isPlayerShown = useSelector((state: ReducerState) => state.playerReducer.isPlayer);
+    const favoriteList = useSelector((state: ReducerState) => state.appReducer.favoriteList);
+    const musicList: Array<Track> | undefined | any = useSelector(
+        (state: ReducerState) => state.appReducer.musicList,
+    );
     const [isFavorite, setIsFavorite] = useState<boolean>(false);
     const [createModalVisible, setCreateModalVisible] = useState<boolean>(false);
     const [isModalVisible, setModalVisible] = useState<boolean>(false);
     const [repeatOn, setRepeatOn] = useState<boolean>(false);
     const sheetRef = React.useRef(null);
-    const playbackState = usePlaybackState();
+    const playbackState: State | string | any = usePlaybackState();
     const dispatch = useDispatch();
     const styles = useStyles();
     const { position, duration } = useProgress();
@@ -56,7 +53,12 @@ const Footer: React.FC<any> = (): JSX.Element => {
                     Capability.SkipToNext,
                     Capability.SkipToPrevious,
                 ],
-                compactCapabilities: [Capability.Play, Capability.Pause,Capability.SkipToNext,Capability.SkipToPrevious,],
+                compactCapabilities: [
+                    Capability.Play,
+                    Capability.Pause,
+                    Capability.SkipToNext,
+                    Capability.SkipToPrevious,
+                ],
             });
             await TrackPlayer.add(musicList);
             if (item) {
@@ -64,7 +66,7 @@ const Footer: React.FC<any> = (): JSX.Element => {
             }
         };
 
-       TrackPlayer.reset();
+        TrackPlayer.reset();
         setup();
     }, [item]);
     const setup = async () => {
@@ -77,7 +79,11 @@ const Footer: React.FC<any> = (): JSX.Element => {
                 Capability.SkipToNext,
                 Capability.SkipToPrevious,
             ],
-            compactCapabilities: [Capability.Play, Capability.Pause,Capability.SkipToNext,Capability.SkipToPrevious
+            compactCapabilities: [
+                Capability.Play,
+                Capability.Pause,
+                Capability.SkipToNext,
+                Capability.SkipToPrevious,
             ],
         });
         await TrackPlayer.add(musicList);
@@ -86,7 +92,7 @@ const Footer: React.FC<any> = (): JSX.Element => {
         }
     };
 
-    const onTrackItemPress = async (track: any) => {
+    const onTrackItemPress = async (track: Track) => {
         if (track.id !== item.id) {
             dispatch(playerListRequest(track));
         }
@@ -104,7 +110,7 @@ const Footer: React.FC<any> = (): JSX.Element => {
     const playNextPrev = async (prevOrNext: 'prev' | 'next') => {
         const currentTrackId = await item?.id;
         if (!currentTrackId) return;
-        const trkIndex = musicList.findIndex((trk: any) => trk.id === currentTrackId);
+        const trkIndex = musicList.findIndex((trk: Track) => trk.id === currentTrackId);
         if (prevOrNext === 'next' && trkIndex < musicList.length - 1) {
             onTrackItemPress(musicList[trkIndex + 1]);
         }
@@ -118,12 +124,12 @@ const Footer: React.FC<any> = (): JSX.Element => {
         TrackPlayer.play();
     };
 
-    const togglePlayback = async (playbackState: State) => {
+    const togglePlayback = async () => {
         const currentTrack = await TrackPlayer.getCurrentTrack();
         if (currentTrack === null) {
             // TODO: Perhaps present an error or restart the playlist?
         } else {
-            if (playbackState === 'paused' || playbackState===2) {
+            if (playbackState === 'paused' || playbackState === 2) {
                 await TrackPlayer.play();
             } else {
                 await TrackPlayer.pause();
@@ -175,14 +181,14 @@ const Footer: React.FC<any> = (): JSX.Element => {
     };
 
     //this function is called when the user stops sliding the seekbar
-    const slidingCompleted = async (value: any) => {
+    const slidingCompleted = async (value: number) => {
         await TrackPlayer.seekTo(value);
     };
 
     const onFavoritePress = () => {
         Toast.show('Added in favorites');
-        const data = favoriteList;
-        const found = favoriteList?.find((element: any) => element.id === item.id);
+        const data: Array<Favorites> | undefined | any = favoriteList;
+        const found = favoriteList?.find((element: Favorites) => element.id === item.id);
         if (!found) {
             data.push(item);
             setIsFavorite(true);
@@ -192,7 +198,9 @@ const Footer: React.FC<any> = (): JSX.Element => {
 
     const onRemoveFavoritePress = () => {
         setIsFavorite(false);
-        const data = favoriteList?.filter((element: any) => element.id !== item.id);
+        const data: Array<Favorites> | undefined = favoriteList?.filter(
+            (element: Favorites) => element.id !== item.id,
+        );
         dispatch(favoriteListRequest(data));
     };
 

@@ -2,11 +2,8 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { useTheme, Text } from 'react-native-paper';
+import { AppHeaderProps } from './player/types';
 
-interface AppHeaderProps {
-    title?: string;
-    renderLeft?: Element;
-}
 const AppHeader: React.FC<AppHeaderProps> = ({ renderLeft, title }) => {
     const styles = useStyles();
     return (

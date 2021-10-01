@@ -14,7 +14,6 @@ import { useEffect } from 'react';
 import { ReducerState } from '../../models/reducers';
 import { useTranslation } from 'react-i18next';
 
-
 const Playlist: React.FC<PlaylistProps> = (): JSX.Element => {
     const styles = useStyles();
     const dispatch = useDispatch();
@@ -85,7 +84,7 @@ const Playlist: React.FC<PlaylistProps> = (): JSX.Element => {
             <View style={styles.labelNameWrapper}>
                 <Text style={styles.labelPlaylist}>{item?.name}</Text>
                 <Text style={styles.model}>
-                    {t("Playlist")}: {selectedPlaylist?.length || item?.name} {t("Tracks")}:{' '}
+                    {t('Playlist')}: {selectedPlaylist?.length || item?.name} {t('Tracks')}:{' '}
                     {selectedPlaylist?.songs.length}
                 </Text>
             </View>
@@ -102,7 +101,7 @@ const Playlist: React.FC<PlaylistProps> = (): JSX.Element => {
                 ) : (
                     <View style={styles.noPlaylistContainer}>
                         <Ionicons name="musical-notes" style={styles.noMusicIcon} size={80} />
-                        <Text style={styles.noPlaylistText}>{t("No Playlist Available")} </Text>
+                        <Text style={styles.noPlaylistText}>{t('No Playlist Available')} </Text>
                     </View>
                 )}
             </View>

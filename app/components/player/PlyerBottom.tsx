@@ -7,26 +7,9 @@ import {
 import { useTheme, Text } from 'react-native-paper';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Slider from 'react-native-slider';
+import { TrackMusicProps } from './types';
 
-interface MusicProps {
-    name?: string;
-    model?: string;
-    img?: string;
-    trackLength?: any;
-    currentPosition?: any;
-    onSeek?: any;
-    track?: any;
-    onBack?: any;
-    onForward?: any;
-    playbackState: any;
-    togglePlayback: any;
-    title: string;
-    url?: string;
-    artist: string;
-    sheetRef?: any;
-}
-
-const PlyerBottom: React.FC<MusicProps> = ({
+const PlyerBottom: React.FC<TrackMusicProps> = ({
     title,
     img,
     artist,
@@ -95,7 +78,7 @@ const PlyerBottom: React.FC<MusicProps> = ({
                                         color={theme.colors.accent}
                                         style={styles.activityIndicator}
                                     />
-                                ) : playbackState === 'paused' ||  playbackState === 2 ? (
+                                ) : playbackState === 'paused' || playbackState === 2 ? (
                                     <TouchableOpacity
                                         onPress={() => togglePlayback(playbackState)}
                                         style={styles.playButton}>

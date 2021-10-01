@@ -18,7 +18,6 @@ export const useStyles = () => {
         },
         icon: {
             color: theme.colors.primary,
-            
         },
         labelWrapper: {
             justifyContent: 'center',
@@ -42,8 +41,7 @@ export const useStyles = () => {
             textAlign: 'center',
             fontSize: hp('2.5%'),
             fontWeight: 'bold',
-            paddingRight:'5%'
-
+            paddingRight: '5%',
         },
         newListLabel: {
             flexDirection: 'row',
@@ -81,7 +79,6 @@ export const useStyles = () => {
             marginTop: -7,
         },
         folderContainer: {
-        
             backgroundColor: theme.colors.accent,
             marginBottom: 2,
             paddingLeft: 5,
@@ -124,6 +121,8 @@ export const useStyles = () => {
 
         //modalstyles
         imgcontainer: {
+            padding: 7,
+            justifyContent: 'center',
             margin: 5,
             height: hp('10%'), // 70% of height device screen
             width: wp('20%'),
@@ -133,7 +132,7 @@ export const useStyles = () => {
             shadowOffset: { width: 0, height: 2 },
             shadowOpacity: 0.2,
             shadowRadius: 8,
-            elevation: 20,
+            elevation: 5,
         },
         img: {
             resizeMode: 'cover',
@@ -175,7 +174,6 @@ export const useStyles = () => {
             shadowRadius: 3.84,
 
             elevation: 5,
-
         },
 
         contentContainer: {

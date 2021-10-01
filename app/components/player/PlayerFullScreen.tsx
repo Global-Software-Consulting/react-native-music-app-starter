@@ -4,35 +4,7 @@ import DownArrowIcon from 'react-native-vector-icons/AntDesign';
 import useStyles from './styles';
 import Album from './Album';
 import TrackBar from './TrackBar';
-
-interface PlyerFullScreenProps {
-    name?: string;
-    model?: string;
-    img?: string;
-    trackLength?: any;
-    currentPosition?: any;
-    onSeek?: any;
-    track?: any;
-    onBack?: any;
-    onForward?: any;
-    playbackState: any;
-    togglePlayback: any;
-    title: string;
-    url?: string;
-    artwork?: string;
-    artist: string;
-    onRemoveFavoritePress: any;
-    onFavoritePress: any;
-    onPressPlay: any;
-    onPressPause: any;
-    isFavorite: any;
-    onPressRepeat: any;
-    onPressShuffle: any;
-    sheetRef: any;
-    repeatOn: any;
-    isModalVisible: any;
-    onPressPlaylist: any;
-}
+import { PlyerFullScreenProps } from './types';
 
 const PlayerFullScreen: React.FC<PlyerFullScreenProps> = ({
     title,
@@ -48,8 +20,6 @@ const PlayerFullScreen: React.FC<PlyerFullScreenProps> = ({
     togglePlayback,
     onRemoveFavoritePress,
     onFavoritePress,
-    onPressPlay,
-    onPressPause,
     isFavorite,
     onPressRepeat,
     onPressShuffle,
@@ -67,7 +37,7 @@ const PlayerFullScreen: React.FC<PlyerFullScreenProps> = ({
                     justifyContent: 'center',
                     flexDirection: 'row',
                     width: '100%',
-                    marginBottom: "5%",
+                    marginBottom: '5%',
                 }}>
                 <TouchableOpacity style={styles.line} />
 
@@ -100,8 +70,8 @@ const PlayerFullScreen: React.FC<PlyerFullScreenProps> = ({
             <TrackBar
                 trackLength={trackLength}
                 track={track}
-                onPressPlay={onPressPlay}
-                onPressPause={onPressPause}
+                // onPressPlay={onPressPlay}
+                // onPressPause={onPressPause}
                 onForward={onForward}
                 onBack={onBack}
                 currentPosition={currentPosition}

@@ -6,20 +6,22 @@ import useStyles from './styles';
 import MusicCard from '../../components/Music/MusicCard';
 import Header from '../../components/Header';
 import { favoriteListRequest } from '../../store/actions/appActions';
-import { AppState } from '../../models/reducers/app';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { isPlayerShow, playerListRequest } from '../../store/actions/playerActions';
 import FavoriteShimmer from './Shimmer';
 import { useTranslation } from 'react-i18next';
 import { ReducerState } from '../../models/reducers';
 import { FavoriteProps } from './types';
+import { Favorites } from 'app/components/player/types';
 
 const Favorite: React.FC<FavoriteProps> = (): JSX.Element => {
     const styles = useStyles();
     const dispatch = useDispatch();
     const { t } = useTranslation();
     const isLoader = useSelector((state: ReducerState) => state.loadingReducer?.isLoginLoading);
-    const favoriteList = useSelector((state: ReducerState) => state.appReducer.favoriteList);
+    const favoriteList: Array<Favorites> | undefined | any = useSelector(
+        (state: ReducerState) => state.appReducer.favoriteList,
+    );
     const removeFavorites = (id: string | undefined) => {
         const data = favoriteList?.filter((element: FavoriteProps) => element.id !== id);
         dispatch(favoriteListRequest(data));

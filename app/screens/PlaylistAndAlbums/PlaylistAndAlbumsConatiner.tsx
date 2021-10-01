@@ -5,7 +5,6 @@ import BottomSheet from '@gorhom/bottom-sheet';
 import { useTheme, Text } from 'react-native-paper';
 import useStyles from './styles';
 import PlaylistsAlbumsCard from '../../components/Playlist/PlaylistSongs/PlaylistsAlbumsCard';
-import { PlayerState } from '../../models/reducers/player';
 import { useDispatch, useSelector } from 'react-redux';
 import { updatePlayList } from '../../store/actions/playerActions';
 import SearchBar from '../../components/SearchBar';
@@ -16,17 +15,18 @@ import { useNavigation } from '@react-navigation/native';
 import PlaylistAndAlbumsShimmer from './PlaylistAndAlbumsShimmer';
 import { useTranslation } from 'react-i18next';
 import { ReducerState } from '../../models/reducers';
-import { PlaylistProps, Track } from './types';
+import { MusicProps, PlaylistProps, Track } from './types';
 
-
-const PlaylistAndAlbumsConatiner: React.FC<Track> = (): JSX.Element => {
-    const selectedTrack: PlaylistProps = useSelector((state: ReducerState) => state.playerReducer.playerList);
+const PlaylistAndAlbumsConatiner: React.FC<MusicProps> = (): JSX.Element => {
+    const selectedTrack: PlaylistProps = useSelector(
+        (state: ReducerState) => state.playerReducer.playerList,
+    );
     const styles = useStyles();
     const theme = useTheme();
     const dispatch = useDispatch();
-    const playlistRef = React.useRef(null);
+    const playlistRef: any = React.useRef(null);
     const playList = useSelector((state: ReducerState) => state.playerReducer.playList);
-    let addPlaylist = false;
+    const addPlaylist = false;
     const [updatedPlaylist, setUpdatedPlaylist] = useState<Array<PlaylistProps>>([]);
     const [selectPlaylist, setSelectPlaylist] = useState(null);
     const [isCreateModalVisible, setIsCreateModalVisible] = useState(false);
@@ -35,11 +35,11 @@ const PlaylistAndAlbumsConatiner: React.FC<Track> = (): JSX.Element => {
     const { t } = useTranslation();
 
     const addSongToPlaylist = (item: PlaylistProps) => {
-        const found = item?.songs.find((el: any) => el.id === selectedTrack.id);
+        const found = item?.songs.find((el: Track) => el.id === selectedTrack.id);
         const data = item;
         if (!found) data.songs.push(selectedTrack);
 
-        const list = playList.map((item: any) => {
+        const list: any = playList.map((item: PlaylistProps) => {
             if (item.name === data.name) {
                 return data;
             } else {
@@ -54,7 +54,7 @@ const PlaylistAndAlbumsConatiner: React.FC<Track> = (): JSX.Element => {
         setIsCreateModalVisible(!isCreateModalVisible);
     };
 
-    const setThePlaylist = (item: PlaylistProps) => {
+    const setThePlaylist = (item: any) => {
         setSelectPlaylist(item);
     };
     const PlayListRenderItem = ({ item }: { item: PlaylistProps }) => (
@@ -113,7 +113,7 @@ const PlaylistAndAlbumsConatiner: React.FC<Track> = (): JSX.Element => {
                             size={25}
                             color={theme.colors.primary}
                         />
-                        <Text style={styles.name}>{t("Create new playlist")}</Text>
+                        <Text style={styles.name}>{t('Create new playlist')}</Text>
                     </TouchableOpacity>
 
                     <View style={{ paddingLeft: 10 }}>
@@ -136,7 +136,7 @@ const PlaylistAndAlbumsConatiner: React.FC<Track> = (): JSX.Element => {
                                     size={80}
                                 />
                                 <Text style={styles.noPlaylistText}>
-                                   {t("No Playlist or Albums yet")}
+                                    {t('No Playlist or Albums yet')}
                                 </Text>
                                 <Text style={styles.model}>
                                     Playlist or album you have created will show up here.{' '}
@@ -149,7 +149,7 @@ const PlaylistAndAlbumsConatiner: React.FC<Track> = (): JSX.Element => {
             <BottomSheet
                 ref={playlistRef}
                 index={-1}
-                snapPoints={[400, 2]}
+                snapPoints={[300, 2]}
                 backgroundComponent={() => <View style={styles.contentContainer} />}
                 handleComponent={() => (
                     <View style={styles.closeLineContainer}>

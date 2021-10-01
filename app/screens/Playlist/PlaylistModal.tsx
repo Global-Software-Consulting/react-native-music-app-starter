@@ -11,7 +11,7 @@ import Toast from 'react-native-simple-toast';
 import AppCreatePlaylistModal from '../../components/player/AppCreatePlaylistModal';
 import AppPlaylistModal from '../../components/player/AppPlaylistModal';
 import { ReducerState } from '../../models/reducers';
-import {MusicProps,PlaylistProps,Track} from './types';
+import { Favorite, MusicProps, PlaylistProps } from './types';
 
 const PlaylistModal: React.FC<MusicProps> = ({
     addPlaylist,
@@ -28,7 +28,9 @@ const PlaylistModal: React.FC<MusicProps> = ({
     const favoriteList = useSelector((state: ReducerState) => state.appReducer.favoriteList);
 
     const deleteSongOfPlaylist = (song: PlaylistProps) => {
-        const data = selectedPlaylist.songs?.filter((element: PlaylistProps ) => element.id !== song.id);
+        const data = selectedPlaylist.songs?.filter(
+            (element: PlaylistProps) => element.id !== song.id,
+        );
 
         const updatedList = { name: selectedPlaylist.name, songs: data };
         const updatedPlayLists = playList.map((element: PlaylistProps) => {
@@ -43,7 +45,7 @@ const PlaylistModal: React.FC<MusicProps> = ({
 
     const onFavoritePress = () => {
         Toast.show(`${item.title} Added in favorites`);
-        const data = favoriteList;
+        const data: Array<Favorite> | undefined | any = favoriteList;
         const found = favoriteList?.find((element: PlaylistProps) => element.id === item.id);
         if (!found) {
             data.push(item);

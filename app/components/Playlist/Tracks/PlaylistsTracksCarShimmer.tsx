@@ -3,18 +3,7 @@ import { View, TouchableOpacity, Image } from 'react-native';
 import { Text } from 'react-native-paper';
 import useStyles from '../PlaylistSongs/styles';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-
-interface MusicProps {
-    name?: string;
-    model?: string;
-    img?: string;
-    onPressRemove?: any;
-    showDel?: any;
-    onPressModal?: any;
-    item?: any;
-    setSong?: any;
-    playlistRef?: any;
-}
+import { MusicProps } from '../../player/types';
 
 const PlaylistsTracksCarShimmer: React.FC<MusicProps> = ({ setSong, item, playlistRef }) => {
     const styles = useStyles();

@@ -7,7 +7,7 @@ interface MusicProps {
     name?: string;
     model?: string;
     img?: string;
-    onPress?: any;
+    onPress(): void;
 }
 
 const MusicCard: React.FC<MusicProps> = ({ name, model, img, onPress }) => {

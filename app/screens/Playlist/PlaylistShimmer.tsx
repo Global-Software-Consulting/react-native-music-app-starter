@@ -15,15 +15,14 @@ const PlaylistShimmer: React.FC<PlaylistProps> = () => {
     const item = route.params.item;
     const { t } = useTranslation();
 
-    const PlaylistRenderItem = ({ item }: {item:PlaylistProps}) => (
-        <TouchableHighlight  underlayColor="gray">
+    const PlaylistRenderItem = ({ item }: { item: PlaylistProps }) => (
+        <TouchableHighlight underlayColor="gray">
             <View style={styles.shimmerMusiccontainer}>
                 <PlaylistsTracksCarShimmer
                     name={item?.title}
                     img={item?.artwork}
                     model={item?.artist}
                     playlistRef={playlistSongsRef}
-                    showDel={true}
                     item={item}
                 />
             </View>
@@ -33,7 +32,6 @@ const PlaylistShimmer: React.FC<PlaylistProps> = () => {
     return (
         <View style={styles.shimmerContainer}>
             <ImageBackground source={{}} resizeMode="cover" style={styles.shimmerBackgroundImage} />
-
             <View style={styles.shimmerLabelNameWrapper}>
                 <Text style={styles.shimmerLabelPlaylist} />
                 <Text style={styles.shimmerModel} />
@@ -51,7 +49,7 @@ const PlaylistShimmer: React.FC<PlaylistProps> = () => {
                 ) : (
                     <View style={styles.noPlaylistContainer}>
                         <Ionicons name="musical-notes" style={styles.noMusicIcon} size={80} />
-                        <Text style={styles.noPlaylistText}>{t("No Playlist Available")} </Text>
+                        <Text style={styles.noPlaylistText}>{t('No Playlist Available')} </Text>
                     </View>
                 )}
             </View>

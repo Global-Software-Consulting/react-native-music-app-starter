@@ -3,16 +3,7 @@ import { View, TouchableOpacity, Image } from 'react-native';
 import { Text } from 'react-native-paper';
 import useStyles from '../PlaylistSongs/styles';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-
-interface MusicProps {
-    name?: string;
-    model?: string;
-    img?: string;
-    item?: any;
-    setSong?: any;
-    playlistRef?: any;
-    onPress?: any;
-}
+import { MusicProps } from '../../player/types';
 
 const PlaylistsTracksCard: React.FC<MusicProps> = ({
     name,
@@ -42,7 +33,7 @@ const PlaylistsTracksCard: React.FC<MusicProps> = ({
                 <TouchableOpacity
                     onPress={() => {
                         setSong(item);
-                        playlistRef.current.snapToIndex(0);
+                        playlistRef?.current.snapToIndex(0);
                     }}>
                     <MaterialCommunityIcons name="dots-vertical" size={25} color={'gray'} />
                 </TouchableOpacity>

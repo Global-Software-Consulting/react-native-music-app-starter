@@ -3,15 +3,7 @@ import { View, TouchableOpacity, Image } from 'react-native';
 import { Text } from 'react-native-paper';
 import useStyles from './styles';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-
-interface MusicProps {
-    name?: string;
-    model?: string;
-    img?: string;
-    onPressRemove?: any;
-    showDel?: any;
-    addSongToPlaylist?: any;
-}
+import { MusicProps } from '../../player/types';
 
 const PlaylistSongsCard: React.FC<MusicProps> = ({
     name,

@@ -169,7 +169,7 @@ export const useStyles = () => {
         Trackcontainer: {
             paddingLeft: 16,
             paddingRight: 16,
-            marginBottom: "15%",
+            marginBottom: '15%',
 
             // marginBottom:30,
             // paddingTop: 5,
@@ -302,17 +302,16 @@ export const useStyles = () => {
             marginBottom: 30,
         },
         saveButtonText: {
-            paddingTop:'5%',
+            paddingTop: '5%',
             height: hp('3%'),
             fontWeight: 'bold',
             color: theme.colors.accent,
-        
         },
         saveButton: {
-            padding:5,
+            padding: 5,
             backgroundColor: theme.colors.primary,
             justifyContent: 'center',
-            alignItems:'center',
+            alignItems: 'center',
             flexDirection: 'row',
             width: wp('12%'),
             height: hp('3%'),
