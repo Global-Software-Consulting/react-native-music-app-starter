@@ -25,15 +25,17 @@ export const useStyles = () => {
             borderRadius: 10,
         },
         CreateModalContainer: {
-            // paddingLeft: 20,
-            // paddingRight: 20,
             width: '90%',
             height: '50%',
             alignSelf: 'center',
             backgroundColor: theme.colors.accent,
             borderRadius: 10,
         },
-
+        safeAreaView: {
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+        },
         container: {
             justifyContent: 'center',
             alignItems: 'center',

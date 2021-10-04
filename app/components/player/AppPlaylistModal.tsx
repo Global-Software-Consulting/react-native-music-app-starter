@@ -72,7 +72,12 @@ const AppPlaylistModal: React.FC<MusicProps> = ({
             <View style={styles.container}>
                 <Modal isVisible={isModalVisible}>
                     <View style={styles.ModalContainer}>
-                        <AppHeader renderLeft={<Text style={styles.label}>Add To Playlist</Text>} />
+                        <AppHeader renderLeft={<View style={{flex:1, flexDirection:'row',padding:7}}><Text style={styles.label}>Add To Playlist</Text>
+                        <View style={{ flexDirection:'row',width: '75%',}} />
+                            
+                                        <Button title="Cancel"  onPress={() => onPressPlaylist()} />
+                                    
+                                        </View>} />
 
                         <TouchableOpacity
                             style={styles.newListLabel}
@@ -104,7 +109,6 @@ const AppPlaylistModal: React.FC<MusicProps> = ({
                             )}
                         </View>
                     </View>
-                    <Button title="Cancel" onPress={() => onPressPlaylist()} />
                 </Modal>
             </View>
         </>

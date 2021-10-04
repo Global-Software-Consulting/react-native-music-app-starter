@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, TouchableOpacity, TextInput } from 'react-native';
+import { View, TouchableOpacity, TextInput, KeyboardAvoidingView, Platform } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTheme, Text } from 'react-native-paper';
@@ -37,44 +37,56 @@ const AppCreatePlaylistModal: React.FC<MusicProps> = ({ isCreateModalVisible, cl
         }
     };
     return (
-        <View style={styles.container}>
-            <Modal isVisible={isCreateModalVisible}>
-                <View style={styles.CreateModalContainer}>
-                    <AppHeader
-                        renderLeft={
-                            <View style={{ flexDirection: 'row', padding: 8 }}>
-                                <TouchableOpacity onPress={() => closeModals()}>
-                                    <MaterialCommunityIcons
-                                        name="close"
-                                        size={30}
-                                        color={theme.colors.primary}
-                                    />
-                                </TouchableOpacity>
 
-                                <Text style={styles.label}>Create Playlist</Text>
-                                <View style={{ width: '20%' }} />
-                                <TouchableOpacity
-                                    onPress={saveNewPlayList}
-                                    style={styles.saveButton}>
-                                    <Text style={styles.saveButtonText}>Save</Text>
-                                </TouchableOpacity>
-                            </View>
-                        }
-                    />
-                    <View style={styles.inputWrapper}>
-                        <Text>Playlist:</Text>
-                        <TextInput
-                            placeholder="Type here.."
-                            style={styles.input}
-                            value={name}
-                            onChangeText={(name) => onChangeName(name)}
-                            maxLength={10}
-                            keyboardType="default"
+
+        <View style={styles.container}>
+            <Modal isVisible={isCreateModalVisible}
+          
+             >
+                {/* <View style={styles.CreateModalContainer}> */}
+                    <KeyboardAvoidingView
+                        behavior={Platform.OS === "ios" ? "padding" : "height"}
+                        style={styles.CreateModalContainer}
+                    >
+                        <AppHeader
+                            renderLeft={
+                                <View style={{ flexDirection: 'row', padding: 8 }}>
+                                    <TouchableOpacity onPress={() => closeModals()}>
+                                        <MaterialCommunityIcons
+                                            name="close"
+                                            size={30}
+                                            color={theme.colors.primary}
+                                        />
+                                    </TouchableOpacity>
+
+                                    <Text style={styles.label}>Create Playlist</Text>
+                                    <View style={{ width: '20%' }} />
+                                    <TouchableOpacity
+                                        onPress={saveNewPlayList}
+                                        style={styles.saveButton}>
+                                        <Text style={styles.saveButtonText}>Save</Text>
+                                    </TouchableOpacity>
+                                </View>
+                            }
                         />
-                    </View>
-                </View>
+
+
+                        <View style={styles.inputWrapper}>
+                            <Text>Playlist:</Text>
+                            <TextInput
+                                placeholder="Type here.."
+                                style={styles.input}
+                                value={name}
+                                onChangeText={(name) => onChangeName(name)}
+                                maxLength={10}
+                                keyboardType="default"
+                            />
+                        </View>
+        </KeyboardAvoidingView>
+                {/* </View> */}
             </Modal>
         </View>
+
     );
 };
 
