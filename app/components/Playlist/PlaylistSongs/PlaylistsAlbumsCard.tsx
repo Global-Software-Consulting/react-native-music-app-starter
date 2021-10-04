@@ -1,10 +1,11 @@
 import React from 'react';
-import { View, TouchableOpacity, Image } from 'react-native';
+import { View, Image } from 'react-native';
 import { Text } from 'react-native-paper';
 import useStyles from './styles';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useTranslation } from 'react-i18next';
 import { MusicProps } from '../../player/types';
+import {TouchableOpacity} from '@gorhom/bottom-sheet';
 
 const PlaylistsAlbumsCard: React.FC<MusicProps> = ({
     name,

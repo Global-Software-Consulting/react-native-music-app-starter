@@ -22,7 +22,7 @@ const HomeComponent: React.FC<Music> = (): JSX.Element => {
     const playList = useSelector((state: ReducerState) => state.playerReducer?.playList);
     const isLoader = useSelector((state: ReducerState) => state.loadingReducer?.isLoginLoading);
     const isVisible = useIsFocused();
-    const navigation = useNavigation<AppScreenNavigationProp>();
+    const navigation:any = useNavigation<AppScreenNavigationProp>();
     const dispatch = useDispatch();
     const [userPlaylist, setUserPlaylist] = useState<Array<PlaylistProps>>([]);
     const { t } = useTranslation();

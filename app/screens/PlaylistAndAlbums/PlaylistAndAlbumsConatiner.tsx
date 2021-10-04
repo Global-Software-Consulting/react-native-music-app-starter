@@ -94,7 +94,6 @@ const PlaylistAndAlbumsConatiner: React.FC<MusicProps> = (): JSX.Element => {
         }
     }, [playList.length]);
 
-    console.log('updatedPlaylist', updatedPlaylist);
 
     return (
         <>

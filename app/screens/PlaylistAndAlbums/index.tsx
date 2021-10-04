@@ -58,6 +58,7 @@ const Favorites: React.FC = () => {
                     </View>
                 }
             />
+            
             {isLoading ? <PlaylistAndAlbumsShimmer /> : <PlaylistAndAlbumsConatiner />}
         </View>
     );

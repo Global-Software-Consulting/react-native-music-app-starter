@@ -12,7 +12,6 @@ export const useStyles = () => {
         container: {
             flex: 1,
             backgroundColor: theme.colors.accent,
-            // backgroundColor:'red'
         },
         shimmerContainer: {
             flex: 1,
@@ -87,18 +86,11 @@ export const useStyles = () => {
             alignSelf: 'center',
         },
         labelNameWrapper: {
+            // backgroundColor:'blue',
             // marginLeft: '2%',
             width: wp('90%'),
             marginTop: hp('2%'),
-            shadowColor: theme.colors.accent,
-            shadowOffset: {
-                width: 0,
-                height: 2,
-            },
-            shadowOpacity: 0.25,
-            shadowRadius: 3.84,
-
-            elevation: 5,
+           
         },
         shimmerLabelNameWrapper: {
             // marginLeft: '2%',
@@ -228,6 +220,7 @@ export const useStyles = () => {
             height: 400,
             width: '100%',
             backgroundColor: theme.colors.accent,
+            // backgroundColor:'red',
         },
         secondaryControl: {
             height: hp('7%'), // 70% of height device screen

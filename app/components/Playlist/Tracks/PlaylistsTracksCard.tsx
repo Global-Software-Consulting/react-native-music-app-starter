@@ -1,9 +1,10 @@
 import React from 'react';
-import { View, TouchableOpacity, Image } from 'react-native';
+import { View, Image } from 'react-native';
 import { Text } from 'react-native-paper';
 import useStyles from '../PlaylistSongs/styles';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { MusicProps } from '../../player/types';
+import {TouchableOpacity} from '@gorhom/bottom-sheet';
 
 const PlaylistsTracksCard: React.FC<MusicProps> = ({
     name,
@@ -12,11 +13,14 @@ const PlaylistsTracksCard: React.FC<MusicProps> = ({
     setSong,
     item,
     playlistRef,
-    onPress,
+    
 }) => {
     const styles = useStyles();
     return (
-        <TouchableOpacity onPress={onPress} style={{ flexDirection: 'row' }}>
+        <TouchableOpacity onPress={() => {
+            setSong(item);
+            playlistRef?.current.snapToIndex(0);
+        }} style={{ flexDirection: 'row' }}>
             <View style={styles.container}>
                 <TouchableOpacity style={styles.taskCard}>
                     <View style={styles.imgcontainer}>
