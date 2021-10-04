@@ -115,7 +115,7 @@ const PlaylistAndAlbumsConatiner: React.FC<MusicProps> = (): JSX.Element => {
                         <Text style={styles.name}>{t('Create new playlist')}</Text>
                     </TouchableOpacity>
 
-                    <View style={{ paddingLeft: 10 }}>
+                    <View style={{ paddingLeft: 10 ,marginBottom:50}}>
                         {updatedPlaylist?.length > 0 ? (
                             <FlatList
                                 contentContainerStyle={{ alignSelf: 'flex-start' }}
