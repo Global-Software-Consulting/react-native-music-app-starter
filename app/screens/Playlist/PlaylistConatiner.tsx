@@ -66,7 +66,6 @@ const Playlist: React.FC<PlaylistProps> = (): JSX.Element => {
         </TouchableHighlight>
     );
 
-    console.log('itemmmm', item);
 
     return (
         <View style={styles.container}>
@@ -108,7 +107,7 @@ const Playlist: React.FC<PlaylistProps> = (): JSX.Element => {
             <BottomSheet
                 ref={playlistSongsRef}
                 index={-1}
-                snapPoints={[450, 2]}
+                snapPoints={[320, 2]}
                 backgroundComponent={() => <View style={styles.contentContainer} />}
                 handleComponent={() => (
                     <View style={styles.closeLineContainer}>

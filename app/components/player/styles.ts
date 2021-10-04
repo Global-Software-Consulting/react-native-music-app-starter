@@ -41,15 +41,14 @@ export const useStyles = () => {
             alignItems: 'center',
 
             backgroundColor: theme.colors.accent,
-            // marginBottom: 20,
             paddingLeft: 24,
             paddingRight: 24,
         },
         folderContainer: {
             // justifyContent: 'center',
             // alignItems: 'center',
+            // marginBottom:hp('8%'),
             backgroundColor: theme.colors.accent,
-            marginBottom: 2,
             paddingLeft: 5,
             paddingRight: 5,
         },

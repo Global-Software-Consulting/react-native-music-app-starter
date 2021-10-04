@@ -9,6 +9,8 @@ export const useStyles = () => {
     const theme = useTheme();
     const styles = StyleSheet.create({
         container: {
+            paddingLeft:10,
+            paddingRight:10,
             flexDirection: 'row',
             justifyContent: 'center',
             alignItems: 'center',

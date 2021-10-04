@@ -33,7 +33,7 @@ const PlaylistsTracksCard: React.FC<MusicProps> = ({
                         <Text style={styles.model}>{model} </Text>
                     </View>
                 </View>
-                <View style={{ width: '15%' }} />
+                <View style={{ width: '14%' }} />
                 <TouchableOpacity
                     onPress={() => {
                         setSong(item);

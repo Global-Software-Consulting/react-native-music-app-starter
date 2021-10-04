@@ -12,6 +12,7 @@ export const useStyles = () => {
         container: {
             flex: 1,
             backgroundColor: theme.colors.accent,
+            marginBottom:'15%'
         },
         shimmerContainer: {
             flex: 1,
@@ -23,6 +24,7 @@ export const useStyles = () => {
             justifyContent: 'center',
             backgroundColor: theme.colors.accent,
             // backgroundColor:'red'
+            
         },
         shimmerPlaylistContainer: {
             flex: 1,
