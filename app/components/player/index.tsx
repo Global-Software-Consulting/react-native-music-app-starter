@@ -126,9 +126,7 @@ const Footer: React.FC<PlyerFullScreenProps> = (): JSX.Element => {
     };
 
     const togglePlayback = async () => {
-        const currentTrack = await TrackPlayer.getCurrentTrack();
-        console.log("Currenttrack;",currentTrack);
-        
+        const currentTrack = await TrackPlayer.getCurrentTrack();        
         if (currentTrack === null) {
             // TODO: Perhaps present an error or restart the playlist?
         } else {
@@ -186,15 +184,12 @@ const Footer: React.FC<PlyerFullScreenProps> = (): JSX.Element => {
     //this function is called when the user stops sliding the seekbar
     const slidingCompleted = async (value: number) => {
         await TrackPlayer.seekTo(value);
-        // TrackPlayer.play();
         if (position > duration) {
-            console.log("song ended!!!");
             TrackPlayer.pause();
               
           }
           else{
-            console.log("song nottttt ended!!!");
-            // TrackPlayer.play();
+            TrackPlayer.play();
 
           }
 
@@ -220,8 +215,6 @@ const Footer: React.FC<PlyerFullScreenProps> = (): JSX.Element => {
         );
         dispatch(favoriteListRequest(data));
     };
-    console.log("position",position);
-    console.log("Duration",duration);
 
     return (
         <>
