@@ -16,6 +16,7 @@ const minutesAndSeconds = (position: any) => [
     pad(position % 60, 2),
 ];
 
+
 const TrackBar: React.FC<TrackMusicProps> = ({
     trackLength,
     currentPosition,
@@ -30,9 +31,7 @@ const TrackBar: React.FC<TrackMusicProps> = ({
     const styles = useStyles();
     const elapsed = minutesAndSeconds(currentPosition);
     const remaining = minutesAndSeconds(trackLength - currentPosition);
-
-    console.log('PlaybackState', playbackState);
-
+    // console.log("currentposition",currentPosition);
     return (
         <>
             <View style={styles.Trackcontainer}>
@@ -44,8 +43,9 @@ const TrackBar: React.FC<TrackMusicProps> = ({
                     </Text>
                 </View>
                 <Slider
-                    maximumValue={Math.max(trackLength, 1, currentPosition + 1)}
+                    maximumValue={Math.max(trackLength,1, currentPosition + 1)}
                     onSlidingComplete={onSeek}
+                    minimumValue={0}
                     value={currentPosition}
                     style={styles.slider}
                     minimumTrackTintColor={'orange'}

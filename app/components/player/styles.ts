@@ -181,7 +181,7 @@ export const useStyles = () => {
             borderRadius: 1,
         },
         thumb: {
-            height: hp('2.5%'), // 70% of height device screen
+            height: hp('2.2%'), // 70% of height device screen
             width: wp('4.5%'),
             borderRadius: 10,
         },
