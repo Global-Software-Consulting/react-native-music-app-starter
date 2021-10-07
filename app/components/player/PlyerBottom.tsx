@@ -144,6 +144,7 @@ export const useStyles = () => {
             width: wp('17%'),
             borderRadius: 10,
             shadowColor: 'red',
+            backgroundColor:theme.colors.background,
             shadowOffset: {
                 width: 0,
                 height: 7,
