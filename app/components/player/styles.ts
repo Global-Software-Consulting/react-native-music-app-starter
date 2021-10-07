@@ -89,6 +89,8 @@ export const useStyles = () => {
             height: hp('45%'), // 70% of height device screen
             width: wp('80%'),
             borderRadius: 10,
+            backgroundColor: theme.colors.background,
+
         },
 
         model: {
@@ -134,6 +136,8 @@ export const useStyles = () => {
             height: hp('26%'), // 70% of height device screen
             width: wp('43%'), // 80% of width device screen
             borderRadius: 10,
+            backgroundColor: theme.colors.background,
+
         },
         detailsWrapper: {
             justifyContent: 'center',

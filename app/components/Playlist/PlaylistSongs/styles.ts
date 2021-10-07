@@ -117,18 +117,18 @@ export const useStyles = () => {
             width: wp('20%'),
             flexDirection: 'row',
             borderRadius: 10,
-            shadowColor: 'blue',
+            shadowColor: theme.colors.background,
             shadowOffset: { width: 0, height: 2 },
             shadowOpacity: 0.2,
             shadowRadius: 8,
-            elevation: 20,
+            elevation: 6,
         },
         Shimmerimgcontainer: {
             height: hp('10%'), // 70% of height device screen
             width: wp('20%'),
             flexDirection: 'row',
             borderRadius: 10,
-            shadowColor: 'blue',
+            shadowColor: theme.colors.background,
             shadowOffset: { width: 0, height: 2 },
             shadowOpacity: 0.2,
             shadowRadius: 8,
@@ -140,6 +140,8 @@ export const useStyles = () => {
             height: hp('10%'), // 70% of height device screen
             width: wp('20%'), // 80% of width device screen
             borderRadius: 5,
+            backgroundColor:theme.colors.background,
+
         },
         Shimmerimg: {
             resizeMode: 'cover',
