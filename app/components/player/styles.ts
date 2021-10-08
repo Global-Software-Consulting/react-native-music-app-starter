@@ -201,13 +201,14 @@ export const useStyles = () => {
             justifyContent: 'center',
         },
         playButton: {
-            height: hp('10%'), // 70% of height device screen
+            height: hp('11%'), // 70% of height device screen
             width: wp('20%'),
-            borderRadius: hp('15%') / 2,
+            borderRadius:hp('11%')/ 2,
             alignItems: 'center',
             justifyContent: 'center',
             backgroundColor: 'orange',
-            paddingLeft: 7,
+            // padding: 10,
+            // paddingHorizontal:"5.5%",
             shadowColor: theme.colors.primary,
             shadowOffset: {
                 width: 0,
@@ -227,7 +228,7 @@ export const useStyles = () => {
             height: hp('5%'), // 70% of height device screen
             width: wp('10%'),
             borderRadius: hp('15%') / 2,
-            paddingLeft: 5,
+            // paddingLeft: 5,
             shadowColor: theme.colors.primary,
             shadowOffset: {
                 width: 0,
@@ -253,10 +254,10 @@ export const useStyles = () => {
         activityIndicator: {
             justifyContent: 'center',
             backgroundColor: 'lightgray',
-            alignSelf: 'center',
-            height: hp('10%'), // 70% of height device screen
+            height: hp('11%'), // 70% of height device screen
             width: wp('20%'),
-            borderRadius: hp('15%') / 2,
+            borderRadius:hp('11%')/ 2,
+            alignItems: 'center',
             paddingLeft: 5,
             shadowColor: theme.colors.primary,
             shadowOffset: {
@@ -274,11 +275,21 @@ export const useStyles = () => {
         },
 
         icon: {
-            paddingLeft: 25,
             alignSelf: 'center',
             justifyContent: 'center',
             alignItems: 'center',
             color: theme.colors.primary,
+        },
+        playerIcon: {
+            paddingLeft:"5%",
+            alignSelf: 'center',
+            justifyContent: 'center',
+            alignItems: 'center',
+        },
+        controlIcon: {
+            alignSelf: 'center',
+            justifyContent: 'center',
+            alignItems: 'center',
         },
         Dropicon: {
             marginLeft: wp('25%'),

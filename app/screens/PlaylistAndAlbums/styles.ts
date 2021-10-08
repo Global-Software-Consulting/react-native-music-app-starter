@@ -37,11 +37,14 @@ export const useStyles = () => {
             borderRadius: 10,
         },
         label: {
+            textAlignVertical: 'center',
             flex: 1,
             textAlign: 'center',
             fontSize: hp('2.5%'),
             fontWeight: 'bold',
             paddingRight: '5%',
+            color:theme.colors.primary
+
         },
         newListLabel: {
             flexDirection: 'row',

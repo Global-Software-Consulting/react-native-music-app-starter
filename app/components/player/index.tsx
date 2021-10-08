@@ -47,7 +47,6 @@ const Footer: React.FC<PlyerFullScreenProps> = (): JSX.Element => {
         const setup = async () => {
             await TrackPlayer.setupPlayer({});
             await TrackPlayer.updateOptions({
-                stopWithApp: true,
                 capabilities: [
                     Capability.Play,
                     Capability.Pause,
@@ -73,7 +72,6 @@ const Footer: React.FC<PlyerFullScreenProps> = (): JSX.Element => {
     const setup = async () => {
         await TrackPlayer.setupPlayer({});
         await TrackPlayer.updateOptions({
-            stopWithApp: true,
             capabilities: [
                 Capability.Play,
                 Capability.Pause,

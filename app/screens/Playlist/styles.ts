@@ -81,7 +81,9 @@ export const useStyles = () => {
             textAlign: 'center',
             fontSize: hp('2.5%'),
             fontWeight: 'bold',
-            paddingRight: '5%',
+            color:theme.colors.primary,
+            textAlignVertical: 'center'
+
         },
         labelWrapper: {
             justifyContent: 'center',

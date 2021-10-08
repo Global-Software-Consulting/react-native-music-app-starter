@@ -84,8 +84,10 @@ const PlyerBottom: React.FC<TrackMusicProps> = ({
                                         style={styles.playButton}>
                                         <Ionicons
                                             name="play"
-                                            size={25}
+                                            size={20}
                                             color={theme.colors.accent}
+                                            style={styles.icon}
+
                                         />
                                     </TouchableOpacity>
                                 ) : (
@@ -94,8 +96,10 @@ const PlyerBottom: React.FC<TrackMusicProps> = ({
                                         style={styles.playButton}>
                                         <Ionicons
                                             name="pause"
-                                            size={25}
+                                            size={20}
                                             color={theme.colors.accent}
+                                            style={styles.icon}
+
                                         />
                                     </TouchableOpacity>
                                 )}
@@ -106,6 +110,7 @@ const PlyerBottom: React.FC<TrackMusicProps> = ({
                                     <Ionicons
                                         name="play-skip-forward-outline"
                                         size={25}
+                                        style={styles.icon}
                                         color={theme.colors.accent}
                                     />
                                 </TouchableOpacity>
@@ -144,7 +149,7 @@ export const useStyles = () => {
             width: wp('17%'),
             borderRadius: 10,
             shadowColor: 'red',
-            backgroundColor:theme.colors.background,
+            backgroundColor: theme.colors.background,
             shadowOffset: {
                 width: 0,
                 height: 7,
@@ -170,6 +175,11 @@ export const useStyles = () => {
             textAlign: 'left',
             // textAlign: 'center',
         },
+        icon: {
+            // flex: 1,
+            alignSelf:'center',
+            justifyContent:'center'
+        },
         artist: {
             fontSize: hp('2%'),
             color: theme.colors.accent,
@@ -186,12 +196,13 @@ export const useStyles = () => {
         },
         playButton: {
             justifyContent: 'center',
+            alignItems: 'center',
             alignSelf: 'center',
             height: hp('5%'), // 70% of height device screen
-            width: wp('10%'),
-            borderRadius: hp('15%') / 2,
+            width: wp('9%'),
+            borderRadius: hp('5.5%') / 2,
             backgroundColor: 'orange',
-            paddingLeft: 7,
+            // padding: 10,
             shadowColor: theme.colors.accent,
             shadowOffset: {
                 width: 0,
@@ -246,9 +257,9 @@ export const useStyles = () => {
             borderRadius: 1,
         },
         thumb: {
-            height: hp('2.5%'), // 70% of height device screen
-            width: wp('4.5%'),
-            borderRadius: 10,
+            height: hp('2%'), // 70% of height device screen
+            width: wp('4%'),
+            borderRadius: 22,
             // color: theme.colors.accent
         },
         activityIndicator: {

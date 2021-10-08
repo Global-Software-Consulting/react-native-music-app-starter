@@ -1,4 +1,7 @@
 import { StyleSheet } from 'react-native';
+import {
+    heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -8,6 +11,14 @@ const styles = StyleSheet.create({
     label: {
         fontSize: 12,
         marginBottom: 12,
+    },
+    headerLabel: {
+        flex: 1,
+        textAlign: 'center',
+        fontSize: hp('2.75%'),
+        fontWeight: 'bold',
+        paddingRight: '5%',
+        textAlignVertical: 'center'
     },
     drawerContent: {
         flex: 1,
@@ -22,10 +33,13 @@ const styles = StyleSheet.create({
     text: {
         marginTop: 2,
         fontWeight: 'bold',
-        // textAlign:'flex',
+    },
+    labelWrapper: {
+        justifyContent: 'center',
+        alignSelf: 'center',
+
     },
     chekboxtext: {
-        // marginTop: 5,
         fontWeight: 'bold',
         margin: 8,
     },

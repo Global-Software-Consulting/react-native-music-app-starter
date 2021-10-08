@@ -22,12 +22,18 @@ const Drawer: React.FC = (props) => {
         <>
             <AppHeader
                 renderLeft={
+                    <View style={{ flexDirection: 'row' ,padding:10}}>
+
                     <LeftArrowIcon
                         name="cross"
                         style={styles.icon}
                         size={30}
                         onPress={() => navigation.navigate('Home')}
                     />
+                    <View style={styles.labelWrapper} />
+
+                    <Text style={styles.headerLabel}>{t('Library')}</Text>
+                    </View>
                 }
             />
             <DrawerContentScrollView {...props}>
