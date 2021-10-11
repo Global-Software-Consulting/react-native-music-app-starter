@@ -16,6 +16,7 @@ const minutesAndSeconds = (position: any) => [
     pad(position % 60, 2),
 ];
 
+
 const TrackBar: React.FC<TrackMusicProps> = ({
     trackLength,
     currentPosition,
@@ -30,9 +31,7 @@ const TrackBar: React.FC<TrackMusicProps> = ({
     const styles = useStyles();
     const elapsed = minutesAndSeconds(currentPosition);
     const remaining = minutesAndSeconds(trackLength - currentPosition);
-
-    console.log('PlaybackState', playbackState);
-
+    // console.log("currentposition",currentPosition);
     return (
         <>
             <View style={styles.Trackcontainer}>
@@ -46,6 +45,7 @@ const TrackBar: React.FC<TrackMusicProps> = ({
                 <Slider
                     maximumValue={Math.max(trackLength, 1, currentPosition + 1)}
                     onSlidingComplete={onSeek}
+                    minimumValue={0}
                     value={currentPosition}
                     style={styles.slider}
                     minimumTrackTintColor={'orange'}
@@ -55,12 +55,15 @@ const TrackBar: React.FC<TrackMusicProps> = ({
                 />
                 <View style={styles.Controlcontainer}>
                     <View style={{ width: 5 }} />
-                    <TouchableOpacity onPress={() => onBack()} style={styles.controlButton}>
+                    <TouchableOpacity onPress={() => onBack()}
+                        disabled={forwardDisabled}
+                        style={styles.controlButton}>
                         <Ionicons
                             name="play-skip-back-outline"
                             size={30}
                             color={theme.colors.primary}
                             onPress={() => onBack()}
+                            style={styles.controlIcon}
                         />
                     </TouchableOpacity>
                     <View style={{ width: 20 }} />
@@ -74,13 +77,13 @@ const TrackBar: React.FC<TrackMusicProps> = ({
                         <TouchableOpacity
                             onPress={() => togglePlayback(playbackState)}
                             style={styles.playButton}>
-                            <Ionicons name="play" size={35} color={theme.colors.primary} />
+                            <Ionicons name="play" size={35} color={theme.colors.primary} style={styles.playerIcon} />
                         </TouchableOpacity>
                     ) : (
                         <TouchableOpacity
                             onPress={() => togglePlayback(playbackState)}
                             style={styles.playButton}>
-                            <Ionicons name="pause" size={35} color={theme.colors.primary} />
+                            <Ionicons name="pause" size={35} color={theme.colors.primary} style={styles.playerIcon} />
                         </TouchableOpacity>
                     )}
 
@@ -92,9 +95,10 @@ const TrackBar: React.FC<TrackMusicProps> = ({
                         <Ionicons
                             name="play-skip-forward-outline"
                             size={30}
-                            style={[forwardDisabled && { opacity: 0.3 }]}
+                            // style={[forwardDisabled && { opacity: 0.3 }]}
                             color={theme.colors.primary}
                             onPress={() => onForward()}
+                            style={styles.controlIcon}
                         />
                     </TouchableOpacity>
                 </View>

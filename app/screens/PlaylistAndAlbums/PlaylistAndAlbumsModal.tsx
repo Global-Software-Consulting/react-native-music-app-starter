@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, TouchableOpacity, Image } from 'react-native';
+import { View, Image } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useTheme, Text } from 'react-native-paper';
 import useStyles from './styles';
@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { deletePlayListFolder } from '../../store/actions/playerActions';
 import { ReducerState } from '../../models/reducers';
 import { PlaylistProps, MusicProps } from './types';
+import {TouchableOpacity} from '@gorhom/bottom-sheet';
 
 const PlaylistAndAlbumsModal: React.FC<MusicProps> = ({ addPlaylist, playlistRef, item }) => {
     const styles = useStyles();
@@ -50,8 +51,8 @@ const PlaylistAndAlbumsModal: React.FC<MusicProps> = ({ addPlaylist, playlistRef
                 <View style={{ width: '5%' }} />
                 <TouchableOpacity
                     onPress={() => {
-                        playlistRef?.current.snapToIndex(1);
                         removePlaylist();
+                        playlistRef?.current.snapToIndex(1);
                     }}>
                     <View style={{ flexDirection: 'row' }}>
                         <MaterialCommunityIcons

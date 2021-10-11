@@ -12,7 +12,6 @@ interface MusicProps {
 
 const PlaylistCard: React.FC<MusicProps> = ({ name, img, onPress }) => {
     const styles = useStyles();
-    // const styles = useStyles();
     return (
         <View style={styles.container}>
             <TouchableOpacity style={styles.taskCard} onPress={onPress}>

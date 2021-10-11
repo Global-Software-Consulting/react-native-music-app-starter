@@ -138,6 +138,8 @@ export const useStyles = () => {
             height: hp('10%'), // 70% of height device screen
             width: wp('20%'), // 80% of width device screen
             borderRadius: 5,
+            backgroundColor: theme.colors.primary,
+
         },
         Shimmerimg: {
             resizeMode: 'cover',

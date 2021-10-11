@@ -12,7 +12,7 @@ export const useStyles = () => {
         container: {
             flex: 1,
             backgroundColor: theme.colors.accent,
-            // backgroundColor:'red'
+            marginBottom:'15%'
         },
         shimmerContainer: {
             flex: 1,
@@ -24,6 +24,7 @@ export const useStyles = () => {
             justifyContent: 'center',
             backgroundColor: theme.colors.accent,
             // backgroundColor:'red'
+            
         },
         shimmerPlaylistContainer: {
             flex: 1,
@@ -80,25 +81,20 @@ export const useStyles = () => {
             textAlign: 'center',
             fontSize: hp('2.5%'),
             fontWeight: 'bold',
-            paddingRight: '5%',
+            color:theme.colors.primary,
+            textAlignVertical: 'center'
+
         },
         labelWrapper: {
             justifyContent: 'center',
             alignSelf: 'center',
         },
         labelNameWrapper: {
+            // backgroundColor:'blue',
             // marginLeft: '2%',
             width: wp('90%'),
             marginTop: hp('2%'),
-            shadowColor: theme.colors.accent,
-            shadowOffset: {
-                width: 0,
-                height: 2,
-            },
-            shadowOpacity: 0.25,
-            shadowRadius: 3.84,
-
-            elevation: 5,
+           
         },
         shimmerLabelNameWrapper: {
             // marginLeft: '2%',
@@ -140,6 +136,8 @@ export const useStyles = () => {
         backgroundImage: {
             flex: 1,
             resizeMode: 'cover',
+            backgroundColor:theme.colors.background,
+
         },
         shimmerBackgroundImage: {
             flex: 1,
@@ -162,8 +160,6 @@ export const useStyles = () => {
         },
         modalcontainer: {
             flex: 1,
-            // bacskgroundColor: theme.colors.accent,
-            // backgroundColor:'yellow'
         },
         imgcontainer: {
             justifyContent: 'center',
@@ -179,24 +175,23 @@ export const useStyles = () => {
                 height: 1,
             },
             shadowOpacity: 0.1,
-            shadowRadius: 1.41,
+            shadowRadius: 0.2,
 
-            elevation: 2,
+            elevation: 0.1,
         },
         img: {
             resizeMode: 'cover',
             height: hp('8%'), // 70% of height device screen
             width: wp('15%'), // 80% of width device screen
             borderRadius: 5,
+            backgroundColor:theme.colors.background,
+
         },
         nameContainer: {
             paddingTop: 10,
             flexDirection: 'row',
             height: hp('7%'), // 70% of height device screen
             width: wp('40%'), // 80% of width device screen
-            // justifyContent: 'center',
-            // alignItems: 'center',
-            // alignSelf: 'center',
         },
         textWrapper: {
             paddingLeft: 5,
@@ -228,6 +223,7 @@ export const useStyles = () => {
             height: 400,
             width: '100%',
             backgroundColor: theme.colors.accent,
+            // backgroundColor:'red',
         },
         secondaryControl: {
             height: hp('7%'), // 70% of height device screen

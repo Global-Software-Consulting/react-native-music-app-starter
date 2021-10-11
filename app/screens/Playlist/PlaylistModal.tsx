@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, TouchableOpacity, Image } from 'react-native';
+import { View, Image } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useTheme, Text } from 'react-native-paper';
 import useStyles from './styles';
@@ -8,6 +8,7 @@ import { deletePlayListSong } from '../../store/actions/playerActions';
 import { favoriteListRequest } from '../../store/actions/appActions';
 import { ScrollView } from 'react-native-gesture-handler';
 import Toast from 'react-native-simple-toast';
+import {TouchableOpacity} from '@gorhom/bottom-sheet';
 import AppCreatePlaylistModal from '../../components/player/AppCreatePlaylistModal';
 import AppPlaylistModal from '../../components/player/AppPlaylistModal';
 import { ReducerState } from '../../models/reducers';

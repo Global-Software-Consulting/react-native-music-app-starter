@@ -28,6 +28,7 @@ const Footer: React.FC<PlyerFullScreenProps> = (): JSX.Element => {
         (state: ReducerState) => state.appReducer.musicList,
     );
     const [isFavorite, setIsFavorite] = useState<boolean>(false);
+    // let isFavorite =false;
     const [createModalVisible, setCreateModalVisible] = useState<boolean>(false);
     const [isModalVisible, setModalVisible] = useState<boolean>(false);
     const [repeatOn, setRepeatOn] = useState<boolean>(false);
@@ -46,7 +47,6 @@ const Footer: React.FC<PlyerFullScreenProps> = (): JSX.Element => {
         const setup = async () => {
             await TrackPlayer.setupPlayer({});
             await TrackPlayer.updateOptions({
-                stopWithApp: true,
                 capabilities: [
                     Capability.Play,
                     Capability.Pause,
@@ -72,7 +72,6 @@ const Footer: React.FC<PlyerFullScreenProps> = (): JSX.Element => {
     const setup = async () => {
         await TrackPlayer.setupPlayer({});
         await TrackPlayer.updateOptions({
-            stopWithApp: true,
             capabilities: [
                 Capability.Play,
                 Capability.Pause,
@@ -125,7 +124,7 @@ const Footer: React.FC<PlyerFullScreenProps> = (): JSX.Element => {
     };
 
     const togglePlayback = async () => {
-        const currentTrack = await TrackPlayer.getCurrentTrack();
+        const currentTrack = await TrackPlayer.getCurrentTrack();        
         if (currentTrack === null) {
             // TODO: Perhaps present an error or restart the playlist?
         } else {
@@ -183,6 +182,15 @@ const Footer: React.FC<PlyerFullScreenProps> = (): JSX.Element => {
     //this function is called when the user stops sliding the seekbar
     const slidingCompleted = async (value: number) => {
         await TrackPlayer.seekTo(value);
+        if (position > duration) {
+            TrackPlayer.pause();
+              
+          }
+          else{
+            TrackPlayer.play();
+
+          }
+
     };
 
     const onFavoritePress = () => {
@@ -197,6 +205,8 @@ const Footer: React.FC<PlyerFullScreenProps> = (): JSX.Element => {
     };
 
     const onRemoveFavoritePress = () => {
+        Toast.show('Remove from favorites');
+
         setIsFavorite(false);
         const data: Array<Favorites> | undefined = favoriteList?.filter(
             (element: Favorites) => element.id !== item.id,

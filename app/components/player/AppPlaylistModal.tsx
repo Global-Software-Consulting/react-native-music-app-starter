@@ -60,7 +60,6 @@ const AppPlaylistModal: React.FC<MusicProps> = ({
                             : `https://picsum.photos/150/200/?random=${Math.random()}`
                     }
                     onPressRemove={removePlaylist}
-                    showDel={true}
                     addSongToPlaylist={addSongToPlaylist}
                 />
             </TouchableOpacity>
@@ -72,8 +71,12 @@ const AppPlaylistModal: React.FC<MusicProps> = ({
             <View style={styles.container}>
                 <Modal isVisible={isModalVisible}>
                     <View style={styles.ModalContainer}>
-                        <AppHeader renderLeft={<Text style={styles.label}>Add To Playlist</Text>} />
+                        <AppHeader renderLeft={<View style={{ flex: 1, flexDirection: 'row', padding: 7 }}><Text style={styles.label}>Add To Playlist</Text>
+                            <View style={{ flexDirection: 'row', width: '75%', }} />
 
+                            <Button title="Cancel" onPress={() => onPressPlaylist()} />
+
+                        </View>} />
                         <TouchableOpacity
                             style={styles.newListLabel}
                             onPress={() => onPressNewPlaylist()}>
@@ -88,23 +91,20 @@ const AppPlaylistModal: React.FC<MusicProps> = ({
                                 />
                             </TouchableOpacity>
                         </TouchableOpacity>
-                        <View style={styles.folderContainer}>
-                            {playList?.length > 0 ? (
-                                <FlatList
-                                    contentContainerStyle={{ alignSelf: 'flex-start' }}
-                                    showsVerticalScrollIndicator={false}
-                                    showsHorizontalScrollIndicator={false}
-                                    data={playList}
-                                    renderItem={PlayListRenderItem}
-                                />
-                            ) : (
-                                <View style={styles.container}>
-                                    <Text style={styles.model}>Playlist Empty</Text>
-                                </View>
-                            )}
-                        </View>
+                        {playList?.length > 0 ? (
+                            <FlatList
+                                contentContainerStyle={{ alignSelf: 'flex-start' }}
+                                showsVerticalScrollIndicator={false}
+                                showsHorizontalScrollIndicator={false}
+                                data={playList}
+                                renderItem={PlayListRenderItem}
+                            />
+                        ) : (
+                            <View style={styles.container}>
+                                <Text style={styles.model}>Playlist Empty</Text>
+                            </View>
+                        )}
                     </View>
-                    <Button title="Cancel" onPress={() => onPressPlaylist()} />
                 </Modal>
             </View>
         </>

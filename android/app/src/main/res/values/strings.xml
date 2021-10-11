@@ -1,4 +1,3 @@
 <resources>
-    <string name="app_name">Music</string>
-    <string moduleConfig="true" name="CodePushDeploymentKey">zRxlmHEFf8r-GAZhgSFl8-islutY1DzP2D02f</string>
+    <string name="app_name">MusicApp</string>
 </resources>

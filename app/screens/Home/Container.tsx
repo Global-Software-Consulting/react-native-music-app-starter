@@ -15,6 +15,8 @@ import { musicListRequest } from '../../store/actions/appActions';
 import { ReducerState } from '../../models/reducers';
 import { AppScreenNavigationProp } from '../../navigation/AppNavigation';
 
+
+
 const HomeComponent: React.FC<Music> = (): JSX.Element => {
     const musicList: Array<Music> | undefined | any = useSelector(
         (state: ReducerState) => state.appReducer?.musicList,
@@ -22,7 +24,7 @@ const HomeComponent: React.FC<Music> = (): JSX.Element => {
     const playList = useSelector((state: ReducerState) => state.playerReducer?.playList);
     const isLoader = useSelector((state: ReducerState) => state.loadingReducer?.isLoginLoading);
     const isVisible = useIsFocused();
-    const navigation = useNavigation<AppScreenNavigationProp>();
+    const navigation:any = useNavigation<AppScreenNavigationProp>();
     const dispatch = useDispatch();
     const [userPlaylist, setUserPlaylist] = useState<Array<PlaylistProps>>([]);
     const { t } = useTranslation();

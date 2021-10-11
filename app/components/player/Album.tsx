@@ -39,7 +39,20 @@ const Album: React.FC<MusicProps> = ({
                         </Text>
                     </View>
 
-                    {!isFavorite ? (
+                    {isFavorite ? (
+                          <TouchableOpacity
+                          style={styles.favoriteIcon}
+                          onPress={() => onRemoveFavoritePress()}>
+                          <Ionicons
+                              name="heart"
+                              style={styles.favoriteIcon}
+                              size={25}
+                              color={theme.colors.primary}
+                              onPress={() => onRemoveFavoritePress()}
+                          />
+                      </TouchableOpacity>
+                      
+                    ) : (
                         <TouchableOpacity
                             style={styles.favoriteIcon}
                             onPress={() => onFavoritePress()}>
@@ -49,18 +62,6 @@ const Album: React.FC<MusicProps> = ({
                                 size={25}
                                 color={theme.colors.primary}
                                 onPress={() => onFavoritePress()}
-                            />
-                        </TouchableOpacity>
-                    ) : (
-                        <TouchableOpacity
-                            style={styles.favoriteIcon}
-                            onPress={() => onRemoveFavoritePress()}>
-                            <Ionicons
-                                name="heart"
-                                style={styles.favoriteIcon}
-                                size={25}
-                                color={theme.colors.primary}
-                                onPress={() => onRemoveFavoritePress()}
                             />
                         </TouchableOpacity>
                     )}

@@ -37,11 +37,14 @@ export const useStyles = () => {
             borderRadius: 10,
         },
         label: {
+            textAlignVertical: 'center',
             flex: 1,
             textAlign: 'center',
             fontSize: hp('2.5%'),
             fontWeight: 'bold',
             paddingRight: '5%',
+            color:theme.colors.primary
+
         },
         newListLabel: {
             flexDirection: 'row',
@@ -128,17 +131,14 @@ export const useStyles = () => {
             width: wp('20%'),
             flexDirection: 'row',
             borderRadius: 10,
-            shadowColor: 'blue',
-            shadowOffset: { width: 0, height: 2 },
-            shadowOpacity: 0.2,
-            shadowRadius: 8,
-            elevation: 5,
+
         },
         img: {
             resizeMode: 'cover',
             height: hp('8%'), // 70% of height device screen
             width: wp('15%'), // 80% of width device screen
             borderRadius: 5,
+            backgroundColor:theme.colors.background,
         },
         nameContainer: {
             flexDirection: 'row',
@@ -165,15 +165,7 @@ export const useStyles = () => {
             margin: 15,
             flexDirection: 'row',
             borderBottomWidth: 0.25,
-            shadowColor: theme.colors.primary,
-            shadowOffset: {
-                width: 0,
-                height: 2,
-            },
-            shadowOpacity: 0.25,
-            shadowRadius: 3.84,
-
-            elevation: 5,
+           
         },
 
         contentContainer: {
