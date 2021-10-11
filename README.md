@@ -67,6 +67,8 @@ run npm run android
 
 
 [How to Change Code Push App Center Account](https://dev.to/karanpratapsingh/update-your-react-native-apps-seamlessly-using-microsoft-s-codepush-f61)
-
+<br/>
 [Latest Apk Link](https://drive.google.com/file/d/1i1IX-InBN46P4CwXWiWMp0zodTMMIzrS/view?usp=sharing)
+<br/>
 [Apple testflight](https://testflight.apple.com/join/MErwvuXB)
+
