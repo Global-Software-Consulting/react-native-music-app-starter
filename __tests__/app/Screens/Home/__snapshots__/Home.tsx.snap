@@ -1,0 +1,170 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`group tesing goes here renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "backgroundColor": "#03dac4",
+      "flex": 1,
+      "paddingBottom": "15%",
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "backgroundColor": "#03dac4",
+        "flex": 1,
+        "paddingBottom": "15%",
+      }
+    }
+  >
+    <RCTScrollView
+      nestedScrollEnabled={true}
+      refreshControl={
+        <RefreshControlMock
+          onRefresh={[Function]}
+        />
+      }
+    >
+      <RCTRefreshControl />
+      <View>
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "#03dac4",
+              "flexDirection": "row",
+              "padding": 15,
+            }
+          }
+        >
+          <View
+            style={
+              Object {
+                "flexDirection": "row",
+              }
+            }
+          >
+            <Text
+              style={
+                Array [
+                  Object {
+                    "color": "#000000",
+                    "fontFamily": "System",
+                    "fontWeight": "400",
+                  },
+                  Object {
+                    "textAlign": "left",
+                  },
+                  Object {
+                    "fontSize": undefined,
+                    "fontWeight": "bold",
+                  },
+                ]
+              }
+            />
+          </View>
+        </View>
+        <View
+          style={
+            Object {
+              "backgroundColor": "#03dac4",
+              "flex": 1,
+              "paddingBottom": "15%",
+            }
+          }
+        >
+          <Text
+            style={
+              Array [
+                Object {
+                  "color": "#000000",
+                  "fontFamily": "System",
+                  "fontWeight": "400",
+                },
+                Object {
+                  "textAlign": "left",
+                },
+                Object {
+                  "color": "darkgray",
+                  "fontSize": undefined,
+                  "justifyContent": "center",
+                  "textAlign": "center",
+                },
+              ]
+            }
+          />
+        </View>
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "#03dac4",
+              "flexDirection": "row",
+              "padding": 15,
+            }
+          }
+        >
+          <View
+            style={
+              Object {
+                "flexDirection": "row",
+              }
+            }
+          >
+            <Text
+              style={
+                Array [
+                  Object {
+                    "color": "#000000",
+                    "fontFamily": "System",
+                    "fontWeight": "400",
+                  },
+                  Object {
+                    "textAlign": "left",
+                  },
+                  Object {
+                    "fontSize": undefined,
+                    "fontWeight": "bold",
+                  },
+                ]
+              }
+            />
+          </View>
+        </View>
+        <View
+          style={
+            Object {
+              "backgroundColor": "#03dac4",
+              "flex": 1,
+              "paddingBottom": "15%",
+            }
+          }
+        >
+          <Text
+            style={
+              Array [
+                Object {
+                  "color": "#000000",
+                  "fontFamily": "System",
+                  "fontWeight": "400",
+                },
+                Object {
+                  "textAlign": "left",
+                },
+                Object {
+                  "color": "darkgray",
+                  "fontSize": undefined,
+                  "justifyContent": "center",
+                  "textAlign": "center",
+                },
+              ]
+            }
+          />
+        </View>
+      </View>
+    </RCTScrollView>
+  </View>
+</View>
+`;

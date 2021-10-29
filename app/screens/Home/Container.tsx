@@ -21,7 +21,7 @@ const HomeComponent: React.FC<Music> = (): JSX.Element => {
     const musicList: Array<Music> | undefined | any = useSelector(
         (state: ReducerState) => state.appReducer?.musicList,
     );
-    const playList = useSelector((state: ReducerState) => state.playerReducer?.playList);
+    const playList: any = useSelector((state: ReducerState) => state.playerReducer?.playList);
     const isLoader = useSelector((state: ReducerState) => state.loadingReducer?.isLoginLoading);
     const isVisible = useIsFocused();
     const navigation:any = useNavigation<AppScreenNavigationProp>();

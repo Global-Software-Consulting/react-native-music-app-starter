@@ -12,7 +12,6 @@ import PlaylistConatiner from './PlaylistConatiner';
 import { AppState } from '../../models/reducers/app';
 import { Loading } from '../../models/reducers/loading';
 import { useNavigation } from '@react-navigation/native';
-import { NativeViewGestureHandler } from 'react-native-gesture-handler';
 
 interface IState {
     appReducer: AppState;

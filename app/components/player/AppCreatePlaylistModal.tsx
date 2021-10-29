@@ -41,48 +41,52 @@ const AppCreatePlaylistModal: React.FC<MusicProps> = ({ isCreateModalVisible, cl
 
         <View style={styles.container}>
             <Modal isVisible={isCreateModalVisible}
-          
-             >
+
+            >
                 {/* <View style={styles.CreateModalContainer}> */}
-                    <KeyboardAvoidingView
-                        behavior={Platform.OS === "ios" ? "padding" : "height"}
-                        style={styles.CreateModalContainer}
-                    >
-                        <AppHeader
-                            renderLeft={
-                                <View style={{ flexDirection: 'row', padding: 8 }}>
-                                    <TouchableOpacity onPress={() => closeModals()}>
-                                        <MaterialCommunityIcons
-                                            name="close"
-                                            size={30}
-                                            color={theme.colors.primary}
-                                        />
-                                    </TouchableOpacity>
+                <KeyboardAvoidingView
+                    behavior={Platform.OS === "ios" ? "padding" : "height"}
+                    style={styles.CreateModalContainer}
+                >
+                    <AppHeader
+                        renderLeft={
+                            <View style={{ flexDirection: 'row', padding: 8 }}>
+                                <TouchableOpacity
+                                    testID={"modalClose"}
+                                    onPress={() => closeModals()}>
+                                    <MaterialCommunityIcons
+                                        name="close"
+                                        size={30}
+                                        color={theme.colors.primary}
+                                    />
+                                </TouchableOpacity>
 
-                                    <Text style={styles.label}>Create Playlist</Text>
-                                    <View style={{ width: '20%' }} />
-                                    <TouchableOpacity
-                                        onPress={saveNewPlayList}
-                                        style={styles.saveButton}>
-                                        <Text style={styles.saveButtonText}>Save</Text>
-                                    </TouchableOpacity>
-                                </View>
-                            }
+                                <Text style={styles.label}>Create Playlist</Text>
+                                <View style={{ width: '20%' }} />
+                                <TouchableOpacity
+                                    testID={"savingNewPlayList"}
+                                    onPress={saveNewPlayList}
+                                    style={styles.saveButton}>
+                                    <Text style={styles.saveButtonText}>Save</Text>
+                                </TouchableOpacity>
+                            </View>
+                        }
+                    />
+
+
+                    <View style={styles.inputWrapper}>
+                        <Text>Playlist:</Text>
+                        <TextInput
+                            placeholder="Type here.."
+                            style={styles.input}
+                            value={name}
+                            testID={"changeTest"}
+                            onChangeText={(name) => onChangeName(name)}
+                            maxLength={10}
+                            keyboardType="default"
                         />
-
-
-                        <View style={styles.inputWrapper}>
-                            <Text>Playlist:</Text>
-                            <TextInput
-                                placeholder="Type here.."
-                                style={styles.input}
-                                value={name}
-                                onChangeText={(name) => onChangeName(name)}
-                                maxLength={10}
-                                keyboardType="default"
-                            />
-                        </View>
-        </KeyboardAvoidingView>
+                    </View>
+                </KeyboardAvoidingView>
                 {/* </View> */}
             </Modal>
         </View>

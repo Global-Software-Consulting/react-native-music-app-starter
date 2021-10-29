@@ -14,7 +14,7 @@ import AppNavigation from './AppNavigation';
 const Stack = createNativeStackNavigator();
 
 interface IState {
-    themeReducer: ThemeState;
+    themeReducer?: ThemeState;
 }
 
 const NavigationStack: React.FC<IState> = () => {

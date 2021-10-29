@@ -8,7 +8,7 @@ import { deletePlayListSong } from '../../store/actions/playerActions';
 import { favoriteListRequest } from '../../store/actions/appActions';
 import { ScrollView } from 'react-native-gesture-handler';
 import Toast from 'react-native-simple-toast';
-import {TouchableOpacity} from '@gorhom/bottom-sheet';
+import { TouchableOpacity } from '@gorhom/bottom-sheet';
 import AppCreatePlaylistModal from '../../components/player/AppCreatePlaylistModal';
 import AppPlaylistModal from '../../components/player/AppPlaylistModal';
 import { ReducerState } from '../../models/reducers';
@@ -89,6 +89,7 @@ const PlaylistModal: React.FC<MusicProps> = ({
                 <View style={styles.bottomModalContainer}>
                     <View style={{ width: '5%' }} />
                     <TouchableOpacity
+                        testID={"deleteSongs"}
                         onPress={() => {
                             playlistRef.current.snapToIndex(1);
                             deleteSongOfPlaylist(item);
@@ -111,6 +112,7 @@ const PlaylistModal: React.FC<MusicProps> = ({
                 <View style={styles.bottomModalContainer}>
                     <View style={{ width: '5%' }} />
                     <TouchableOpacity
+                        testID={"favPress"}
                         onPress={() => {
                             playlistRef.current.snapToIndex(1);
                             onFavoritePress();
@@ -132,6 +134,7 @@ const PlaylistModal: React.FC<MusicProps> = ({
                 <View style={styles.bottomModalContainer}>
                     <View style={{ width: '5%' }} />
                     <TouchableOpacity
+                        testID={"addToPlaylist"}
                         onPress={() => {
                             playlistRef.current.snapToIndex(1);
                             onPressPlaylist();

@@ -1,0 +1,287 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`group tesing goes here renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "backgroundColor": "#03dac4",
+      "justifyContent": "center",
+      "paddingLeft": 24,
+      "paddingRight": 24,
+    }
+  }
+>
+  <react-native-modal>
+    <View
+      style={
+        Object {
+          "alignSelf": "center",
+          "backgroundColor": "#03dac4",
+          "borderRadius": 10,
+          "height": "70%",
+          "width": "100%",
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "#03dac4",
+            "borderBottomColor": "lightgray",
+            "elevation": 5,
+            "flexDirection": "row",
+            "height": undefined,
+            "shadowColor": "#000",
+            "shadowOffset": Object {
+              "height": 2,
+              "width": 0,
+            },
+            "shadowOpacity": 0.25,
+            "shadowRadius": 3.84,
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "flex": 1,
+              "flexDirection": "row",
+              "padding": 7,
+            }
+          }
+        >
+          <Text
+            style={
+              Array [
+                Object {
+                  "color": "#000000",
+                  "fontFamily": "System",
+                  "fontWeight": "400",
+                },
+                Object {
+                  "textAlign": "left",
+                },
+                Object {
+                  "fontSize": undefined,
+                  "fontWeight": "bold",
+                  "marginBottom": 12,
+                  "paddingLeft": "5%",
+                },
+              ]
+            }
+          >
+            Add To Playlist
+          </Text>
+          <View
+            style={
+              Object {
+                "flexDirection": "row",
+                "width": "75%",
+              }
+            }
+          />
+          <View
+            accessibilityRole="button"
+            accessibilityState={Object {}}
+            accessible={true}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "opacity": 1,
+              }
+            }
+          >
+            <View
+              style={
+                Array [
+                  Object {},
+                ]
+              }
+            >
+              <Text
+                style={
+                  Array [
+                    Object {
+                      "color": "#007AFF",
+                      "fontSize": 18,
+                      "margin": 8,
+                      "textAlign": "center",
+                    },
+                  ]
+                }
+              >
+                Cancel
+              </Text>
+            </View>
+          </View>
+        </View>
+        <View
+          style={
+            Object {
+              "alignSelf": "center",
+              "flex": 1,
+              "justifyContent": "center",
+              "marginRight": 25,
+            }
+          }
+        >
+          <View
+            style={
+              Object {
+                "flexDirection": "row",
+                "justifyContent": "center",
+                "marginRight": 5,
+              }
+            }
+          >
+            <Text
+              style={
+                Array [
+                  Object {
+                    "color": "#000000",
+                    "fontFamily": "System",
+                    "fontWeight": "400",
+                  },
+                  Object {
+                    "textAlign": "left",
+                  },
+                  Object {
+                    "fontSize": undefined,
+                    "fontWeight": "bold",
+                  },
+                ]
+              }
+            />
+          </View>
+        </View>
+      </View>
+      <View
+        accessible={true}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "flexDirection": "row",
+            "opacity": 1,
+            "paddingTop": "5%",
+          }
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "color": "#000000",
+                "fontFamily": "System",
+                "fontWeight": "400",
+              },
+              Object {
+                "textAlign": "left",
+              },
+              Object {
+                "fontSize": undefined,
+                "fontWeight": "bold",
+                "paddingLeft": "5%",
+              },
+            ]
+          }
+        >
+          Create new playlist
+        </Text>
+        <View
+          style={
+            Object {
+              "justifyContent": "flex-end",
+              "width": "42%",
+            }
+          }
+        />
+        <View
+          accessible={true}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+        >
+          <mockedDefaultExport
+            color="#6200ee"
+            name="playlist-plus"
+            size={30}
+            style={
+              Array [
+                Object {
+                  "height": undefined,
+                  "width": undefined,
+                },
+                Object {
+                  "color": "#6200ee",
+                  "opacity": 0.3,
+                },
+              ]
+            }
+          />
+        </View>
+      </View>
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "#03dac4",
+            "justifyContent": "center",
+            "paddingLeft": 24,
+            "paddingRight": 24,
+          }
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "color": "#000000",
+                "fontFamily": "System",
+                "fontWeight": "400",
+              },
+              Object {
+                "textAlign": "left",
+              },
+              Object {
+                "color": "darkgray",
+                "fontSize": undefined,
+                "justifyContent": "center",
+                "marginTop": -7,
+                "textAlign": "center",
+              },
+            ]
+          }
+        >
+          Playlist Empty
+        </Text>
+      </View>
+    </View>
+  </react-native-modal>
+</View>
+`;

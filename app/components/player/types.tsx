@@ -31,8 +31,8 @@ type Song = {
     artwork?: string;
 };
 export interface MusicProps {
-    name?: string;
-    model?: string | number | undefined;
+    name?: string | true;
+    model?: string | number | undefined | true;
     image?: string;
     url?: any;
     onPress?: any;

@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { deletePlayListFolder } from '../../store/actions/playerActions';
 import { ReducerState } from '../../models/reducers';
 import { PlaylistProps, MusicProps } from './types';
-import {TouchableOpacity} from '@gorhom/bottom-sheet';
+import { TouchableOpacity } from '@gorhom/bottom-sheet';
 
 const PlaylistAndAlbumsModal: React.FC<MusicProps> = ({ addPlaylist, playlistRef, item }) => {
     const styles = useStyles();
@@ -50,6 +50,7 @@ const PlaylistAndAlbumsModal: React.FC<MusicProps> = ({ addPlaylist, playlistRef
                 {/* <TouchableOpacity style={styles.newListLabel} > */}
                 <View style={{ width: '5%' }} />
                 <TouchableOpacity
+                    testID={"removingPlaylist"}
                     onPress={() => {
                         removePlaylist();
                         playlistRef?.current.snapToIndex(1);

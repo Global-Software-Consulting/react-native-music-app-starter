@@ -4,7 +4,7 @@ import { Text } from 'react-native-paper';
 import useStyles from '../PlaylistSongs/styles';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { MusicProps } from '../../player/types';
-import {TouchableOpacity} from '@gorhom/bottom-sheet';
+import { TouchableOpacity } from '@gorhom/bottom-sheet';
 
 const PlaylistsTracksCard: React.FC<MusicProps> = ({
     name,
@@ -13,16 +13,18 @@ const PlaylistsTracksCard: React.FC<MusicProps> = ({
     setSong,
     item,
     playlistRef,
-    
+
 }) => {
     const styles = useStyles();
     return (
-        <TouchableOpacity onPress={() => {
-            setSong(item);
-            playlistRef?.current.snapToIndex(0);
-        }} style={{ flexDirection: 'row' }}>
+        <TouchableOpacity
+            testID={"setASongs"}
+            onPress={() => {
+                setSong(item);
+                playlistRef?.current.snapToIndex(0);
+            }} style={{ flexDirection: 'row' }}>
             <View style={styles.container}>
-                <TouchableOpacity style={styles.taskCard}>
+                <TouchableOpacity testID={"cardTask"} style={styles.taskCard}>
                     <View style={styles.imgcontainer}>
                         <Image style={styles.img} source={{ uri: img }} />
                     </View>
@@ -35,6 +37,7 @@ const PlaylistsTracksCard: React.FC<MusicProps> = ({
                 </View>
                 <View style={{ width: '14%' }} />
                 <TouchableOpacity
+                    testID={"settingSongs"}
                     onPress={() => {
                         setSong(item);
                         playlistRef?.current.snapToIndex(0);

@@ -5,8 +5,8 @@ import useStyles from '../PlaylistSongs/styles';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { MusicProps } from '../../player/types';
 
-const PlaylistsTracksCarShimmer: React.FC<MusicProps> = ({ setSong, item, playlistRef }) => {
-    const styles = useStyles();
+const styles = useStyles();
+const PlaylistsTracksCarShimmer: React.FC<MusicProps> = () => {
     return (
         <View style={styles.trackShimmercontainer}>
             <TouchableOpacity style={styles.ShimmertaskCard}>
@@ -22,10 +22,7 @@ const PlaylistsTracksCarShimmer: React.FC<MusicProps> = ({ setSong, item, playli
             </View>
             <View style={{ width: '15%' }} />
             <TouchableOpacity
-                onPress={() => {
-                    setSong(item);
-                    playlistRef.current.snapToIndex(0);
-                }}>
+                onPress={() => { }}>
                 <MaterialCommunityIcons name="dots-vertical" size={25} color={'gray'} />
             </TouchableOpacity>
         </View>

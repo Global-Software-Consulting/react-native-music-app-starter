@@ -59,7 +59,7 @@ const PlaylistAndAlbumsConatiner: React.FC<MusicProps> = (): JSX.Element => {
     };
     const PlayListRenderItem = ({ item }: { item: PlaylistProps }) => (
         <>
-            <TouchableOpacity onPress={() => addSongToPlaylist(item)}>
+            <TouchableOpacity testID={"playlistAlbumAddingSongs"} onPress={() => addSongToPlaylist(item)}>
                 <PlaylistsAlbumsCard
                     name={item.name}
                     img={
