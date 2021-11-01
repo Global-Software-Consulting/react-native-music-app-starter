@@ -3,7 +3,7 @@ import * as type from "../../../../app/store/actions";
 
 describe('theme Actions', () => {
 
-    it('Creation of actions with correct type', () => {
+    test('Creation of actions with correct type', () => {
         const expectedAction = {
             type: 'TOGGLE_THEME',
         };
