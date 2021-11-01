@@ -61,14 +61,6 @@ jest.mock('react-redux', () => ({
     useDispatch: jest.fn(),
     useSelector: jest.fn(),
 }));
-// describe("group tesing goes here", () => {
-//     test('renders correctly', () => {
-//         const tree = render(<PlaylistSongsCard />);
-//         expect(tree).toMatchSnapshot();
-//     });
-// })
-
-//check by props method the attribute of text
 describe('Component testing', () => {
     test('adding songs', () => {
         const { getByTestId } = render(<PlaylistSongsCard />);

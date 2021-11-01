@@ -10,10 +10,10 @@ export function musicListRequest() {
         type: types.MUSIC_LIST_REQUEST,
     };
 }
-export function musicListResponse(response: ReducerState) {
+export function musicListResponse(payload: ReducerState) {
     return {
         type: types.MUSIC_LIST_RESPONSE,
-        response,
+        payload,
     };
 }
 export function favoriteListRequest(data: Array<Favorite> | undefined) {
