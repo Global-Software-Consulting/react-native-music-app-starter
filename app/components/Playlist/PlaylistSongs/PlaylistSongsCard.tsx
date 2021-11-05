@@ -15,7 +15,7 @@ const PlaylistSongsCard: React.FC<MusicProps> = ({
     const styles = useStyles();
     return (
         <View style={styles.container}>
-            <TouchableOpacity style={styles.taskCard} onPress={() => addSongToPlaylist}>
+            <TouchableOpacity testID={'addSongToPlaylist'} style={styles.taskCard} onPress={() => addSongToPlaylist}>
                 <View style={styles.imgcontainer}>
                     <Image style={styles.img} source={{ uri: img }} />
                 </View>
@@ -26,7 +26,7 @@ const PlaylistSongsCard: React.FC<MusicProps> = ({
                     <Text style={styles.model}>{model} tracks</Text>
                 </View>
             </View>
-            <TouchableOpacity onPress={() => onPressRemove(name)}>
+            <TouchableOpacity testID={'removeSongToPlaylist'} onPress={() => onPressRemove(name)}>
                 <MaterialCommunityIcons name="delete-outline" size={25} />
             </TouchableOpacity>
         </View>

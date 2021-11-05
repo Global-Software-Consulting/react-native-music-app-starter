@@ -31,6 +31,7 @@ const SearchBar: React.FC<TitleProps> = (props): JSX.Element => {
 
             {props.onFocus ? (
                 <TouchableOpacity
+                    testID={"focus"}
                     onPress={props.onFocus}
                     style={{ flex: 4, justifyContent: 'center', padding: 5 }}>
                     <Text style={styles.txt}>{props.placeholder}</Text>
@@ -40,6 +41,7 @@ const SearchBar: React.FC<TitleProps> = (props): JSX.Element => {
                     <TextInput
                         style={styles.txt}
                         value={query}
+                            testID={"changeTest"}
                         onChangeText={(text) => {
                             onChangeText(text);
                         }}

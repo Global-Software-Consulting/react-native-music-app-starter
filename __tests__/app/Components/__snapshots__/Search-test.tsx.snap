@@ -1,0 +1,66 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`group tesing goes here renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "backgroundColor": "#f6f6f6",
+      "borderRadius": 10,
+      "elevation": 5,
+      "flexDirection": "row",
+      "height": undefined,
+      "marginLeft": 15,
+      "marginTop": 10,
+      "paddingRight": 5,
+      "shadowColor": "#000",
+      "shadowOffset": Object {
+        "height": 2,
+        "width": 0,
+      },
+      "shadowOpacity": 0.25,
+      "shadowRadius": 3.84,
+      "width": undefined,
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "backgroundColor": "#f6f6f6",
+        "borderRadius": 10,
+        "justifyContent": "center",
+        "paddingLeft": 10,
+      }
+    }
+  >
+    <mockedDefaultExport
+      color="#6200ee"
+      name="search"
+      size={15}
+    />
+  </View>
+  <View
+    style={
+      Object {
+        "flex": 4,
+        "justifyContent": "center",
+      }
+    }
+  >
+    <TextInput
+      allowFontScaling={true}
+      onChangeText={[Function]}
+      rejectResponderTermination={true}
+      style={
+        Object {
+          "color": "#6200ee",
+          "fontSize": undefined,
+          "padding": 5,
+        }
+      }
+      underlineColorAndroid="transparent"
+      value=""
+    />
+  </View>
+</View>
+`;

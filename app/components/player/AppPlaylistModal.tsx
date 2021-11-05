@@ -50,7 +50,7 @@ const AppPlaylistModal: React.FC<MusicProps> = ({
 
     const PlayListRenderItem = ({ item }: { item: PlaylistProps }) => (
         <>
-            <TouchableOpacity onPress={() => addSongToPlaylist(item)}>
+            <TouchableOpacity testID={"newSongsAdded"} onPress={() => addSongToPlaylist(item)}>
                 <PlaylistSongsCard
                     name={item?.name}
                     model={item?.songs?.length}
@@ -74,15 +74,16 @@ const AppPlaylistModal: React.FC<MusicProps> = ({
                         <AppHeader renderLeft={<View style={{ flex: 1, flexDirection: 'row', padding: 7 }}><Text style={styles.label}>Add To Playlist</Text>
                             <View style={{ flexDirection: 'row', width: '75%', }} />
 
-                            <Button title="Cancel" onPress={() => onPressPlaylist()} />
+                            <Button title="Cancel" testID={"pressingPlaylist"} onPress={() => onPressPlaylist()} />
 
                         </View>} />
                         <TouchableOpacity
+                            testID={"createNewlist"}
                             style={styles.newListLabel}
                             onPress={() => onPressNewPlaylist()}>
                             <Text style={styles.name}>Create new playlist</Text>
                             <View style={{ width: '42%', justifyContent: 'flex-end' }} />
-                            <TouchableOpacity onPress={() => onPressNewPlaylist()}>
+                            <TouchableOpacity testID={"newlist"} onPress={() => onPressNewPlaylist()}>
                                 <MaterialCommunityIcons
                                     name="playlist-plus"
                                     style={[styles.secondaryControl, styles.off]}

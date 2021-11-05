@@ -1,0 +1,162 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`group tesing goes here renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "backgroundColor": "#03dac4",
+      "flexDirection": "row",
+      "justifyContent": "center",
+      "marginBottom": 10,
+      "paddingLeft": 10,
+      "paddingRight": 10,
+    }
+  }
+>
+  <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "alignItems": "center",
+        "borderRadius": 12,
+        "flexDirection": "row",
+        "justifyContent": "center",
+        "opacity": 1,
+        "paddingLeft": 5,
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "borderRadius": 10,
+          "elevation": 6,
+          "flexDirection": "row",
+          "height": undefined,
+          "shadowColor": "#f6f6f6",
+          "shadowOffset": Object {
+            "height": 2,
+            "width": 0,
+          },
+          "shadowOpacity": 0.2,
+          "shadowRadius": 8,
+          "width": undefined,
+        }
+      }
+    >
+      <Image
+        source={
+          Object {
+            "uri": undefined,
+          }
+        }
+        style={
+          Object {
+            "backgroundColor": "#f6f6f6",
+            "borderRadius": 5,
+            "height": undefined,
+            "resizeMode": "cover",
+            "width": undefined,
+          }
+        }
+      />
+    </View>
+  </View>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "alignSelf": "center",
+        "flexDirection": "row",
+        "height": undefined,
+        "justifyContent": "center",
+        "width": undefined,
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "alignItems": "flex-start",
+          "height": undefined,
+          "justifyContent": "flex-start",
+          "width": undefined,
+        }
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "color": "#000000",
+              "fontFamily": "System",
+              "fontWeight": "400",
+            },
+            Object {
+              "textAlign": "left",
+            },
+            Object {
+              "fontSize": undefined,
+              "fontWeight": "bold",
+              "marginBottom": 12,
+            },
+          ]
+        }
+      />
+      <Text
+        style={
+          Array [
+            Object {
+              "color": "#000000",
+              "fontFamily": "System",
+              "fontWeight": "400",
+            },
+            Object {
+              "textAlign": "left",
+            },
+            Object {
+              "color": "#f6f6f6",
+              "fontSize": undefined,
+              "justifyContent": "center",
+              "marginTop": -7,
+              "textAlign": "center",
+            },
+          ]
+        }
+      >
+         tracks
+      </Text>
+    </View>
+  </View>
+  <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "opacity": 1,
+      }
+    }
+  >
+    <mockedDefaultExport
+      name="delete-outline"
+      size={25}
+    />
+  </View>
+</View>
+`;
